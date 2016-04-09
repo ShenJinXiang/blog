@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="description" content="LiksStar | Java | javascript | canvas | python | 博客 | DEMO">
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div class="header">
+	<div class="content">
+		<div class="header-content">
+			<div class="site-name">
+				<a id="logo" href="#"></a>
+				<p class="description" id="description"></p>
+			</div>
+			<div id="nav-menu">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="layout">
+	<div class="content">
+		<div class="main-content">
+			<div class="content-box">
+				<div class="content-container">
+<h3>java</h3>
+<pre class="line-numbers language-java" >
+<code>
+public class Hello {
+	public static void main(String[] args) {
+		System.out.println("hello world!\n");
+	}
+}
+</code>
+</pre>
+<h3>javascript</h3>
+<pre class="line-numbers language-javascript">
+<code>
+console.log("hello world");
+function hello() {
+	console.log("hello world");
+	alert("hello world");
+}
+</code>
+</pre>
+<h3>python</h3>
+<pre class="line-numbers language-python">
+<code>
+print "hello world"
+print("hello", "world");
+</code>
+</pre>
+<h3>html</h3>
+<pre class='line-numbers language-html'>
+<code>
+&lt;body&gt;
+	&lt;div&gt;
+	&lt;span class="span"&gt;123&lt;/span&gt;
+	&lt;span class="span"&gt;123&lt;/span&gt;
+	&lt;span class="span"&gt;123&lt;/span&gt;
+	&lt;span class="span"&gt;123&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;div class="hha"&gt;
+		&lt;ul&gt;
+		&lt;li class='item'&gt;haha&lt;/li&gt;
+		&lt;li class='item'&gt;hehehj&lt;/li&gt;
+		&lt;li class='item'&gt;sodfiosdifo&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+</code>
+</pre>
+<h3>bash</h3>
+<pre class="line-numbers language-bash">
+<code>
+ls -a
+history
+touch abc
+cd -
+</code>
+</pre>
+				</div>
+			</div>
+			<div class="side-box">
+				<div id="sidebar">
+					<div class="widget">
+						<div class="widget-title">
+							分类
+						</div>
+						<ul class="category-list" id="categoryList">
+						</ul>
+					</div>
+					<div class="widget">
+						<div class="widget-title">
+							标签
+						</div>
+						<div class="tagcloud" id="tagList">
+						</div>
+					</div>
+					<div class="widget">
+						<div class="widget-title">
+							最近文章
+						</div>
+						<ul class="post-list" id="lastPostList">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<div class="content">
+		&copy; ShenJinXiang.
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script>
+$(function(){
+		LikeStar.initHeader({currentMenu : 2});
+});
+</script>
+</body>
+</html>
+

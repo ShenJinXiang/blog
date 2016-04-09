@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="description" content="LiksStar | Java | javascript | canvas | python | 博客 | DEMO">
+	<link rel="stylesheet" href="plugin/prism/prism.css">
+	<link rel="stylesheet" href="css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div class="header">
+	<div class="content">
+		<div class="header-content">
+			<div class="site-name">
+				<a id="logo" href="#"></a>
+				<p class="description" id="description"></p>
+			</div>
+			<div id="nav-menu">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="layout">
+	<div class="content">
+		<div class="main-content">
+			<div class="content-box">
+				<div class="content-container">
+
+				</div>
+			</div>
+			<div class="side-box">
+				<div id="sidebar">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<div class="content">
+		&copy; ShenJinXiang.
+	</div>
+</div>
+<script src="plugin/jquery/jquery.js"></script>
+<script src="plugin/prism/prism.js"></script>
+<script src="js/main.js"></script>
+<script>
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['category', 'tags', 'post']
+	});
+});
+</script>
+</body>
+</html>

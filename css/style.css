@@ -1,0 +1,215 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	display: block;
+	box-sizing: border-box;
+}
+
+p {
+	display: block;
+	-webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+a {
+	text-decoration: none;
+	background-color: transparent;
+	transition: color 0.5s ease-in;
+}
+
+body {
+	font-family: "TIBch", "Classic Grotesque W01", "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;
+	background-color: #ebeefb;
+}
+
+.header {
+	background: -webkit-linear-gradient(#224ea8, #0a3757);
+	background: -o-linear-gradient(#224ea8, #0a3757);
+	background: -moz-linear-gradient(#224ea8, #0a3757);
+	background: linear-gradient(#224ea8, #0a3757);
+	text-align: left;
+}
+
+.content {
+	padding: 0 30px;
+	max-width: 1150px;
+	margin: 0 auto;
+}
+
+.header-content {
+	padding: 60px 0 0;
+	position: relative;
+	color: #e5e9fd;
+	padding-bottom: 40px;
+}
+
+.site-name .description{
+	margin-top: 10px;
+	font-size: 14px;
+	font-family: "黑体";
+}
+
+#logo {
+	font-size: 40px;
+	color: #e5e9fd;
+	font-weight: bold;
+	
+}
+
+#logo:hover {
+	color: #a5a5a5;
+}
+
+#nav-menu {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#nav-menu a{
+	color: #e5e9fd;
+	padding: 5px 20px;
+	font-size: 14px;
+}
+
+#nav-menu a:hover{
+	color: #a5a5a5;
+	border-bottom: 1px solid #ccc;
+}
+
+#nav-menu a.current {
+	border: 1px solid #eee;
+	border-radius: 4px;
+}
+
+/* ------------------------------------------------------ */
+
+.layout {
+	color: #656565;
+}
+
+.layout a {
+	color: #656565;
+}
+
+.layout a:hover {
+	color: #1f1f1f;
+}
+
+.main-content { 
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+.main-content .content-box {
+	display: inline-block;
+	width: 75%;
+	margin: 0;
+}
+
+.content-container {
+	padding-right: 50px;
+	padding-top : 20px;
+}
+
+.main-content .side-box {
+	display: inline-block;
+	width: 25%;
+	margin: 0;
+}
+
+#sidebar {
+	border-left: 1px solid #656565;
+	color: #656565;
+	padding-left: 35px;
+	margin-top: 40px;
+	padding-bottom: 20px;
+	word-wrap: break-word;
+	font-family: sans-serif;
+}
+
+#sidebar .widget {
+	margin-bottom: 30px;
+}
+
+#sidebar .widget .widget-title {
+	line-height: 2.7;
+	margin-top: 0;
+	font-size: 16px;
+	border-bottom: 1px solid #656565;
+	font-weight: normal;
+}
+
+#sidebar .widget ul {
+	padding: 0;
+	display: block;
+	list-style: none;
+}
+
+#sidebar .widget ul li{
+	margin: 5px 0;
+	line-height: 1.5;
+}
+
+#sidebar .widget .tagcloud {
+	margin-top: 10px;
+}
+
+#sidebar .widget .tagcloud a {
+	line-height: 1.5; 
+	padding: 5px;
+}
+
+.post-list-link {
+	font-size:13px;
+}
+
+.post {
+	padding: 25px 0 15px;
+}
+
+.post .post-title {
+	margin: 0;
+	text-align: left;
+	font: bold 25px/1.1 "ff-tisa-web-pro",Cambria,"Times New Roman",Georgia,Times,sans-serif;
+}
+
+.post .post-meta {
+	padding: 0;
+	margin: 10px 0 0;
+	font-size: 12px;
+}
+
+.post .post-content {
+	clear: left;
+	font-size: 15px;
+	line-height: 1.77;
+	padding-top: 15px;
+	text-align: justify;
+	word-break: normal;
+}
+
+.readmore a{
+	font-size: 14px;
+	margin:-10px 0;
+	padding: 5px 10px;
+	border: 1px solid #131313;
+	border-radius: 5px;
+	float: right;
+}
+
+/* ------------------------------------------------------ */
+.footer .content{
+	margin-top: 20px;
+	color: #141414;
+	
+	text-align: center;
+}
+
