@@ -1,6 +1,6 @@
 var LS = (function() {
 	var config = {
-		ctx : "/myspace/blog/",
+		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
