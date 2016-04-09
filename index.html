@@ -8,6 +8,8 @@
 	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
 	<meta content="telephone=no" name="format-detection">
 	<meta name="description" content="LiksStar | Java | javascript | canvas | python | 博客 | DEMO">
+	<link rel='icon' href="images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="plugin/prism/prism.css">
 	<link rel="stylesheet" href="css/style.css">
 	<title>LikeStar</title>
 </head>
@@ -16,15 +18,10 @@
 	<div class="content">
 		<div class="header-content">
 			<div class="site-name">
-				<a id="logo" href="#">LikeStar</a>
-				<p class="description">申锦祥的博客</p>
+				<a id="logo" href="#"></a>
+				<p class="description" id="description"></p>
 			</div>
 			<div id="nav-menu">
-				<a href="#" class="current">首页</a>
-				<a href="#">归档</a>
-				<a href="#">关于</a>
-				<a href="#">DEMO</a>
-				<a href="#">评论</a>
 			</div>
 		</div>
 	</div>
@@ -33,78 +30,12 @@
 	<div class="content">
 		<div class="main-content">
 			<div class="content-box">
-				<div class="content-container">
-					<div class="post">
-						<h2 class="post-title">
-							<a href="#">Hello World</a>
-						</h2>
-						<div class="post-meta">2016年04月15日</div>
-						<div class="post-content">
-							今天是一个春意盎然的好天气，阳光和煦，温度适宜，让人倍感舒适。都说春光易逝，这在帝都体现得尤为明显——总是刚刚走出寒冷时节没几天，不知不觉间就会热得仿若盛夏，所以这种晴朗温和的春日才显得弥足珍贵，予作文以记之。
-						</div>
-						<p class="readmore">
-							<a href="#">More...</a>
-						</p>
-					</div>
-					<div class="post">
-						<h2 class="post-title">
-							<a href="#">中华人民共和同</a>
-						</h2>
-						<div class="post-meta">2016年04月15日</div>
-						<div class="post-content">
-							今天是一个春意盎然的好天气，阳光和煦，温度适宜，让人倍感舒适。都说春光易逝，这在帝都体现得尤为明显——总是刚刚走出寒冷时节没几天，不知不觉间就会热得仿若盛夏，所以这种晴朗温和的春日才显得弥足珍贵，予作文以记之。
-						</div>
-						<p class="readmore">
-							<a href="#">More...</a>
-						</p>
-					</div>
+				<div class="content-container" id="main_content">
+
 				</div>
 			</div>
 			<div class="side-box">
 				<div id="sidebar">
-					<div class="widget">
-						<div class="widget-title">
-							分类
-						</div>
-						<ul class="category-list">
-							<li class="category-list-item"><a class="category-list-link" href="#">canvas</a></li>
-							<li class="category-list-item"><a class="category-list-link" href="#">javascript</a></li>
-							<li class="category-list-item"><a class="category-list-link" href="#">python</a></li>
-							<li class="category-list-item"><a class="category-list-link" href="#">mysql</a></li>
-							<li class="category-list-item"><a class="category-list-link" href="#">php</a></li>
-						</ul>
-					</div>
-					<div class="widget">
-						<div class="widget-title">
-							标签
-						</div>
-						<div class="tagcloud">
-							<a href="#" >java</a>
-							<a href="#" >html5</a>
-							<a href="#" >python</a>
-							<a href="#" >demo</a>
-							<a href="#" >javascript</a>
-						</div>
-					</div>
-					<div class="widget">
-						<div class="widget-title">
-							最近文章
-						</div>
-						<ul class="post-list">
-							<li class="post-list-item">
-								<a class="post-list-link" href="#">Hello World</a>
-							</li>
-							<li class="post-list-item">
-								<a class="post-list-link" href="#">学习雷锋好榜样</a>
-							</li>
-							<li class="post-list-item">
-								<a class="post-list-link" href="#">洗衣机使用说明</a>
-							</li>
-							<li class="post-list-item">
-								<a class="post-list-link" href="#">canvas作图</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -115,6 +46,18 @@
 		&copy; ShenJinXiang.
 	</div>
 </div>
-<audio src="music/游荡的野狼 - Akat Mountains（盖伦特专属音乐）.mp3" loop autoplay></audio>
+<script src="plugin/jquery/jquery.js"></script>
+<script src="plugin/prism/prism.js"></script>
+<script src="js/main.js"></script>
+<script>
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['category', 'tags', 'post'],
+		'content' : 'home'
+	});
+});
+</script>
 </body>
 </html>
+

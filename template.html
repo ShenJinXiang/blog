@@ -8,6 +8,7 @@
 	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
 	<meta content="telephone=no" name="format-detection">
 	<meta name="description" content="LiksStar | Java | javascript | canvas | python | 博客 | DEMO">
+	<link rel='icon' href="images/title.ico" type="image/x-ico" />
 	<link rel="stylesheet" href="plugin/prism/prism.css">
 	<link rel="stylesheet" href="css/style.css">
 	<title>LikeStar</title>
@@ -29,7 +30,7 @@
 	<div class="content">
 		<div class="main-content">
 			<div class="content-box">
-				<div class="content-container">
+				<div class="content-container" id="main_content">
 
 				</div>
 			</div>
@@ -52,7 +53,7 @@
 $(function(){
 	LS.init({
 		'currentMenu' : 1,
-		'sidebar' : ['category', 'tags', 'post']
+		'sidebar' : ['category', 'tags', 'post'],
 	});
 });
 </script>
