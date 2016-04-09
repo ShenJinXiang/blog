@@ -284,7 +284,7 @@ var LS = (function() {
 	function renderMusic() {
 		var $m = $("<audio loop autoplay></audio>");
 		$m.attr("src", config.ctx + config.music.src);
-	//	$("body").append($m);
+		$("body").append($m);
 	}
 
 
