@@ -1,6 +1,6 @@
 var LS = (function() {
 	var config = {
-		ctx : "/blog/",
+		ctx : "/myspace/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -22,40 +22,13 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
-				'id' : 4,
-				'title' : '旋转效果',
-				'date' : '2016/04/19',
-				'tags' : ['java', 'javascript'],
-				'category' : 'java',
-				'desc' : '利用canvas实现图片缩放、移动、旋转效果。',
-				'url' : 'pages/canvas/20150407/Canvas实现图片缩放、移动、旋转效果.html'
-			},
-			{
-				'id' : 3,
-				'title' : 'Canvas旋转效果',
-				'date' : '2016/04/09',
-				'tags' : ['canvas', 'javascript'],
-				'category' : 'canvas',
-				'desc' : '利用canvas实现图片缩放、移动、旋转效果。',
-				'url' : 'pages/canvas/20150407/Canvas实现图片缩放、移动、旋转效果.html'
-			},
-			{
-				'id' : 2,
-				'title' : 'Canvas实现图片缩放、移动、旋转效果',
-				'date' : '2015/04/09',
-				'tags' : ['canvas', 'javascript'],
-				'category' : 'canvas',
-				'desc' : '利用canvas实现图片缩放、移动、旋转效果。',
-				'url' : 'pages/canvas/20150407/Canvas实现图片缩放、移动、旋转效果.html'
-			},
-			{
 				'id' : 1,
-				'title' : 'Hello world',
+				'title' : 'hello world',
 				'date' : '2015/04/05',
 				'tags' : ['java', 'javascript'],
-				'category' : 'demo',
-				'desc' : "第一个文章，利用prism实现页面中代码块语法高亮",
-				'url' : "pages/demo/20150405/hello world.html"
+				'category' : '其他',
+				'desc' : "<p>第一篇文章，就叫hello world吧！ 代码高亮显示插件用的prismjs, 简单易用，只需引入prism.js和prism.css 文件即可, 如果需要显示行号，引入line-numbers 类名。</p>",
+				'url' : "pages/其他/20150405/hello world.html"
 			}
 		]
 	};
@@ -281,11 +254,13 @@ var LS = (function() {
 		}
 	}
 
+	/*
 	function renderMusic() {
 		var $m = $("<audio loop autoplay></audio>");
 		$m.attr("src", config.ctx + config.music.src);
 		$("body").append($m);
 	}
+	*/
 
 
 	return {
@@ -304,7 +279,6 @@ var LS = (function() {
 			} else if(option.content === 'archive') {
 				renderArchiveContent();
 			}
-			renderMusic();
 			
 		},
 		pageTo : function(pageNum) {

@@ -132,6 +132,7 @@ body {
 .content-container {
 	padding-right: 50px;
 	padding-top : 20px;
+	min-height: 600px;
 }
 
 .main-content .side-box {
