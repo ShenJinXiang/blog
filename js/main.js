@@ -30,7 +30,8 @@ var LS = (function() {
 				'tags' : ['java', 'javascript'],
 				'category' : '其他',
 				'desc' : "<p>第一篇文章，就叫hello world吧！ 代码高亮显示插件用的prismjs, 简单易用，只需引入prism.js和prism.css 文件即可, 如果需要显示行号，引入line-numbers 类名。</p>",
-				'url' : "pages/其他/20160405/hello world.html"
+				'url' : "pages/其他/20160405/hello world.html",
+				'URL' : "http://shenjinxiang.github.io/blog/pages/%E5%85%B6%E4%BB%96/20160405/hello%20world.html"
 			}
 		]
 	};
@@ -258,7 +259,7 @@ var LS = (function() {
 
 	function renderComment() {
 		var html = "<!-- 多说评论框 start -->" +
-					"<div class='ds-thread' data-thread-key='0' data-title='博客' data-url='"+config.url + config.ctx + "comment.html'></div>"+
+					"<div class='ds-thread' data-thread-key='0' data-title='博客' data-url='http://shenjinxiang.github.io/blog/comment.html'></div>"+
 					"<!-- 多说评论框 end -->"+
 					"<!-- 多说公共JS代码 start (一个网页只需插入一次) -->"
 					"<script type='text/javascript'>" + 
@@ -281,7 +282,7 @@ var LS = (function() {
 	function renderDsty(id) {
 		var post = queryPostById(id);
 		var html = "<!-- 多说评论框 start -->" +
-					"<div class='ds-thread' data-thread-key='"+id+"' data-title='"+post.title+"' data-url='"+config.url + config.ctx + post.url +"'></div>"+
+					"<div class='ds-thread' data-thread-key='"+id+"' data-title='"+post.title+"' data-url='"+ post.URL +"'></div>"+
 					"<!-- 多说评论框 end -->"+
 					"<!-- 多说公共JS代码 start (一个网页只需插入一次) -->"
 					"<script type='text/javascript'>" + 
@@ -349,8 +350,7 @@ var LS = (function() {
 				renderComment();
 			} else if(option.content.type === 'post') {
 				renderPost(option.content);
-			}
-			if(option.content.comment) {
+			} else if(option.content.comment) {
 				renderDsty(option.content.id);
 			}
 			
