@@ -1,6 +1,6 @@
 var LS = (function() {
 	var config = {
-		url : 'http://www.shenjinxiang.github.io',
+		url : 'http://shenjinxiang.github.io',
 		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
