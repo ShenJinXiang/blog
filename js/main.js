@@ -1,12 +1,9 @@
 var LS = (function() {
 	var config = {
-		ctx : "/myspace/blog/",
+		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
-		},
-		music : {
-			'src' : 'music/网易游戏 - 江南野外.mp3',
 		},
 	    description : '申锦祥的博客',
 	    menu : [
@@ -24,11 +21,11 @@ var LS = (function() {
 			{
 				'id' : 1,
 				'title' : 'hello world',
-				'date' : '2015/04/05',
+				'date' : '2016/04/05',
 				'tags' : ['java', 'javascript'],
 				'category' : '其他',
 				'desc' : "<p>第一篇文章，就叫hello world吧！ 代码高亮显示插件用的prismjs, 简单易用，只需引入prism.js和prism.css 文件即可, 如果需要显示行号，引入line-numbers 类名。</p>",
-				'url' : "pages/其他/20150405/hello world.html"
+				'url' : "pages/其他/20160405/hello world.html"
 			}
 		]
 	};
