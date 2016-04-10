@@ -1,5 +1,6 @@
 var LS = (function() {
 	var config = {
+		url : 'http://www.shenjinxiang.github.io',
 		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
@@ -251,6 +252,28 @@ var LS = (function() {
 		}
 	}
 
+	function renderDsty(id) {
+		var post = queryPostById(id);
+		var html = "<!-- 多说评论框 start -->" +
+					"<div class='ds-thread' data-thread-key='"+id+"' data-title='"+post.title+"' data-url='"+config.url + config.ctx + post.url +"'></div>"+
+					"<!-- 多说评论框 end -->"+
+					"<!-- 多说公共JS代码 start (一个网页只需插入一次) -->"
+					"<script type='text/javascript'>" + 
+						"var duoshuoQuery = {short_name:'shenjinxiang'};" + 
+						"(function() {" +
+							"var ds = document.createElement('script');" +
+							"ds.type = 'text/javascript';ds.async = true;" +
+							"ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';" +
+							"ds.charset = 'UTF-8';" +
+							"(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);" +
+						"})();"+
+					"</script>" +
+					"<!-- 多说公共JS代码 end -->";
+		var $dspl = $("<div class='dspl_content'></div>");
+		$dspl.html(html);
+		$("#main_content").append($dspl);
+	}
+
 	/*
 	function renderMusic() {
 		var $m = $("<audio loop autoplay></audio>");
@@ -258,7 +281,28 @@ var LS = (function() {
 		$("body").append($m);
 	}
 	*/
+	
+	function queryPostById(id) {
+		var post = {};
+		for(var i = 0; i < config.postList.length; i++) {
+			if(config.postList[i].id == id) {
+				post = config.postList[i];
+			}
+		}
+		return post;
+	}
 
+	function renderPost(option) {
+		var post = queryPostById(option.id);
+		$("#main_content").empty();
+		var $post = $("<div class='post'></div>");
+		var $title = $("<h1 class='post-title'>"+post.title+"</h1>");
+		var $meta = $("<div class='post-meta'>日期："+post.date+"<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>分类："+post.category+"<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>标签："+post.tags.join(" ")+"</div>");
+		$post.append($title);
+		$post.append($meta);
+		$post.append($($("#temp_content").html()));
+		$("#main_content").append($post);
+	}
 
 	return {
 		init : function(option) {
@@ -271,10 +315,15 @@ var LS = (function() {
 				var funName = "render" + sidebar[i] + "Bar";
 				eval(funName + '()');
 			}
-			if(option.content === 'home') {
+			if(option.content.type === 'home') {
 				renderPostContent(1);
-			} else if(option.content === 'archive') {
+			} else if(option.content.type === 'archive') {
 				renderArchiveContent();
+			} else if(option.content.type === 'post') {
+				renderPost(option.content);
+			}
+			if(option.content.comment) {
+				renderDsty(option.content.id);
 			}
 			
 		},
