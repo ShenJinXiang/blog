@@ -7,6 +7,7 @@ var LS = (function() {
 			'url' : 'index.html'
 		},
 	    description : '申锦祥的博客',
+		music_src : "music/游荡的野狼 - Opinions Of The Misinformed（盖伦特专属音乐）.mp3",
 	    menu : [
 			{
 				'title' : '首页',
@@ -95,6 +96,12 @@ var LS = (function() {
 			}
 			$("#nav-menu").append($a);
 		}
+	}
+
+	function rendermusicBar() {
+		var $music = $("<audio loop autoplay></audio>");
+		$music.attr("src", config.music_src);
+		$("body").append($music);
 	}
 
 	/**
@@ -356,6 +363,7 @@ var LS = (function() {
 			} else if(option.content.type === 'comment') {	// 留言
 				renderComment();
 			}
+
 			
 		},
 		pageTo : function(pageNum) {
