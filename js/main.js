@@ -30,12 +30,14 @@ var LS = (function() {
 				'tags' : ['java', 'javascript'],
 				'category' : '其他',
 				'desc' : "<p>第一篇文章，就叫hello world吧！ 代码高亮显示插件用的prismjs, 简单易用，只需引入prism.js和prism.css 文件即可, 如果需要显示行号，引入line-numbers 类名。</p>",
-				'url' : "pages/其他/20160405/hello world.html",
-				'URL' : "http://shenjinxiang.github.io/blog/pages/%E5%85%B6%E4%BB%96/20160405/hello%20world.html"
+				'url' : "pages/其他/20160405/hello world.html"
 			}
 		]
 	};
 
+	/**
+	 * 渲染body中整体框架
+	 */
 	function renderMain() {
 		var html = '<div class="header">'+
 			'<div class="content">'+
@@ -292,12 +294,10 @@ var LS = (function() {
 		}
 	}
 
-	function renderDSPL(id) {
-		var post = LS.queryPostById(1);
-		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+post.URL+"'></div>");
-		$("#main_content").append($pl);
-	}
 
+	/**
+	 * 根据文章id获取文章信息
+	 */
 	function queryPostById(id) {
 		var post = {};
 		for(var i = 0; i < config.postList.length; i++) {
@@ -308,6 +308,9 @@ var LS = (function() {
 		return post;
 	}
 
+	/**
+	 * 渲染文章 内容
+	 */
 	function renderPost(option) {
 		var post = queryPostById(option.id);
 		$("#main_content").empty();
@@ -317,12 +320,15 @@ var LS = (function() {
 		$post.append($title);
 		$post.append($meta);
 		$post.append($($("#temp_content").html()));
-		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+post.URL+"'></div>");
+		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+config.url + config.ctx + post.url+"'></div>");
 		$post.append($pl);
 	
 		$("#main_content").append($post);
 	}
 
+	/**
+	 * 渲染留言 页面
+	 */
 	function renderComment() {
 		var $post = $("<div class='post'></post>");
 		$post.append($('<div class="ds-thread" data-thread-key="0" data-title="博客" data-url="http://shenjinxiang.github.io/blog/comment.html"></div>'));
@@ -341,13 +347,13 @@ var LS = (function() {
 				var funName = "render" + sidebar[i] + "Bar";
 				eval(funName + '()');
 			}
-			if(option.content.type === 'home') {
+			if(option.content.type === 'home') {		// 主页
 				renderPostContent(1);
-			} else if(option.content.type === 'archive') {
+			} else if(option.content.type === 'archive') {	// 归档
 				renderArchiveContent();
-			} else if(option.content.type === 'post') {
+			} else if(option.content.type === 'post') {	// 文章
 				renderPost(option.content);
-			} else if(option.content.type === 'comment') {
+			} else if(option.content.type === 'comment') {	// 留言
 				renderComment();
 			}
 			
