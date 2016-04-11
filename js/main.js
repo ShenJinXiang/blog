@@ -263,16 +263,6 @@ var LS = (function() {
 		$("#main_content").append($pl);
 	}
 
-	
-
-	/*
-	function renderMusic() {
-		var $m = $("<audio loop autoplay></audio>");
-		$m.attr("src", config.ctx + config.music.src);
-		$("body").append($m);
-	}
-	*/
-	
 	function queryPostById(id) {
 		var post = {};
 		for(var i = 0; i < config.postList.length; i++) {
@@ -292,6 +282,9 @@ var LS = (function() {
 		$post.append($title);
 		$post.append($meta);
 		$post.append($($("#temp_content").html()));
+		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+post.URL+"'></div>");
+		$post.append($pl);
+	
 		$("#main_content").append($post);
 	}
 
@@ -312,7 +305,6 @@ var LS = (function() {
 				renderArchiveContent();
 			} else if(option.content.type === 'post') {
 				renderPost(option.content);
-				renderDSPL(option.content.id);
 			} 
 			
 		},
