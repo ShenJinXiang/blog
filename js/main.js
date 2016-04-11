@@ -36,6 +36,41 @@ var LS = (function() {
 		]
 	};
 
+	function renderMain() {
+		var html = '<div class="header">'+
+			'<div class="content">'+
+				'<div class="header-content">'+
+					'<div class="site-name">'+
+						'<a id="logo" href="#"></a>'+
+						'<p class="description" id="description"></p>'+
+					'</div>'+
+					'<div id="nav-menu">'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
+		'</div>'+
+		'<div class="layout">'+
+			'<div class="content">'+
+				'<div class="main-content">'+
+					'<div class="content-box">'+
+						'<div class="content-container" id="main_content">'+
+						'</div>'+
+					'</div>'+
+					'<div class="side-box">'+
+						'<div id="sidebar">'+
+						'</div>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
+		'</div>'+
+		'<div class="footer">'+
+			'<div class="content">'+
+				'&copy; ShenJinXiang.'+
+			'</div>'+
+		'</div>';
+		$("body").prepend($(html));
+	}
+
 	/**
 	 * 设置header部分显示内容
 	 */
@@ -288,8 +323,15 @@ var LS = (function() {
 		$("#main_content").append($post);
 	}
 
+	function renderComment() {
+		var $post = $("<div class='post'></post>");
+		$post.append($('<div class="ds-thread" data-thread-key="0" data-title="博客" data-url="http://shenjinxiang.github.io/blog/comment.html"></div>'));
+		$("#main_content").empty().append($post);
+	}
+
 	return {
 		init : function(option) {
+			renderMain();
 			// 顶部
 			readerHeader(option.currentMenu - 1);
 
@@ -305,7 +347,9 @@ var LS = (function() {
 				renderArchiveContent();
 			} else if(option.content.type === 'post') {
 				renderPost(option.content);
-			} 
+			} else if(option.content.type === 'comment') {
+				renderComment();
+			}
 			
 		},
 		pageTo : function(pageNum) {

@@ -14,55 +14,6 @@
 	<title>LikeStar</title>
 </head>
 <body>
-<div class="header">
-	<div class="content">
-		<div class="header-content">
-			<div class="site-name">
-				<a id="logo" href="#"></a>
-				<p class="description" id="description"></p>
-			</div>
-			<div id="nav-menu">
-			</div>
-		</div>
-	</div>
-</div>
-<div class="layout">
-	<div class="content">
-		<div class="main-content">
-			<div class="content-box">
-				<div class="content-container" id="main_content">
-					<div class="post">
-						<!-- 多说评论框 start -->
-						<div class="ds-thread" data-thread-key="0" data-title="博客" data-url="http://shenjinxiang.github.io/blog/comment.html"></div>
-						<!-- 多说评论框 end -->
-						<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-						<script type="text/javascript">
-						var duoshuoQuery = {short_name:"shenjinxiang"};
-						(function() {
-							var ds = document.createElement('script');
-							ds.type = 'text/javascript';ds.async = true;
-							ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-							ds.charset = 'UTF-8';
-							(document.getElementsByTagName('head')[0] 
-							 || document.getElementsByTagName('body')[0]).appendChild(ds);
-						})();
-						</script>
-					<!-- 多说公共JS代码 end -->
-					</div>
-				</div>
-			</div>
-			<div class="side-box">
-				<div id="sidebar">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="footer">
-	<div class="content">
-		&copy; ShenJinXiang.
-	</div>
-</div>
 <script src="plugin/jquery/jquery.js"></script>
 <script src="plugin/prism/prism.js"></script>
 <script src="js/main.js"></script>
@@ -76,6 +27,17 @@ $(function(){
 		}
 	});
 });
+</script>
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
 </script>
 </body>
 </html>
