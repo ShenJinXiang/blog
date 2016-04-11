@@ -258,47 +258,36 @@ var LS = (function() {
 	}
 
 	function renderComment() {
-		var html = "<!-- 多说评论框 start -->" +
-					"<div class='ds-thread' data-thread-key='0' data-title='博客' data-url='http://shenjinxiang.github.io/blog/comment.html'></div>"+
-					"<!-- 多说评论框 end -->"+
-					"<!-- 多说公共JS代码 start (一个网页只需插入一次) -->"
-					"<script type='text/javascript'>" + 
-						"var duoshuoQuery = {short_name:'shenjinxiang'};" + 
-						"(function() {" +
-							"var ds = document.createElement('script');" +
-							"ds.type = 'text/javascript';ds.async = true;" +
-							"ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';" +
-							"ds.charset = 'UTF-8';" +
-							"(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);" +
-						"})();"+
-					"</script>" +
-					"<!-- 多说公共JS代码 end -->";
+		var html = "<div class='ds-thread' data-thread-key='0' data-title='博客' data-url='http://shenjinxiang.github.io/blog/comment.html'></div>";
 		var $dspl = $("<div class='dspl_content'></div>");
 		$dspl.html(html);
 		$("#main_content").append($dspl);
+
+						var duoshuoQuery = {short_name:'shenjinxiang'};
+						(function() {
+							var ds = document.createElement('script');
+							ds.type = 'text/javascript';ds.async = true;
+							ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+							ds.charset = 'UTF-8';
+							(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+						})();
 
 	}
 
 	function renderDsty(id) {
 		var post = queryPostById(id);
-		var html = "<!-- 多说评论框 start -->" +
-					"<div class='ds-thread' data-thread-key='"+id+"' data-title='"+post.title+"' data-url='"+ post.URL +"'></div>"+
-					"<!-- 多说评论框 end -->"+
-					"<!-- 多说公共JS代码 start (一个网页只需插入一次) -->"
-					"<script type='text/javascript'>" + 
-						"var duoshuoQuery = {short_name:'shenjinxiang'};" + 
-						"(function() {" +
-							"var ds = document.createElement('script');" +
-							"ds.type = 'text/javascript';ds.async = true;" +
-							"ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';" +
-							"ds.charset = 'UTF-8';" +
-							"(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);" +
-						"})();"+
-					"</script>" +
-					"<!-- 多说公共JS代码 end -->";
+		var html = "<div class='ds-thread' data-thread-key='"+id+"' data-title='"+post.title+"' data-url='"+ post.URL +"'></div>";
 		var $dspl = $("<div class='dspl_content'></div>");
 		$dspl.html(html);
 		$("#main_content").append($dspl);
+						var duoshuoQuery = {short_name:'shenjinxiang'};
+						(function() {
+							var ds = document.createElement('script');
+							ds.type = 'text/javascript';ds.async = true;
+							ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+							ds.charset = 'UTF-8';
+							(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+						})();
 	}
 
 	/*
