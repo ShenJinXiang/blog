@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN"><!--{{{-->
+<!-- head -->
+<head><!--{{{-->
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="description" content="LiksStar | Java | javascript | canvas | python | 博客 | DEMO">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head><!--}}}-->
+<!-- body -->
+<body><!--{{{-->
+<div id="temp_content" style="display:none;"><!--{{{-->
+	<div class="post-content">
+		<p>在vim中，移动是一项很轻松也很复杂的事情，复杂是因为vim有各种各样的移动方式，命令很多，复杂也是因为这个原因。。。</p>
+<!-- 简单移动 -->
+<h5>简单移动</h5><!--{{{-->
+<pre class="line-numbers language-vim">
+<code>
+k	" 上
+j	" 下
+h	" 左
+l	" 右
+</code>
+</pre><!--}}}-->
+<!-- 按word移动 -->
+<h5>按单词移动</h5><!--{{{-->
+<pre class="line-numbers language-vim">
+<code>
+w	" 将光标移动到下一个word的首字符上
+b	" 将光标向后移动到前一个word的首字符上
+e	" 将光标移动到word的最后一个字符上
+ge	" 将光标移动到上一个word的最后一个字符上
+</code>
+</pre><!--}}}-->
+<!-- 行首行尾 -->
+
+
+	</div>
+</div><!--}}}-->
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 2
+		}
+	});
+
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body><!--}}}-->
+</html><!--}}}-->

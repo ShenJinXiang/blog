@@ -25,6 +25,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id' : 2,
+				'title' : 'vim中移动',
+				'date' : '2016/04/12',
+				'tags' : ['vim'],
+				'category' : 'tools',
+				'desc' : "<p>在vim中，移动是一项很轻松也很复杂的事情，复杂是因为vim有各种各样的移动方式，命令很多，复杂也是因为这个原因。。。</p>",
+				'url' : 'pages/tools/20160412/vim中移动.html'
+			},
+			{
 				'id' : 1,
 				'title' : 'hello world',
 				'date' : '2016/04/05',
