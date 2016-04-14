@@ -25,6 +25,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id' : 3,
+				'title' : 'Python学习笔记：list',
+				'date' : '2016/04/15',
+				'tags' : ['Python'],
+				'category' : 'Python',
+				'desc' : "<p>list 是Python 内置的一种数据类型，是一种有序的集合，可以随时添加或删除元素，可以包含任何种类的对象：数字、字符串甚至其他列表。</p>",
+				'url' : 'pages/Python/20160415/Python学习笔记：list.html'
+			},
+			{
 				'id' : 2,
 				'title' : 'vim中移动',
 				'date' : '2016/04/12',
