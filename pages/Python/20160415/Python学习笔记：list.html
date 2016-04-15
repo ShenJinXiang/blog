@@ -18,6 +18,71 @@
 <div id="temp_content" style="display: none;">
 	<div class="post-content">
 		<p>list 是Python 内置的一种数据类型，是一种有序的集合，可以随时添加或删除元素，可以包含任何种类的对象：数字、字符串甚至其他列表。</p>
+<h5>创建list</h5>
+<pre class="line-numbers language-python">
+<code>
+# 创建一个表示人名的list 这个list包含四个元素
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+# 创建一个空的list
+empty_list = []
+# list 中的元素可以是任意类型
+test = ['a', 'hello', 23, 45.6, 078, True, ['Bob', 'Lucy']]
+</code>
+</pre>
+<br/><hr/><br/>
+<h5>按索引访问list中的元素</h5>
+<pre class="line-numbers language-python">
+<code>
+# list是一个有序集合，可以按元素索引获取元素，索引从0开始
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names[0])		# Bob
+print(names[1])		# Tom
+print(names[2])		# Mary
+print(names[3])		# Lucy
+print(names[4])		# 越界了， IndexError: list index out of range
+# names只有4个元素 有效索引是 0, 1, 2, 3
+
+# 还可以倒序访问list中的元素
+print(names[-1])	# Lucy
+print(names[-2])	# Mary
+print(names[-3])	# Tom
+print(names[-4])	# Bob
+print(names[-5])	# 同样会越界 IndexError: list index out of range
+# list中元素的正序索引 加 倒序索引的绝对值 应该等于list的总长度
+# 无论正序还是倒序 都要小心越界
+</code>
+</pre>
+<br/><hr/><br/>
+<h5>list添加新元素</h5>
+<pre class="line-numbers language-python">
+<code>
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names)	
+# ['Bob', 'Tom', 'Mary', 'Lucy']
+# append() 方法，给list末尾追加元素
+names.append('LiLei')
+print(names)	
+# ['Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
+# insert() 方法，接受两个参数，第一个参数是索引号，第二个参数是待添加的元素
+names.insert(0, 'HanMeiMei')	# 添加到第一个元素位置上
+print(names)	
+# ['HanMeiMei', 'Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
+names.insert(2, 'Dave')	# 第三个位置添加元素
+print(names)	
+# ['HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei']
+names.insert(100, 'Alan')	# 第一个参数很大
+print(names)	
+# ['HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Alan']
+names.insert(-1, 'Susan')
+print(names)	
+# ['HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
+names.insert(-100, 'Lisa')	
+print(names)	
+# ['Lisa', 'HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
+</code>
+</pre>
+<br/><hr/><br/>
+
 	</div>
 </div>
 <script src="../../../plugin/jquery/jquery.js"></script>
