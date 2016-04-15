@@ -64,24 +64,99 @@ names.append('LiLei')
 print(names)	
 # ['Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
 # insert() 方法，接受两个参数，第一个参数是索引号，第二个参数是待添加的元素
-names.insert(0, 'HanMeiMei')	# 添加到第一个元素位置上
+names.insert(0, 'Amy')	# 添加到第一个元素位置上
 print(names)	
-# ['HanMeiMei', 'Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
+# ['Amy', 'Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
 names.insert(2, 'Dave')	# 第三个位置添加元素
 print(names)	
-# ['HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei']
+# ['Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei']
 names.insert(100, 'Alan')	# 第一个参数很大
 print(names)	
-# ['HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Alan']
+# ['Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Alan']
 names.insert(-1, 'Susan')
 print(names)	
-# ['HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
+# ['Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
 names.insert(-100, 'Lisa')	
 print(names)	
-# ['Lisa', 'HanMeiMei', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
+# ['Lisa', 'Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
 </code>
 </pre>
 <br/><hr/><br/>
+<h5>list中删除元素</h5>
+<pre class="line-numbers language-python">
+<code>
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names)
+# pop() 方法删除掉最后一个元素，返回删除掉的元素
+name = names.pop()
+print(name)		# Lucy
+print(names)	# ['Bob', 'Tom', 'Mary']
+# 可以给pop() 方法传入一个索引，删除掉对应的元素， 返回删除掉的元素
+name = names.pop(1)
+print(name)		# Tom
+print(names)	# ['Bob', 'Mary']
+# 如果传入的索引不在有效范围内则报异常
+names.pop(100)
+names.pop(-100)	# IndexError: pop index out of range
+</code>
+</pre>
+<br/><hr/><br/>
+<h5>list 替换元素</h5>
+<pre class="line-numbers language-python">
+<code>
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names)
+# 替换元素很简单 重新赋值就可以了
+names[1] = 'Dave'
+print(names)	# ['Bob', 'Dave', 'Mary', 'Lucy']
+</code>
+</pre>
+<br/><hr/><br/>
+<p>
+	Tuple 是另外一种有序的列表，中文翻译为“元组”。tuple和list非常类型，但是，tuple一旦创建完毕，就不能修改了。
+</p>
+<h5>创建tuple</h5>
+<pre class="line-numbers language-python">
+<code>
+# 创建一个包含四个人名tuple
+names = ('Bob', 'Tom', 'Mary', 'Lucy')
+print(names)	# ('Bob', 'Tom', 'Mary', 'Lucy')
+# 创建一个空的tuple
+names = ()
+print(names)	# ()
+# 创建含有一个元素的tuple
+names = ("Bob")
+print(names)	# Bob 
+# 错了，不应该是这个结果，因为() 可以表示tuple，也可以作为括号表示运算符优先级
+names = ('Bob',)
+print(names)	# ('Bob',)
+# 多加一个 , 避免发生歧义
+</code>
+</pre>
+<br/><hr/><br/>
+<h5>访问tuple中的元素</h5>
+<pre class="line-numbers language-python">
+<code>
+# 访问tuple中元素的方法与访问list中的元素是一样的
+names = ('Bob', 'Tom', 'Mary', 'Lucy')
+print(names)	# ('Bob', 'Tom', 'Mary', 'Lucy')
+print(names[0])	# Bob
+print(names[1])	# Tom
+print(names[2])	# Mary
+print(names[3])	# Lucy
+print(names[4])	# IndexError: tuple index out of range
+
+# 也可以用反序索引访问tuple
+print(names[-1])	# Lucy
+print(names[-2])	# Mary
+print(names[-3])	# Tom
+print(names[-4])	# Bob
+print(names[-5])	# IndexError: tuple index out of range
+# 同样的都要小心越界问题
+</code>
+</pre>
+<br/><hr/><br/>
+
 
 	</div>
 </div>
