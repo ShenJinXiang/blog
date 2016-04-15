@@ -43,11 +43,11 @@ print(names[4])		# 越界了， IndexError: list index out of range
 # names只有4个元素 有效索引是 0, 1, 2, 3
 
 # 还可以倒序访问list中的元素
-print(names[-1])	# Lucy
-print(names[-2])	# Mary
-print(names[-3])	# Tom
-print(names[-4])	# Bob
-print(names[-5])	# 同样会越界 IndexError: list index out of range
+print(names[-1])		# Lucy
+print(names[-2])		# Mary
+print(names[-3])		# Tom
+print(names[-4])		# Bob
+print(names[-5])		# 同样会越界 IndexError: list index out of range
 # list中元素的正序索引 加 倒序索引的绝对值 应该等于list的总长度
 # 无论正序还是倒序 都要小心越界
 </code>
@@ -89,15 +89,23 @@ names = ['Bob', 'Tom', 'Mary', 'Lucy']
 print(names)
 # pop() 方法删除掉最后一个元素，返回删除掉的元素
 name = names.pop()
-print(name)		# Lucy
-print(names)	# ['Bob', 'Tom', 'Mary']
+print(name)			# Lucy
+print(names)			# ['Bob', 'Tom', 'Mary']
 # 可以给pop() 方法传入一个索引，删除掉对应的元素， 返回删除掉的元素
 name = names.pop(1)
-print(name)		# Tom
-print(names)	# ['Bob', 'Mary']
+print(name)			# Tom
+print(names)			# ['Bob', 'Mary']
 # 如果传入的索引不在有效范围内则报异常
 names.pop(100)
-names.pop(-100)	# IndexError: pop index out of range
+names.pop(-100)		# IndexError: pop index out of range
+
+# remove() 方法按值删除元素
+names.remove('Bob')
+print(names)			# ['Mary']
+
+# clear() 清空列表
+names.clear()
+print(names)			# []
 </code>
 </pre>
 <br/><hr/><br/>
@@ -108,7 +116,31 @@ names = ['Bob', 'Tom', 'Mary', 'Lucy']
 print(names)
 # 替换元素很简单 重新赋值就可以了
 names[1] = 'Dave'
-print(names)	# ['Bob', 'Dave', 'Mary', 'Lucy']
+print(names)				# ['Bob', 'Dave', 'Mary', 'Lucy']
+</code>
+</pre>
+<br/><hr/><br/>
+<h5>list相关操作</h5>
+<pre class="line-numbers language-python">
+<code>
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+# len() 获取list长度
+print(len(names))			# 4
+names.sort()
+print(names)					# ['Bob', 'Lucy', 'Mary', 'Tom']
+# index() 方法 获取元素索引
+print(names.index('Lucy'))	# 1
+# 判断元素在list中
+print('Bob' in names)		# True
+print('Dave' in names)		# False
+
+# 遍历列表
+for name in names :
+	print(name, end = ' ')
+# Bob Lucy Mary Tom
+
+print(names * 3)
+# ['Bob', 'Lucy', 'Mary', 'Tom', 'Bob', 'Lucy', 'Mary', 'Tom', 'Bob', 'Lucy', 'Mary', 'Tom']
 </code>
 </pre>
 <br/><hr/><br/>
