@@ -25,6 +25,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id' : 4,
+				'title' : "vim分割窗口",
+				'date' : '2016/04/16',
+				'tags' : ['vim'],
+				'category' : 'tools',
+				'desc' : "<p>vim分页功能可以实现同时查看多个不同文件，也可以同时查看同一文件的不同位置，很有用的一个功能。</p>",
+				'url' : "pages/tools/20160416/vim分割窗口.html"
+			},
+			{
 				'id' : 3,
 				'title' : 'Python学习笔记：list和tuple',
 				'date' : '2016/04/15',
