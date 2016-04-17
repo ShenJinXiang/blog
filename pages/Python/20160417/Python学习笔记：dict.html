@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 python 博客 dict 字典">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 python 博客 dict 字典">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+		<p>字典（dictionary）是Python中常见得一种数据类型，和list有点类似，主要的差别在于list中的元素是根据偏移来存取的，而字典中的元素是通过键来存取的。</p>
+		<h4>字典的特点：</h4>
+		<ol style="margin-left:20px;">
+			<li>通过键读取元素，字典有时又叫关联数组、散列表。有点类似java中的map，通过键将一系列值练习起来，主要就可以通过键从字典取出元素。</li>
+			<li>任意对象的无序集合，保存在字典中的项没有特定的顺序。Python将各项从左到右随机排序，以便快速查找。</li>
+			<li>可变长、异构、任意嵌套，字典可以在原处增长或缩短（无需生成拷贝），可以包含任何类型对象，支持任意深度的嵌套。</li>
+			<li>字典中key必须不可变，Python中的基本类型：字符串、整数、浮点数都是不可变的，都可以作为key，列表（list）是可变的，不能作为key，最常用的key是字符串类型。</li>
+		</ol>
+<h4>初始化dict</h4>
+<pre class="line-numbers language-python">
+<code>
+d = {}		# 空字典
+print(d)		# {}
+# 含有两项的字典
+d = {'name' : 'Bob', "age" : 18}
+print(d)		# {'age': 18, 'name': 'Bob'}
+# 字典可以嵌套
+d = {'name' : 'Bob', 'age' : 18, 'address' : {'country' : 'china', 'city' : 'BeiJing'}}
+print(d)
+# {'address': {'country': 'china', 'city': 'BeiJing'}, 'age': 18, 'name': 'Bob'}
+# 其他构造技术
+d = dict.fromkeys(['a', 'b'])
+print(d)		# {'b': None, 'a': None}
+# 设置默认值
+d = dict.fromkeys(['a', 'b'], 0)
+print(d)		# {'b': 0, 'a': 0}
+# 用list构建字典
+l1 = ['a', 'b', 'c', 'd']
+l2 = [1, 2, 3, 4]
+d = dict(zip(l1, l2))
+print(d)		# {'b': 2, 'd': 4, 'a': 1, 'c': 3}
+# 名值对 构建字典
+d = dict(name = 'Bob', age = 18)
+print(d)		# {'age': 18, 'name': 'Bob'}
+
+d = {x : x * 2 for x in range(10)}
+print(d)
+# {0: 0, 1: 2, 2: 4, 3: 6, 4: 8, 5: 10, 6: 12, 7: 14, 8: 16, 9: 18}
+</code>
+</pre>
+<br><hr><br>
+<h4>访问dict</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 通过D[key]的形式获取value
+d = {'name' : 'Bob', 'age' : 18}
+print(d['name'])			# Bob
+print(d['age'])			# 18
+# 通过key访问value 只要key存在 dict就会返回对于的value
+print(d['address'])		# 出错了： KeyError: 'address'
+# 方法1: 判断key是否存在
+if 'address' in d:
+	print(d['address'])
+# 方法2：使用get方法
+print(d.get('name'))		# Bob
+print(d.get('address'))	# None
+# get() 方法还可以设置默认值
+print(d.get('age', 10))	# 18
+print(d.get('address', 'china'))		# china
+</code>
+</pre>
+<br><hr><br>
+<h4>添加或修改dict</h4>
+<pre class="line-numbers language-python">
+<code>
+d = {'name' : 'Bob', 'age' : 18}
+print(d)	# {'age': 18, 'name': 'Bob'}
+# 添加新项
+d['sex'] = '男'
+print(d)	# {'age': 18, 'sex': '男', 'name': 'Bob'}
+# 修改dic中的项
+d['age'] = 19
+print(d)	# {'age': 19, 'sex': '男', 'name': 'Bob'}
+</code>
+</pre>
+<br><hr><br>
+<h4>删除dict中的项</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 使用del
+d = {'name' : 'Bob', 'age' : 18, 'sex' : '男'}
+print(d)		# {'age': 18, 'sex': '男', 'name': 'Bob'}
+del d['sex']
+print(d)		# {'age': 18, 'name': 'Bob'}
+# 使用pop() 方法， 参数为删除项的key，返回删除项的value
+v = d.pop('age')
+print(v)		# 18
+print(d)		# {'name': 'Bob'}
+</code>
+</pre>
+<br><hr><br>
+<h4>遍历dict</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 与遍历list类似，使用for循环实现
+d = {'name' : 'Bob', 'age' : 18, 'sex' : '男'}
+for key in d :
+	print(key, '-->', d[key])
+# age --> 18
+# sex --> 男
+# name --> Bob
+</code>
+</pre>
+<h4>其他dict方法</h4>
+<pre class='line-numbers language-python'>
+<code>
+d = {'name' : 'Bob', 'age' : 18, 'sex' : '男'}
+# len() 统计字典中的元素数目
+print(len(d))			# 3
+# in 判断key是否在字典中
+print('name' in d)		# True
+print('country' in d)	# False
+# keys() 方法 返回key的集合
+ks = d.keys()
+print(ks)				# dict_keys(['age', 'sex', 'name'])
+print(list(ks))			# ['age', 'sex', 'name']
+# values() 方法返回value的集合
+vs = d.values()
+print(vs)				# dict_values([18, '男', 'Bob'])
+print(list(vs))			# [18, '男', 'Bob']
+# items() 返回(key, value)的元组的集合
+its = d.items()
+print(its)
+# dict_items([('age', 18), ('sex', '男'), ('name', 'Bob')])
+print(list(its))
+# [('age', 18), ('sex', '男'), ('name', 'Bob')]
+# update() 方法
+d1 = {'name' : 'Tom', 'address': 'china'}
+print(d1)			# {'address': 'china', 'name': 'Tom'}
+d.update(d1)
+print(d)			# {'address': 'china', 'age': 18, 'sex': '男', 'name': 'Tom'}
+print(d1)			# {'address': 'china', 'name': 'Tom'}
+d1.update(d)		# {'address': 'china', 'sex': '男', 'age': 18, 'name': 'Tom'}
+</code>
+</pre>
+<p>update()方法类似于合并，但是和从左到右的顺序无关，只是把一个字典的键合并到另一个字典中，键的值可能是随机的。</p>
+<br><hr><br>
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 5
+		}
+	});
+
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>

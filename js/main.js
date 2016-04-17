@@ -25,6 +25,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id' : 5,
+				'title' : 'Python学习笔记：dict',
+				'date' : '2016/04/17',
+				'tags' : ['Python'],
+				'category' : 'Python',
+				'desc' : "<p>字典（dictionary）是Python中常见得一种数据类型，和list有点类似，主要的差别在于list中的元素是根据偏移来存取的，而字典中的元素是通过键来存取的。</p>",
+				'url' : 'pages/Python/20160417/Python学习笔记：dict.html'
+			},
+			{
 				'id' : 4,
 				'title' : "vim分割窗口",
 				'date' : '2016/04/16',
