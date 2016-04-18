@@ -228,6 +228,24 @@ body {
 	padding-right: .7em;
 }
 
+.post-nav {
+	border-top: 1px solid #aaa;
+	margin-bottom: 20px;
+	margin-top: 15px;
+	overflow: hidden;
+	padding: 10px;
+	white-space: nowrap;
+	font-size:14px;
+}
+
+.post-nav a.next{
+	float: right;
+}
+
+.post-nav a.prev{
+	float: left;
+}
+
 .label-title{
 	margin-top: 1.1em;
 	font-size: 20px;

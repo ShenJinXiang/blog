@@ -527,10 +527,24 @@ var LS = (function() {
 		$post.append($title);
 		$post.append($meta);
 		$post.append($($("#temp_content").html()));
+		$post.append(getPrevAndNextHtml());
 		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+config.url + config.ctx + post.url+"'></div>");
 		$post.append($pl);
 	
 		$("#main_content").append($post);
+
+		function getPrevAndNextHtml() {
+			var prev = queryPostById(post.id + 1);
+			var next = queryPostById(post.id - 1);
+			var _$html = $("<div class='post-nav'></div>");
+			if(prev && prev.title) {
+				_$html.append("<a class='prev' href='" + config.ctx + prev.url + "'>&lt;&nbsp;" + prev.title + "</a>");
+			}
+			if(next && next.title) {
+				_$html.append("<a class='next' href='" + config.ctx + next.url + "'>" + next.title + "&nbsp;&gt;</a>");
+			}
+			return _$html;
+		}
 	}
 
 	/**
