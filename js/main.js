@@ -136,7 +136,7 @@ var LS = (function() {
 		];
 	};
 	var config = {
-		url : 'http://shenjinxiang.github.io',
+		url : 'http://shenjinxiang.com',
 		ctx : "/",
 	    logo : {
 			'title' : 'LikeStar',
