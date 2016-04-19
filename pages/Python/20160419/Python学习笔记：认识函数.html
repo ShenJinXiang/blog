@@ -45,7 +45,39 @@ print(result)			# None
 <br><hr><br>
 <h4>返回多个值</h4>
 <p>不同于JavaScript，JavaScript如果要返回多个值，可以将返回结果保存于数组或者一个对象中，然后返回。Python中则更加简单一些，直接将返回的值跟在return后边，用‘,’分割。</p>
-
+<pre class='line-numbers language-python'>
+<code>
+def getXY() :
+	x = 18
+	y = 20
+	return x, y
+a, b = getXY()
+print(a)	# 18
+print(b)	# 20
+result = getXY()
+print(result)			# (18, 20)
+print(type(result))		# &lt;class 'tuple'&gt;
+</code>
+</pre>
+<p>可见返回多值其实就是返回的一个tuple，但是很方便。</p>
+<br><hr><br>
+<h4>递归函数</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 函数可以调用自身
+# 计算数的阶乘 n! = 1 * 2 * 3 * ... * n
+def fact(n) :
+	if n == 1 :
+		return 1
+	return n * fact(n - 1)
+print(fact(1))		# 1
+print(fact(2))		# 2
+print(fact(3))		# 6
+print(fact(4))		# 24
+print(fact(5))		# 120
+print(fact(10))		# 3628800
+</code>
+</pre>
 	</div>
 </div>
 <script src="../../../plugin/jquery/jquery.js"></script>
