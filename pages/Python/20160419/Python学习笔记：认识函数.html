@@ -78,6 +78,43 @@ print(fact(5))		# 120
 print(fact(10))		# 3628800
 </code>
 </pre>
+<br><hr><br>
+<h4>定义默认参数</h4>
+<p>Python定义函数的时候，可以设置默认参数值，只需把必须的参数传进去，只有在需要的时候，传入额外的参数来覆盖默认参数。</p>
+<pre class='line-numbers language-python'>
+<code>
+# 函数hello
+def say_hello(msg = 'world') :
+	print('hello', msg)
+say_hello()				# hello world
+say_hello('Python')		# hello Python
+</code>
+</pre>
+<p>特别需要注意的是：默认才输只能定义在必须参数的后面。</p>
+<br><hr><br>
+<h4>定义可变参数</h4>
+<p>在参数名称前面写‘*’号， 可以传入任意个参数给函数（包括0个参数）</p>
+<pre class='line-numbers language-python'>
+<code>
+# 检查类型
+def my_test1(*args) :
+	print(type(args))
+	print(args)
+my_test()			# &lt;class 'tuple'&gt;		()
+my_test(1, 2, 3)		# &lt;class 'tuple'&gt;		(1, 2, 3)
+# 可见Python把参数组装成tuple
+# 计算和
+def my_sum(*nums) :
+	_sum = 0
+	for num in nums :
+		_sum += num
+	return _sum
+result = my_sum(1, 2, 3, 4)
+print(result)		# 10
+result = my_sum(1, 2, 3, 4, 5, 6)
+print(result)		# 21
+</code>
+</pre>
 	</div>
 </div>
 <script src="../../../plugin/jquery/jquery.js"></script>
