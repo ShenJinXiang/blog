@@ -136,8 +136,10 @@ var LS = (function() {
 		];
 	};
 	var config = {
-		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//url : 'http://shenjinxiang.com',
+		//ctx : "/",
+		url : 'http://shenjinxiang.github.io',
+		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -160,6 +162,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 6,
+				'title' : 'Python学习笔记：认识函数',
+				'date' : '2016/04/19',
+				'tags' : ['Python'],
+				'category' : 'Python',
+				'desc' : "<p>函数是最基本的一种代码抽象方式，Python不但能够灵活的定义函数，而且内置了很多有用的函数可以直接调用。</p>",
+				'url' : 'pages/python/20160419/Python学习笔记：认识函数.html'
+			},
 			{
 				'id' : 5,
 				'title' : 'Python学习笔记：dict',

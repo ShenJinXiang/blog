@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 python 博客 dict 字典">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 python 博客 dict 字典">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+		<p>函数是最基本的一种代码抽象方式，Python不但能够灵活的定义函数，而且内置了很多有用的函数可以直接调用。</p>
+<h4>定义函数</h4>
+<p>定义一个函数用def语句，然后依次写函数名、参数列表、函数体、return返回结果</p>
+<pre class='line-numbers language-python'>
+<code>
+# 比较两个数字中的较大值并返回
+def my_max(num1, num2) :
+	if num1 > num2 :
+		return num1
+	else :
+		return num2
+# 调用函数my_max()并打印结果
+print(my_max(12, 15))	# 15
+print(my_max(18, 9))	# 18
+</code>
+</pre>
+<p>函数体内部的语句在执行时，一旦遇到return，函数就执行完毕，返回return后语句的结果。如果没有return语句，函数执行完毕后返回None。return后没有任何语句的话，同样结束函数执行，并返回None。</p>
+<pre class='line-numbers language-python'>
+<code>
+def say_hello() :
+	print('Hello world!')
+result = say_hello()	# hello world!
+print(result)			# None
+</code>
+</pre>
+<br><hr><br>
+<h4>返回多个值</h4>
+<p>不同于JavaScript，JavaScript如果要返回多个值，可以将返回结果保存于数组或者一个对象中，然后返回。Python中则更加简单一些，直接将返回的值跟在return后边，用‘,’分割。</p>
+
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 6
+		}
+	});
+
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>
