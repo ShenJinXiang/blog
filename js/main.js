@@ -169,7 +169,7 @@ var LS = (function() {
 				'tags' : ['Python'],
 				'category' : 'Python',
 				'desc' : "<p>函数是最基本的一种代码抽象方式，Python不但能够灵活的定义函数，而且内置了很多有用的函数可以直接调用。</p>",
-				'url' : 'pages/python/20160419/Python学习笔记：认识函数.html'
+				'url' : 'pages/Python/20160419/Python学习笔记：认识函数.html'
 			},
 			{
 				'id' : 5,
