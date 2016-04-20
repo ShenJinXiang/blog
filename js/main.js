@@ -145,7 +145,7 @@ var LS = (function() {
 			'url' : 'index.html'
 		},
 	    description : '申锦祥的博客',
-		music_src : "music/游荡的野狼 - Opinions Of The Misinformed（盖伦特专属音乐）.mp3",
+		music_src : "music/网易游戏 - 傲来.mp3",
 	    menu : [
 			{
 				'title' : '首页',
