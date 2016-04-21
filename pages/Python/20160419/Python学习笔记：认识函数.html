@@ -43,39 +43,52 @@ print(result)			# None
 </code>
 </pre>
 <br><hr><br>
-<h4>返回多个值</h4>
-<p>不同于JavaScript，JavaScript如果要返回多个值，可以将返回结果保存于数组或者一个对象中，然后返回。Python中则更加简单一些，直接将返回的值跟在return后边，用‘,’分割。</p>
-<pre class='line-numbers language-python'>
+<h4>变量作用域</h4>
+<pre class="line-numbers language-python">
 <code>
-def getXY() :
-	x = 18
-	y = 20
-	return x, y
-a, b = getXY()
-print(a)	# 18
-print(b)	# 20
-result = getXY()
-print(result)			# (18, 20)
-print(type(result))		# &lt;class 'tuple'&gt;
+x = 50
+def my_test() :
+	print("x =", x)
+	x = 2
+	print("x =", x)
+my_test()
+# x = 50
+# x = 2
+print('x =', x)		# x = 50
 </code>
 </pre>
-<p>可见返回多值其实就是返回的一个tuple，但是很方便。</p>
-<br><hr><br>
-<h4>递归函数</h4>
+<p>虽然函数中的x与外部的x名称相同，但并不会修改外部变量的值，但是如果我们在函数中确实要修改外部变量的值该怎么办呢？使用全局语句：</p>
 <pre class='line-numbers language-python'>
 <code>
-# 函数可以调用自身
-# 计算数的阶乘 n! = 1 * 2 * 3 * ... * n
-def fact(n) :
-	if n == 1 :
-		return 1
-	return n * fact(n - 1)
-print(fact(1))		# 1
-print(fact(2))		# 2
-print(fact(3))		# 6
-print(fact(4))		# 24
-print(fact(5))		# 120
-print(fact(10))		# 3628800
+x = 50				
+print("x =", x)		# x = 50
+def my_test():
+	global x
+	print("x =", x)
+	x = 2
+	print("x =", x)
+my_test()
+# x = 50
+# x = 2
+print("x =", x)		# x = 2
+</code>
+</pre>
+<p>在Python中，任何事物都是可执行的代码，可以在任何地方定义函数，当然也可以在函数内部定义函数。</p>
+<pre class='line-numbers language-python'>
+<code>
+def func_outer() :
+	x = 2
+	print('x =', x)
+	
+	def func_inner():
+		nonlocal x
+		x = 5
+	func_inner()
+	print('x =', x)
+func_outer()
+# 结果
+# x = 2
+# x = 5
 </code>
 </pre>
 <br><hr><br>
@@ -113,6 +126,58 @@ result = my_sum(1, 2, 3, 4)
 print(result)		# 10
 result = my_sum(1, 2, 3, 4, 5, 6)
 print(result)		# 21
+</code>
+</pre>
+<br><hr><br>
+<h4>关键参数</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 定义函数
+def func(a, b = 5, c = 10) :
+	print("a =", a, " b = ", b, " c = " c)
+func(3, 7)				# a = 3  b = 7  c = 10
+func(25, c = 24)		# a = 25  b = 5  c = 24
+func(c = 50, a = 100)	# a = 100  b = 5  c = 50
+</code>
+</pre>
+<ol style="margin-left:20px;">
+	<li>不必担心参数的顺序，调用函数变得更加简单了。</li>
+	<li>假设其他参数都有默认值，我们可以只给我们想要的那些参数赋值</li>
+</ol>
+<br><hr><br>
+<h4>返回多个值</h4>
+<p>不同于JavaScript，JavaScript如果要返回多个值，可以将返回结果保存于数组或者一个对象中，然后返回。Python中则更加简单一些，直接将返回的值跟在return后边，用‘,’分割。</p>
+<pre class='line-numbers language-python'>
+<code>
+def getXY() :
+	x = 18
+	y = 20
+	return x, y
+a, b = getXY()
+print(a)	# 18
+print(b)	# 20
+result = getXY()
+print(result)			# (18, 20)
+print(type(result))		# &lt;class 'tuple'&gt;
+</code>
+</pre>
+<p>可见返回多值其实就是返回的一个tuple，但是很方便。</p>
+<br><hr><br>
+<h4>递归函数</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 函数可以调用自身
+# 计算数的阶乘 n! = 1 * 2 * 3 * ... * n
+def fact(n) :
+	if n == 1 :
+		return 1
+	return n * fact(n - 1)
+print(fact(1))		# 1
+print(fact(2))		# 2
+print(fact(3))		# 6
+print(fact(4))		# 24
+print(fact(5))		# 120
+print(fact(10))		# 3628800
 </code>
 </pre>
 	</div>
