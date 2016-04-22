@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 python 博客 dict 字典">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 python 博客 dict 字典">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+<p>Python是面向对象的程序语言，类和对象是面向对象编程的两个主要方面。类创建一个新类型，而对象是这个类的实例。</p>
+<h4>定义类和创建实例</h4>
+<pre class='line-numbers language-python'>
+<code>
+# 定义Person 类
+class Person:
+	pass
+# 创建类的实例
+person1 = Person()
+person2 = Person()
+
+print(person1)
+print(person2)
+print(person1 == person2)
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+&lt;__main__.Person object at 0x008BC3F0&gt;
+&lt;__main__.Person object at 0x008BC330&gt;
+False
+</code>
+</pre>
+<p>用class关键字后跟类名，定义一个新类，后面跟着的缩进语句称为类提。使用类名后跟应对圆括号创建一个实例对象。</p>
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 7
+		}
+	});
+
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>

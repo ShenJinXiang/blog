@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -26,6 +26,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 7,
+				'title' : 'Python学习笔记：类',
+				'date' : '2016/04/22',
+				'tags' : ['Python'],
+				'category' : 'Python',
+				'desc' : "<p>Python是面向对象的程序语言，类和对象是面向对象编程的两个主要方面。类创建一个新类型，而对象是这个类的实例。</p>",
+				'url' : "pages/Python/20160422/Python学习笔记：类.html"
+			},
 			{
 				'id' : 6,
 				'title' : 'Python学习笔记：认识函数',
@@ -403,7 +412,7 @@ var LS = (function() {
 		$post.append($meta);
 		$post.append($($("#temp_content").html()));
 		$post.append(getPrevAndNextHtml());
-		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+config.url + config.ctx + post.url+"'></div>");
+		var $pl = $("<div class='ds-thread' data-thread-key='"+post.id+"' data-title='"+post.title+"' data-url='"+config.url + post.url+"'></div>");
 		$post.append($pl);
 	
 		$("#main_content").append($post);
