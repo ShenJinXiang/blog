@@ -136,6 +136,76 @@ Hello, my name is XiaoGang
 count : 3
 </code>
 </pre>
+<p>如果类变量于对象（示例）变量名称冲突：</p>
+<pre class='line-numbers language-python'>
+<code>
+# 定义Person类
+class Person :
+	address = 'China'
+	def __init__(self, name) :
+		self.name = name
+# 创建对象
+person1 = Person('XiaoMing')
+person2 = Person('XiaoHong')
+
+print("Person.address =", Person.address)
+# person1的address变量
+person1.address = 'BeiJing'
+print("person1.address =", person1.address)
+print("Person.address =", Person.address)
+print("person2.address =", person2.address)
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+Person.address = China
+person1.address = BeiJing
+Person.address = China
+person2.address = China
+</code>
+</pre>
+<p>当对象/实例的变量与类变量重名时，优先取对象的变量值，屏蔽掉类变量</p>
+<br><hr><br>
+<h4>定义类方法</h4>
+<pre class='line-numbers language-python'>
+<code>
+class Person :
+	count = 0
+	def __init__(self, name) :
+		self.name = name
+		Person.count += 1
+	@classmethod
+	def queryCount(cls) :
+		return cls.count
+print(Person.queryCount())
+person1 = Person('XiaoMing')
+print(Person.queryCount())
+person2 = Person('XiaoHong')
+print(Person.queryCount())
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+0
+1
+2
+</code>
+</pre>
+<p>通过编辑@classmethod将方法绑定到类上，成为类方法，类方法的第一个参数传入类本身，通常将参数命名为 cls ， 同时很明显，没有self变量，所以在类方法中是没法调用对象的变量的；还可以用下列方式定义类方法</p>
+<pre class='line-numbers language-python'>
+<code>
+# 方法1
+@staticmethod
+def queryCount() :
+	return Person.count
+# 方法2
+def queryCount() :
+	return Person.count
+queryCount = staticmethod(queryCount)
+</code>
+</pre>
 	</div>
 </div>
 <script src="../../../plugin/jquery/jquery.js"></script>
