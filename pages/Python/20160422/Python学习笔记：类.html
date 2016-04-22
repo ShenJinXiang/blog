@@ -17,7 +17,7 @@
 <body>
 <div id="temp_content" style="display: none;">
 	<div class="post-content">
-<p>Python是面向对象的程序语言，类和对象是面向对象编程的两个主要方面。类创建一个新类型，而对象是这个类的实例。</p>
+<p>Python是面向对象的程序语言，类和对象是面向对象编程的两个主要方面。类创建一个新类型，而对象是这个类的实例</p>
 <h4>定义类和创建实例</h4>
 <pre class='line-numbers language-python'>
 <code>
@@ -41,7 +41,101 @@ print(person1 == person2)
 False
 </code>
 </pre>
-<p>用class关键字后跟类名，定义一个新类，后面跟着的缩进语句称为类提。使用类名后跟应对圆括号创建一个实例对象。</p>
+<p>用class关键字后跟类名，定义一个新类，后面跟着的缩进语句称为类提。使用类名后跟应对圆括号创建一个实例对象</p>
+<br><hr><br>
+<h4>创建对象属性</h4>
+<pre class='line-numbers language-python'>
+<code>
+person1 = Person()
+person2 = Person()
+# person1 添加属性
+person1.name = 'XiaoMing'
+person1.sex = '男'
+person1.school = '三年二班'
+# person2 添加属性
+person2.name = 'XiaoHong'
+person2.sex = '女'
+person2.age = 16
+
+# person2.age = person2.age + 1
+</code>
+</pre>
+<p>不同实例对象的属性不一定要相同，也可以像普通变量一样进行操作</p>
+<br><hr><br>
+<h4>定义对象的方法</h4>
+<p>对象的方法与普通的函数只有一个特别的区别：必须有一个额外的第一个参数self，在调用这个方法时，不必为这个参数赋值，self值对象本身，相当于java中的this</p>
+<pre class='line-numbers language-python'>
+<code>
+class Person :
+	def sayHi(self) :
+		print("hello, how are you?")
+p = Person()
+p.sayHi()
+</code>
+</pre>
+<p>y运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+hello, how are you?
+</code>
+</pre>
+<p>对于类Person的实例对象p，当调用方法p.sayHi()的时候，会由Python自动转为 p.sayHi(p),即如果一个不需要参数的方法，也得定义一个self参数</p>
+<br><hr><br>
+<h4>__init__ 方法</h4>
+<p>__init__ 方法在类的对象被建立时，马上运行，可以用来做一些初始化工作。特别注意方法名称的开始和结尾都是双下划线</p>
+<pre class='line-numbers language-python'>
+<code>
+class Person :
+	def __init__(self, name) :
+		self.name = name
+	def sayHi(self) :
+		print("Hello, my name is", self.name)
+person1 = Person('XiaoMing')
+person2 = Person('XiaoHong')
+person1.sayHi()
+person2.sayHi()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+Hello, my name is XiaoMing
+Hello, my name is XiaoHong
+</code>
+</pre>
+<p>__init__ 方法并不需要显式的调用，创建新对象的时候，自动调用__init__ 方法，相当于Java中的构造函数</p>
+<br><hr><br>
+<h4>类变量</h4>
+<p>类中有两种类型的变量：对象的变量和类的变量，类的变量有一个类的所有对象共享使用；对象的变量由类的每个对象独有，每个对象都有一份拷贝，即不是共享的</p>
+<pre class='line-numbers language-python'>
+<code>
+class Person :
+	count = 0
+	def __init__(self, name) :
+		self.name = name
+		Person.count += 1
+	def sayHi(self) :
+		print("Hello, my name is", self.name)
+		print("count　:", Person.count)
+person1 = Person("XiaoMing")
+person1.sayHi()
+person2 = Person("XiaoHong")
+person2.sayHi()
+person3 = Person("XiaoGang")
+person3.sayHi()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+Hello, my name is XiaoMing
+count : 1
+Hello, my name is XiaoHong
+count : 2
+Hello, my name is XiaoGang
+count : 3
+</code>
+</pre>
 	</div>
 </div>
 <script src="../../../plugin/jquery/jquery.js"></script>
