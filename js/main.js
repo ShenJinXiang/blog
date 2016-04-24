@@ -220,6 +220,94 @@ var LS = (function() {
 		});
 	}
 
+	function renderdateBar() {
+		var $widget = $("<div class='widget' style='margin-bottom:10px;'>" +
+				"<div class='widget-title calendar-title-box'>" +
+				"<span class='prev-month'></span>" + 
+				"<span id='calendar_title' ></span>" + 
+				"<span class='next-month'></span>" + 
+				"</div>" +
+				"</div>");
+		var $div = $("<div></div>");
+		var $table = $("<table id='calendar_table'></table>");
+		$table.append($("<tr>" + 
+					"<th>日</th>" +
+					"<th>一</th>" +
+					"<th>二</th>" +
+					"<th>三</th>" +
+					"<th>四</th>" +
+					"<th>五</th>" +
+					"<th>六</th>" +
+					"</tr>"));
+		for(var i = 0; i < 6; i++) {
+			$table.append($("<tr>" +
+						"<td></td><td></td><td></td><td></td><td></td><td></td><td></td>" +
+						"</tr>"));
+		}
+		$div.append($table);
+		$widget.append($div);
+		$("#sidebar").append($widget);
+
+		var monthObj = (function(){
+			var __date = new Date();
+			return {
+				setDate : function(date) {
+					__date = date;
+				},
+				getDate : function() {
+					return __date;
+				}
+			};
+		})();
+		showCalendarData();
+
+		$(".prev-month").bind('click', function(){
+			var date = monthObj.getDate();
+			monthObj.setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1));
+			showCalendarData();
+		});
+
+		$(".next-month").bind('click', function(){
+			var date = monthObj.getDate();
+			monthObj.setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1));
+			showCalendarData();
+		})
+		/**
+		 *  设置数据
+		 */
+		function showCalendarData() {
+			var year = monthObj.getDate().getFullYear();
+			var month = monthObj.getDate().getMonth() + 1;
+			// 顶部显示数据
+			var str = year + "年" + ((month > 9) ? "" + month : "0" + month) + "月";
+			$("#calendar_title").text(str);
+
+			// 表格数据
+			var firstDay = new Date(year, month - 1, 1);
+			for(var i = 0; i <= 42; i++) {
+				var thisD = new Date(year, month - 1, i + 1 - firstDay.getDay());
+				var thisDStr = getDateStr(thisD);
+				$("#calendar_table").find("td").eq(i).text(thisD.getDate()).attr("data", thisDStr);
+				if(thisDStr == getDateStr(new Date())) {
+					$("#calendar_table").find("td").eq(i).removeClass().addClass('currentDay');
+				} else if(thisDStr.substr(0, 6) == getDateStr(firstDay).substr(0, 6)) {
+					$("#calendar_table").find("td").eq(i).removeClass().addClass('currentMonth');
+				} else {
+					$("#calendar_table").find("td").eq(i).removeClass().addClass('otherMonth');
+				}
+			}
+		}
+
+		function getDateStr(date) {
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var d = date.getDate();
+			month = (month > 9) ? ('' + month) : ('0' + month);
+			d = (d > 9) ? ('' + d) : ('0' + d);
+			return year + '' + month + '' + d;
+		}
+	}
+
 	/**
 	 * 渲染侧边标签
 	 */
