@@ -169,33 +169,6 @@ var LS = (function() {
 		$("body").append($music);
 	}
 
-	/**
-	 * 渲染时间
-	 */
-	function rendertimeBar() {
-		console.dir(getCurrentTime());
-		var $canvas = $("<canvas></canvas>");
-		$canvas.width = 10;
-		$canvas.height = 10;
-		var $widget = $("<div class='widget'></widget>");
-		$widget.append($canvas);
-		$("#sidebar").append($canvas);
-		function getCurrentTime() {
-			var arr = [];
-			var _date = new Date();
-			var _hour = _date.getHours();
-			var _minute = _date.getMinutes();
-			var _seconds = _date.getSeconds();
-			console.log("hour : " + _hour + "  minute :" + _minute + "  second :" + _seconds);
-			arr.push(Math.floor(_hour / 10));
-			arr.push(_hour % 10);
-			arr.push(Math.floor(_minute / 10));
-			arr.push(_minute % 10);
-			arr.push(Math.floor(_seconds / 10));
-			arr.push(_seconds % 10);
-			return arr;
-		}
-	}
 
 	/**
 	 * 渲染侧边分类
@@ -229,6 +202,9 @@ var LS = (function() {
 		});
 	}
 
+	/**
+	 * 渲染日历
+	 */
 	function renderdateBar() {
 		var $widget = $("<div class='widget' style='margin-bottom:10px;'>" +
 				"<div class='widget-title calendar-title-box'>" +
