@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -26,6 +26,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 8,
+				'title' : '日历',
+				'date' : '2016/04/25',
+				'tags' : ['demo', 'calendar'],
+				'category' : 'demo',
+				'desc' : "<p>web页面中很多地方都会用到日历显示，选择等，本文用html、css、js、jquery实现简单的日历。</p>",
+				'url' : 'pages/demo/20160425/日历.html'
+			},
 			{
 				'id' : 7,
 				'title' : 'Python学习笔记：类',
