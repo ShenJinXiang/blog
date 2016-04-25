@@ -30,7 +30,7 @@ var LS = (function() {
 				'id' : 8,
 				'title' : '日历',
 				'date' : '2016/04/25',
-				'tags' : ['demo', 'calendar'],
+				'tags' : ['demo', 'css', 'javascript', 'jquery'],
 				'category' : 'demo',
 				'desc' : "<p>web页面中很多地方都会用到日历显示，选择等，本文用html、css、js、jquery实现简单的日历。</p>",
 				'url' : 'pages/demo/20160425/日历.html'

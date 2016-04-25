@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
@@ -7,8 +7,8 @@
 	<meta content="yes" name="apple-mobile-web-app-capable">
 	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
 	<meta content="telephone=no" name="format-detection">
-	<meta name="keywords" content="LiksStar ShenJinXiang ����� ���� calendar demo ����">
-	<meta name="description" content="LiksStar ShenJinXiang ����� ���� calendar demo ����">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 日历 calendar demo 博客">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 日历 calendar demo 博客">
 	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
 	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
 	<link rel="stylesheet" href="../../../css/style.css">
@@ -17,6 +17,27 @@
 <body>
 <div id="temp_content" style="display: none;">
 	<div class="post-content">
+<p>web页面中很多地方都会用到日历显示，选择等，本文用html、css、javascript实现简单的日历。完成以后的效果与页面左侧的效果差不多，可以切换上个月、下个月。也可以根据实际情况进行扩展。</p>
+<h4>html方面</h4>
+<p>html部分比较简单，整体内容大概是这样的：</p>
+<pre class='line-numbers language-html'>
+<code>
+&lt;!dcotype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset='utf-8'&gt;
+	&lt;link rel='stylesheet' href='外部的css文件路径' /&gt;	
+	&lt;title&gt;demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div class='calendar' id='calendar'&gt;&lt;/div&gt;
+	&lt;script type='text/javascript' src='外部的javascript文件路径'&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+<br><hr><br>
+<h4>css方面</h4>
 	</div>
 </div>
 <script src="../../../plugin/jquery/jquery.js"></script>
@@ -35,7 +56,7 @@ $(function(){
 
 });
 </script><!--}}}-->
-<!-- ��˵����JS���� start (һ����ҳֻ�����һ��) -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript"><!--{{{-->
 var duoshuoQuery = {short_name:"shenjinxiang"};
 	(function() {
@@ -47,7 +68,7 @@ var duoshuoQuery = {short_name:"shenjinxiang"};
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
 	</script><!--}}}-->
-<!-- ��˵����JS���� end -->
+<!-- 多说公共JS代码 end -->
 </body>
 </html>
 

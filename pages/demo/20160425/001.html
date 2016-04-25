@@ -1,0 +1,43 @@
+﻿<!dcotype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+<style>
+*{margin:0px;padding:0px;}
+</style>
+	<title>demo</title>
+</head>
+<body>
+	<div class='calendar' id='calendar'></div>
+<script src='../../../plugin/jquery/jquery.js'></script>
+<script type='text/javascript'>
+(function(){
+	readerHtml();
+
+	function readerHtml() {
+		var $title = $("<div class='calendar-title-box'></div>");
+		var $body = $("<div class='calendar-body-box'></div>");
+		var $table = $("<table class='calendar-table'></table>");
+
+		$title.append("<span id='prevMonth' class='prev-month'></span>");
+		$title.append("<span id='calendarTitle'></span>");
+		$title.append("<span id='nextMonth' class='next-month'></span>");
+		$table.append("<tr>" +
+					"<th>日</th>" +
+					"<th>一</th>" +
+					"<th>二</th>" +
+					"<th>三</th>" +
+					"<th>四</th>" +
+					"<th>五</th>" +
+					"<th>六</th>" +
+					"</tr>");
+		for(var i = 0; i < 6; i++) {
+			$table.append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
+		}
+		$body.append($table);
+		$("#calendar").append($title).append($body);
+	}
+})();
+</script>
+</body>
+</html>
