@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		//ctx : "/",
+		ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		ctx : "/blog/",
+		//ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -28,12 +28,12 @@ var LS = (function() {
 		postList : [
 			{
 				'id' : 8,
-				'title' : '日历',
+				'title' : '制作简单日历',
 				'date' : '2016/04/25',
-				'tags' : ['demo', 'css', 'javascript', 'jquery'],
+				'tags' : ['demo', 'css', 'javascript', 'calendar'],
 				'category' : 'demo',
-				'desc' : "<p>web页面中很多地方都会用到日历显示，选择等，本文用html、css、js、jquery实现简单的日历。</p>",
-				'url' : 'pages/demo/20160425/日历.html'
+				'desc' : "<p>web页面中很多地方都会用到日历显示，选择等，本文用html、css、javascript实现简单的日历。完成以后的效果与页面左侧的效果差不多，可以切换上个月、下个月。也可以根据实际情况进行扩展。</p>",
+				'url' : 'pages/demo/20160425/制作简单日历.html'
 			},
 			{
 				'id' : 7,
