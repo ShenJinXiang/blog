@@ -27,6 +27,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id' : 9,
+				'title' : 'Python学习笔记：输入输出',
+				'date' : '2016/05/04',
+				'tags' : ['python'],
+				'category' : 'Python',
+				'desc' : "<p>Python程序可以与用户交互，处理一些用户输入的信息，进行适当操作，并输出给用户结果，实现简单的输入输出处理。也可以处理文件，实现较复杂的输入输出处理</p>",
+				'url' : 'pages/Python/20160504/Python学习笔记：输入输出.html'
+			},
+			{
 				'id' : 8,
 				'title' : '制作简单日历',
 				'date' : '2016/04/25',

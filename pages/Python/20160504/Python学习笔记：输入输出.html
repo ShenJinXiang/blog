@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 python 博客 输入输出 文件处理">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 python 博客 输入输出 文件处理">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+<style type='text/css'>
+.mode_table{border-collapse: collapse; width: 90%; margin: 0px auto;}
+.mode_table td{border: 1px solid #ccc;text-indent: 10px;}
+.mode_table td.mode{text-align:center;}
+.mode_table th{text-align: center; border: 1px solid #ccc;}
+</style>
+	<title>LikeStar</title>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+<p>Python程序可以与用户交互，处理一些用户输入的信息，进行适当操作，并输出给用户结果，实现简单的输入输出处理。也可以处理文件，实现较复杂的输入输出处理</p>
+<h4>input和print</h4>
+<p>input()函数用一个字符串作为参数，显示给用户。然后等待用户输入内容，函数的返回值为用户输入的内容</p>
+<pre class='line-numbers language-python'>
+<code>
+name = input("请输入姓名：")
+print("hello", name)
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+请输入姓名：张三
+hello 张三
+</code>
+</pre>
+<p>print()函数就不用多说了，将内容打印在控制台上。需要注意的是input返回的结果为字符串类型的，如果想要得到整型，需要进行类型转换。</p>
+<br><hr><br>
+<h4>文件处理</h4>
+<p>可以通过创建一个file类的对象来打开一个文件，分别使用file类的read、readline、write方法来读写文件。</p>
+<p>Python中內建了open()函数来打开文件并返回file对象，open函数的第一个参数为一个字符串，表示文件的名字，可以用相对路径或绝对路径。第二个参数表示文件的打开方式，如果省略该参数，默认为只读方式打开文件。</p>
+<h5>文件打开方式：</h5>
+<table class='mode_table'>
+	<tr>
+		<th width='20%'>打开方式</th>
+		<th width='20%'>说明</th>
+		<th width='60%'>注意</th>
+	</tr>
+	<tr>
+		<td class='mode'>'r'</td>
+		<td>只读方式打开</td>
+		<td>文件必须存在，否则报错</td>
+	</tr>
+	<tr>
+		<td class='mode'>'w'</td>
+		<td>只写方式打开</td>
+		<td>文件不存在则创建文件，文件存在则清空文件中的内容</td>
+	</tr>
+	<tr>
+		<td class='mode'>'a'</td>
+		<td>追加方式打开</td>
+		<td>文件不存在则创建文件</td>
+	</tr>
+	<tr>
+		<td class='mode'>'r+'或'w+'</td>
+		<td>读写方式打开</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td class='mode'>'a+'</td>
+		<td>追加读写方式打开</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td class='mode' colspan='2'>'rb', 'wb', 'ab', 'rb+', 'wb+', 'ab+'</td>
+		<td>参考上述，同时以二进制方式打开</td>
+</table>
+<p>可以理解为java中的字节流和字符流，默认是字符流打开文件，用于处理文本文件；如果要处理图片等其他文件则需要加'b'，以二进制方式处理。</p>
+<h5>文件读取方式：</h5>
+<pre class='line-numbers'>
+<code>
+read([size])			# 读取文件(读取size个字节，默认读取全部)
+readline([size])		# 读取一行(默认的读取到行尾的时候会有换行符)
+readlines([size])		# 读取完文件，返回每一行组成的列表
+</code>
+</pre>
+<p>1. read方法调用：</p>
+<pre class='line-numbers language-python'>
+<code>
+f = open("001.txt")
+c = f.read()
+print(c)
+f.close()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+这是001.txt文件中的第一行
+第二行了
+hello world 我在第三行
+</code>
+</pre>
+<p>可以看到read方法可以吧文件中每行结尾的换行符也读取了，所以调用print函数打印的时候，也换行了。</p>
+<p>2. readline方法调用：</p>
+<pre class='line-numbers language-python'>
+<code>
+# 使用readline方法
+f = open("001.txt")
+fileList = []
+while True:
+	line = f.readline()
+	if(len(line) == 0) :
+		break;
+	fileList.append(line)
+print(fileList)
+f.close()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+['这是001.txt文件中的第一行\n', '第二行了\n', 'hello world 我在第三行\n']
+</code>
+</pre>
+<p>3. readlines方法调用：</p>
+<pre class='line-numbers language-python'>
+<code>
+f = open("001.txt")
+c = f.readlines()
+print(type(c))
+print(c)
+f.close()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+&lt;class 'list'&gt;
+['这是001.txt文件中的第一行\n', '第二行了\n', 'hello world 我在第三行\n']
+</code>
+</pre>
+<br>
+<h5>文件写入方式:</h5>
+<pre class='line-numbers'>
+<code>
+write(str)				# 将字符串写入文件中
+writelines(sequence_of_strings)		# 写入多行
+</code>
+</pre>
+<p>1. 调用write</p>
+<pre class='line-numbers language-python'>
+<code>
+f = open("002.txt", 'w')
+content = '这里是第一行的内容，line one\n到第二行了'
+f.write(content)
+f.close()
+</code>
+</pre>
+<p>运行结果，002.txt中的内容:</p>
+<pre class='line-numbers result-code'>
+<code>
+这里是第一行的内容，line one
+到第二行了
+</code>
+</pre>
+<p>写入文件时，如果需要换行需要加入换行符。</p>
+<p>2. 调用writelines方法</p>
+<pre class='line-numbers language-python'>
+<code>
+f = open("002.txt", 'w')
+lines = []
+while True:
+	line = input("请输入内容：")
+	if(line == 'end') :
+		break
+	lines.append(line)
+f.writelines(lines)
+f.close()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+请输入内容：123456789
+请输入内容：abced
+请输入内容：来一句汉语。
+请输入内容：1+2+3+4
+请输入内容：end
+# 002.txt中的内容：
+123456789abced来一句汉语。1+2+3+4
+</code>
+</pre>
+<p>采用while循环获取用户输入的内容，当用户输入'end'的时候结束循环，内容暂时存于list中，最后写入文件。查看文件结果发现文件中的内容只有一行，需要在每行结束以后添加一个换行符。代码改成：</p>
+<pre class='line-numbers language-python'>
+<code>
+f = open("002.txt", 'w')
+lines = []
+while True:
+	line = input("请输入内容：")
+	if(line == 'end') :
+		break
+	lines.append(line + "\n")
+f.writelines(lines)
+f.close()
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+请输入内容：123456789
+请输入内容：abced
+请输入内容：来一句汉语。
+请输入内容：1+2+3+4
+请输入内容：end
+# 002.txt中的内容：
+123456789
+abced
+来一句汉语。
+1+2+3+4
+</code>
+</pre>
+<br><hr><br>
+<h4>pickle模块</h4>
+<p>Python提供了pickle的标准模块，通过该模块，可以将任意对象存储在文件中，也可以完整的取出来，实现对象持久化存储。类似于java中的序列化。</p>
+<p>1. 调用pickle.dump()方法写入文件：</p>
+<pre class='line-numbers language-python'>
+<code>
+import pickle
+person = {
+	'name' : "张三",
+	'age' : 18,
+	'school' : "三年二班"
+}
+f = open("002.data", 'wb')
+pickle.dump(person, f)
+f.close()
+</code>
+</pre>
+<p>2. 调用pickle.load()方法读取文件：</p>
+<pre class='line-numbers language-python'>
+<code>
+import pickle
+f = open("002.data", 'rb')
+person = pickle.load(f)
+print(person)
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+{'age': 18, 'school': '三年二班', 'name': '张三'}
+</code>
+</pre>
+<p>需要注意：1.引入pickle模块：import pickle; 2.需要用二进制进行读写。</p>
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['date', 'category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 9
+		}
+	});
+
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>
+
