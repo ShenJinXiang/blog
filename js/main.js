@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -26,6 +26,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 10,
+				'title' : '制作简单钟表',
+				'date' : '2016/06/27',
+				'tags' : ['demo', 'css', 'javascript'],
+				'category' : 'demo',
+				'desc' : "<p>利用css+原生js制作简单的钟表。</p>",
+				'url' : 'pages/demo/20160627/制作简单钟表.html'
+			},
 			{
 				'id' : 9,
 				'title' : 'Python学习笔记：输入输出',
