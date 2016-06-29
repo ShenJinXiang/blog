@@ -3,7 +3,8 @@ var LS = (function() {
 		url : 'http://shenjinxiang.com',
 		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		ctx : "/blog/",
+		//ctx : "/blog/",
+		ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'

@@ -18,10 +18,44 @@
 <div id="temp_content" style="display: none;">
 	<div class="post-content">
 <!-- 正文开始 -->
-<p>利用css+原生js制作简单的钟表。</p>
+<p>利用css+原生js制作简单的钟表。效果如下所示。</p>
 <iframe src='test.html' frameborder='0' height='450px' width='100%' scrolling='no'>
 </iframe>
-<p>利用css+原生js制作简单的钟表。</p>
+<p>实现该效果，分三大块：html、javascript、css。</p>
+<h4>html部分</h4>
+<pre class='line-numbers language-html'>
+<code>
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;link rel='stylesheet' href='外部的css文件路径' /&gt;
+	&lt;title&gt;时钟&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div class="clock" id="clock"&gt;
+		&lt;!-- 原点 --&gt;
+		&lt;div class="origin"&gt;&lt;/div&gt;
+
+		&lt;!-- 时分秒针 --&gt;
+		&lt;div class="clock-line hour-line" id="hour-line"&gt;&lt;/div&gt;
+		&lt;div class="clock-line minute-line" id="minute-line"&gt;&lt;/div&gt;
+		&lt;div class="clock-line second-line" id="second-line"&gt;&lt;/div&gt;
+
+		&lt;!-- 日期 --&gt;
+		&lt;div class="date-info" id="date-info"&gt;&lt;/div&gt;
+		&lt;!-- 时间 --&gt;
+		&lt;div class="time-info" &gt;
+			&lt;div class="time" id="hour-time"&gt;&lt;/div&gt;
+			&lt;div class="time" id="minute-time"&gt;&lt;/div&gt;
+			&lt;div class="time" id="second-time"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;script type='text/javascript' src='外部的javascript文件路径'&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
 <!-- 正文结束 -->
 	</div>
 </div>
