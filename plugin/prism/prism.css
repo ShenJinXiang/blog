@@ -40,8 +40,9 @@ pre[class*="language-"] {
 pre[class*="language-"] {
 	/*
 	background: #272822;
-	*/
 	background: #0a3757;
+	*/
+	background: #002B36;
 }
 
 /* Inline code */

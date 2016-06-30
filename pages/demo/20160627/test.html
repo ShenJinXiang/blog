@@ -52,6 +52,7 @@
 		</div>
 	</div>
 	<script>
+(function(){
 		window.onload=initNumXY(200, 160, 40,40);
 		var hour_line = document.getElementById("hour-line");
 		var minute_line = document.getElementById("minute-line");
@@ -117,6 +118,7 @@
 				scale[i].style.transform="rotate("+(i*6-90)+"deg)";
 			}
 		}
+ })();
 	</script>
 </body>
 </html>
