@@ -62,11 +62,11 @@
 <br/><hr/><br/>
 <h4>css部分</h4>
 <p>开始代码之前，有一些css的属性需要了解，比如定位(position)，边框圆角(border-radius),变换(transform)等</p>
-<h5>position属性</h5>
+<h5><a target="_blank" href="http://www.w3school.com.cn/cssref/pr_class_position.asp">position属性</a></h5>
 <p>position属性规定元素的定位类型，有五个值：absolute、fixed、relative、static、inherit,默认为static，即没有定位，元素按正常文档流显示；这里主要用到的是absolute和relative</p>
 <p>absulte值，将元素设置成绝对定位，相对于static定位意外的第一个上级元素进行定位，位置可以通过'left'、'top'、'right'、'bottom'属性进行定位；如果上级元素都是static定位，则相对于body元素的位置进行定位</p>
 <p>本例中，设定最外层的div clock为relative，所有下级元素均设定为absolute绝对定位，然后通过设置left、top等属性的值，确定其相对于clock的位置。</p>
-<h5>border-radius属性</h5>
+<h5><a target="_blank" href="http://www.w3school.com.cn/cssref/pr_border-radius.asp">border-radius属性</a></h5>
 <p>border-radius属性向元素添加圆角边框，可以设置四个圆角的大小，本例中使用该属性将clock元素设置成一个圆</p>
 <p>此处写了一个示例：4个div元素，宽高都是100px，border-radius不同时的效果：</p>
 <div>
@@ -88,7 +88,7 @@
 	</div>
 	<div style="clear:both;"></div>
 </div>
-<h5>transform属性</h5>
+<h5><a target="_blank" href="http://www.w3school.com.cn/cssref/pr_transform.asp">transform属性</a></h5>
 <p>transform属性向元素应用2D或3D旋转，该属性允许我们对元素进行旋转、缩放、移动、或倾斜。本例中时针、分针、秒针、刻度等均用transform属性设置旋转；另外，transform-origin属性可以设置元素的基点位置</p>
 <h5>css部分的代码</h5>
 <pre class='line-numbers language-css'>
