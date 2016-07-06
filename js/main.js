@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
@@ -27,6 +27,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 11,
+				'title' : '设计模式-单例模式',
+				'date' : '2016/07/06',
+				'tags' : ['java', '设计模式'],
+				'category' : 'java',
+				'desc' : '<p>单例模式</p>',
+				'url' : 'pages/java/20160706/设计模式-单例模式.html'
+			},
 			{
 				'id' : 10,
 				'title' : '制作简单钟表',
