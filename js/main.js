@@ -33,7 +33,7 @@ var LS = (function() {
 				'date' : '2016/07/06',
 				'tags' : ['java', '设计模式'],
 				'category' : 'java',
-				'desc' : '<p>单例模式</p>',
+				'desc' : '<p>单例模式(Singleton pattern) 是一种常见的设计模式</p>',
 				'url' : 'pages/java/20160706/设计模式-单例模式.html'
 			},
 			{
