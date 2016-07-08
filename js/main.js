@@ -376,7 +376,7 @@ var LS = (function() {
 	function renderPostContent(pageNum) {
 		$("#nav-menu a").removeClass("current").eq(0).addClass("current");
 		$("#main_content").empty();
-		var pageSize = 10;
+		var pageSize = 20;
 		var posts = [];
 		for(var i = 0; i < config.postList.length; i++) {
 			if(i < (pageNum - 1) * pageSize) {
