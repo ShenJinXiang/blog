@@ -1,14 +1,15 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
 		},
+		pageSize : 5,
 	    description : '申锦祥的博客',
 		music_src : "music/网易游戏 - 傲来.mp3",
 	    menu : [
@@ -376,7 +377,7 @@ var LS = (function() {
 	function renderPostContent(pageNum) {
 		$("#nav-menu a").removeClass("current").eq(0).addClass("current");
 		$("#main_content").empty();
-		var pageSize = 20;
+		var pageSize = config.pageSize;
 		var posts = [];
 		for(var i = 0; i < config.postList.length; i++) {
 			if(i < (pageNum - 1) * pageSize) {
@@ -395,7 +396,28 @@ var LS = (function() {
 			$("#main_content").append($post);
 
 		}
+		$("#main_content").append(getPageContent(pageNum));
 		
+	}
+
+	function getPageContent(pageNum) {
+		var $pageContent = $("<div class='page-navigator'></div>");
+		var pageLength = Math.ceil(config.postList.length / config.pageSize);
+		console.log("pageSize:" + config.pageSize + "\tpostSize:" + config.postList.length + "\t pageLength:" + pageLength);
+		var $prevPage = $("<span class='prev-page page-span' onclick='LS.pageTo(" + (pageNum - 1) + ")'>上一页</span>");
+		var $nextPage = $("<span class='next-page page-span' onclick='LS.pageTo(" + (pageNum + 1) + ")'>下一页</span>");
+		if(pageNum > 1) {
+			$pageContent.append($prevPage);
+		}
+		if(pageLength <= 5) {
+			for(var index = 1; index <= pageLength; index++) {
+				$pageContent.append($("<span class='page-span " + ((index == pageNum) ? 'current' : '') + "' onclick='LS.pageTo(" + index + ")'>" + index + "</span>"));
+			}
+		}
+		if(pageNum < pageLength) {
+			$pageContent.append($nextPage);
+		}
+		return $pageContent;
 	}
 
 	/**

@@ -319,6 +319,45 @@ body {
 	float: right;
 }
 
+.page-navigator{
+	margin-top: 20px;
+	border-top: 1px solid #555;
+	padding-top: 20px;
+	text-align:center;
+	font-size: 14px;
+	height: 30;
+	line-height: 30px;
+}
+
+.page-navigator .prev-page {
+	float: left;
+}
+
+.page-navigator .next-page {
+	float: right;
+}
+
+.page-navigator .page-span {
+	display: inline-block;
+	border: 1px solid #ccc;
+	padding: 0px 5px;
+	margin: 0 6px;
+	cursor: pointer;
+}
+
+.page-navigator .page-span:hover{
+	/*
+	border-bottom: 1px solid #d26911;
+	*/
+	border-bottom: 1px solid #555;
+}
+
+.page-navigator .current{
+	/*
+	border: 1px solid #d26911;
+	*/
+	border: 1px solid #555;
+}
 /* ------------------------------------------------------ */
 .footer .content{
 	margin-top: 20px;
