@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 demo canvas 博客 钟表">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 demo canvas 博客 钟表">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+<!-- 正文开始 -->
+<p>之前用html+css+JavaScript实现了一个简单钟表，但还是有一些问题，主要是一些css属性不同浏览器支持效果不一样，所以尝试用canvas实现了一个简单的钟表，效果在下方，当然了，采用canvas同样会有一些浏览器不支持。。。 这里只讨论canvas的实现方式。</p>
+<iframe src='clock.html' frameborder='0' height='450px' width='100%' scrolling='no'></iframe>
+<h4>html部分</h4>
+<p>html部分很简单，写入canvas标签，其id设置为“canvas”，用css设置成居中显示，代码如下：</p>
+<pre class='line-numbers language-html'>
+<code>
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset='utf-8'&gt;
+	&lt;style&gt;
+	canvas{display:block;margin:5px auto;}
+	&lt;/style&gt;
+	&lt;title&gt;clock&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id='canvas'&gt;&lt;/canvas&gt;
+&lt;script type='text/javascript' src="外部JavaScript文件路径"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+<p>备注：需要通过script标签的src属性引入外部JavaScript文件</p>
+<!-- 正文结束 -->
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['date', 'category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 12
+		}
+	});
+
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>
+
+
