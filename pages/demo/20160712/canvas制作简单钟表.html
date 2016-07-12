@@ -62,9 +62,12 @@ setInterval(function(){
 }, 500);
 </code>
 </pre>
-<p>本文实现重点在于绘制图像，关于update方法的实现，可以直接查看后边的整体js代码</p>
-<h4>clearRect()方法</h4>
+<p>本文实现重点在于绘制图像，关于update方法的实现，可以直接查看后边的整体js代码，draw方法中，主要涉及到的一些内容有：线段和圆的绘制、canvas图形变换、canvas阴影实现、canvas文字渲染</p>
+<h4>canvas绘制线段、圆</h4>
 
+<h4>clearRect方法</h4>
+<p>clearRect方法用于清空一个矩形空间站的图像，语法为：context.clearRect(x, y, width, height); 第一个参数x 表示要清除的矩形左上角的x坐标，第二个参数y 表示要清除的矩形左上角的y坐标，width参数表示要清除的矩形的宽度，height参数表示要清除的矩形的高度。</p>
+<p>在本文中，draw方法的第一步就是调用此方法，清空整个canvas画布的内容，然后才根据currentDateObj中的内容绘制图像。</p>
 <!-- 正文结束 -->
 	</div>
 </div>
