@@ -62,9 +62,64 @@ setInterval(function(){
 }, 500);
 </code>
 </pre>
-<p>本文实现重点在于绘制图像，关于update方法的实现，可以直接查看后边的整体js代码，draw方法中，主要涉及到的一些内容有：线段和圆的绘制、canvas图形变换、canvas阴影实现、canvas文字渲染</p>
+<p>本文实现重点在于绘制图像，关于update方法的实现，可以直接查看后边的整体js代码，draw方法中，主要涉及到的一些内容有：线段和圆的绘制、canvas文字渲染、canvas阴影实现、canvas图形变换等内容</p>
 <h4>canvas绘制线段、圆</h4>
-
+<p>绘制线段很简单，只需调用moveTo、lineTo方法设置线段路径，调用stroke方法完成绘制</p>
+<pre class='line-numbers language-javascript'>
+<code>
+context.moveTo(20, 70);
+context.lineTo(140, 70);
+context.lineTo(140, 40);
+context.lineTo(180, 80);
+context.lineTo(140, 120);
+context.lineTo(140, 90);
+context.lineTo(20, 90);
+context.lineWidth = 2; // 设置线段宽度
+context.strokeStyle = "#058"; // 设置颜色
+context.stroke();	// 绘制到画布上
+</code>
+</pre>
+<p>运行结果：</p>
+<iframe src='test1.html' frameborder='0' height='200px' width='100%' scrolling='no'></iframe>
+<p>绘制圆需要调用arc方法，然后调用stroke完成绘制，arc有5个参数，分别表示圆弧圆心的x坐标、y坐标、圆弧半径、起始角、结束角，最后一个参数是一个布尔值，false表示顺时针，true表示逆时针，下面是一些示例</p>
+<pre class='line-numbers language-javascript'>
+<code>
+for(var i = 0; i &lt; 2; i++) {
+	for(var j = 0; j &lt; 4; j++){
+		var b = (i == 0) ? false : true;
+		context.beginPath();
+		context.lineWidth = 2;
+		context.strokeStyle = '#058';
+		context.arc(150 * j + 75, 150 * i + 75, 45, 0, (j + 1) * Math.PI / 2, b);
+		context.stroke();
+	}
+}
+</code>
+</pre>
+<p>运行结果：</p>
+<iframe src='test2.html' frameborder='0' height='420px' width='100%' scrolling='no'></iframe>
+<p>通过moveTo、lineTo或者arc方法设置好图形路径以后，调用stroke方法完成图形绘制，如果需要绘制一个区域，需要调用fill方法，如上例中，可以将stroke改成fill代码如下：</p>
+<pre class='line-numbers language-javascript'>
+<code>
+for(var i = 0; i &lt; 2; i++) {
+	for(var j = 0; j &lt; 4; j++){
+		var b = (i == 0) ? false : true;
+		context.beginPath();
+		context.fillStyle = '#058';
+		context.arc(150 * j + 75, 150 * i + 75, 45, 0, (j + 1) * Math.PI / 2, b);
+		context.fill();
+	}
+}
+</code>
+</pre>
+<p>运行结果如下：</p>
+<iframe src='test3.html' frameborder='0' height='420px' width='100%' scrolling='no'></iframe>
+<h4>canvas文字渲染</h4>
+<p>在canvas画布上写段文字很简单，基本分两步：1.通过设置context的font属性设置文本的样式；2. 调用fillText或strokeText方法渲染文字</p>
+<pre>
+<code>
+</code>
+</pre>
 <h4>clearRect方法</h4>
 <p>clearRect方法用于清空一个矩形空间站的图像，语法为：context.clearRect(x, y, width, height); 第一个参数x 表示要清除的矩形左上角的x坐标，第二个参数y 表示要清除的矩形左上角的y坐标，width参数表示要清除的矩形的宽度，height参数表示要清除的矩形的高度。</p>
 <p>在本文中，draw方法的第一步就是调用此方法，清空整个canvas画布的内容，然后才根据currentDateObj中的内容绘制图像。</p>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+canvas{display:block;margin:5px auto;border:1px solid #ccc;}
+</style>
+</head>
+<body>
+<canvas id='canvas'></canvas>
+<script>
+(function(){
+	var canvas = document.getElementById("canvas");
+	canvas.width = 600;
+	canvas.height = 300;
+	var context = canvas.getContext('2d');
+	for(var i = 0; i < 2; i++) {
+		for(var j = 0; j < 4; j++){
+			var b = (i == 0) ? false : true;
+			context.beginPath();
+			context.fillStyle = '#058';
+			context.arc(150 * j + 75, 150 * i + 75, 45, 0, (j + 1) * Math.PI / 2, b);
+			context.fill();
+		}
+	}
+ })();
+</script>
+</body>
+</html>
+
+

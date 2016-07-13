@@ -1,0 +1,2 @@
+canvas基于状态绘制 moveTo() lineTo() stroke() 实现真正绘制
+ 设置状态 lineWidth strokeStyle
