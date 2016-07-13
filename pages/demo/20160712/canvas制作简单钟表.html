@@ -116,10 +116,18 @@ for(var i = 0; i &lt; 2; i++) {
 <iframe src='test3.html' frameborder='0' height='420px' width='100%' scrolling='no'></iframe>
 <h4>canvas文字渲染</h4>
 <p>在canvas画布上写段文字很简单，基本分两步：1.通过设置context的font属性设置文本的样式；2. 调用fillText或strokeText方法渲染文字</p>
-<pre>
+<pre class='line-numbers language-javascript'>
 <code>
+context.font = "bold 40px Arial";
+context.fillStyle = '#058';
+context.fillText("Canvas制作简单钟表", 50, 50);
+context.strokeStyle = '#058';
+context.strokeText("Canvas制作简单钟表", 50, 150);
 </code>
 </pre>
+<p>运行结果如下：</p>
+<iframe src='test4.html' frameborder='0' height='220px' width='100%' scrolling='no'></iframe>
+<p>可以设置textAlign和textBaseline属性分别设置文本水平和垂直方向的对齐方式</p>
 <h4>clearRect方法</h4>
 <p>clearRect方法用于清空一个矩形空间站的图像，语法为：context.clearRect(x, y, width, height); 第一个参数x 表示要清除的矩形左上角的x坐标，第二个参数y 表示要清除的矩形左上角的y坐标，width参数表示要清除的矩形的宽度，height参数表示要清除的矩形的高度。</p>
 <p>在本文中，draw方法的第一步就是调用此方法，清空整个canvas画布的内容，然后才根据currentDateObj中的内容绘制图像。</p>
