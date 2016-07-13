@@ -128,6 +128,20 @@ context.strokeText("Canvas制作简单钟表", 50, 150);
 <p>运行结果如下：</p>
 <iframe src='test4.html' frameborder='0' height='220px' width='100%' scrolling='no'></iframe>
 <p>可以设置textAlign和textBaseline属性分别设置文本水平和垂直方向的对齐方式</p>
+<h4>canvas阴影效果</h4>
+canvas设置阴影主要涉及到的属性有：shadowColor设置阴影颜色，shadowOffsetX和shadowOffsetY分别设置阴影在x和y方向上的偏移量，shadowBlur设置阴影的模糊程度
+<pre class='line-numbers language-javascript'>
+<code>
+context.shadowColor = "#444";	// 阴影颜色
+context.shadowOffsetX = 10;	// 阴影在x方向偏移量 负数为反方向
+context.shadowOffsetY = 10; // 阴影在y方向偏移量 负数为反方向
+context.shadowBlur = 10;	// 阴影模糊程度
+context.fillStyle = "#058";
+context.fillRect(100, 50, 300, 100);
+</code>
+</pre>
+<p>运行结果如下：</p>
+<iframe src='test5.html' frameborder='0' height='220px' width='100%' scrolling='no'></iframe>
 <h4>clearRect方法</h4>
 <p>clearRect方法用于清空一个矩形空间站的图像，语法为：context.clearRect(x, y, width, height); 第一个参数x 表示要清除的矩形左上角的x坐标，第二个参数y 表示要清除的矩形左上角的y坐标，width参数表示要清除的矩形的宽度，height参数表示要清除的矩形的高度。</p>
 <p>在本文中，draw方法的第一步就是调用此方法，清空整个canvas画布的内容，然后才根据currentDateObj中的内容绘制图像。</p>
