@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
@@ -28,6 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 13,
+				'title' : 'java注解',
+				'date' : '2016/07/18',
+				'tags' : ['java'],
+				'category' : 'java',
+				'desc' : '<p>注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。</p>',
+				'url' : 'pages/java/20160718/java注解.html'
+			},
 			{
 				'id' : 12,
 				'title' : 'canvas制作简单钟表',
