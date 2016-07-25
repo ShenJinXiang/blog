@@ -130,6 +130,7 @@ public @interface MyAnnotation {
 }
 </code>
 </pre>
+<br><hr><br>
 <h5>@Retention</h5>
 <p>@Retention指示注释类型的注释要保留多久,即用来描述注解的作用域，java源代码 --- class文件 --- 运行时</p>
 <pre class='line-numbers language-java'>
@@ -143,8 +144,50 @@ public @interface Retention {
 }
 </code>
 </pre>
+<p>@Retention同样只有一个成员属性value，类型为RetentionPolicy，查看源码可以知道RetentionPolicy是一个枚举，源码为：</p>
+<pre class='line-numbers language-java'>
+<code>
+public enum RetentionPolicy {
+    SOURCE, // 在源文件中有效, 即.java文件中有效
+	
+	CLASS, // 在class文件中有效(默认值)
+		
+	RUNTIME // 在运行时有效
+}
+</code>
+</pre>
+<p>如果不对@Retention进行设置，默认值为RetentionPolicy.CLASS。通常，我们需要通过反射技术对注解做一些逻辑处理，那么需要将值设定为RetentionPolicy.RUNTIME</p>
+<br><hr><br>
 <h5>@Inherited</h5>
+<p>@Inherited注解用于描述被标注的类型是可以继承的，如果一个使用了@Inherited修饰的Annotation类型被用于一个class，则这个Annotation将被用于该class的子类 @Inherited的源码：</p>
+<pre class='line-numbers language-java'>
+<code>
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Inherited {
+}
+</code>
+</pre>
+<p>Inherited注解没有属性，是一个标记注解</p>
+<br><hr><br>
 <h5>@Documented</h5>
+<p>@Documented用于描述其它类型的annotation应该被作为被标注的程序成员的公共API，因此可以被例如javadoc此类的工具文档化。Documented是一个标记注解，没有成员,源码如下：</p>
+<pre class='line-numbers language-java'>
+<code>
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Documented {
+}
+</code>
+</pre>
+<br><hr><br>
+<h3>解析注解</h3>
+<p>1. 通过反射技术获取到需要解析的类、字段或者方法</p>
+<p>2. 获取注解实例 </p>
+<p>3. 获取注解属性的值</p>
+
 <!-- 正文结束 -->
 	</div>
 </div>
