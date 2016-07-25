@@ -18,7 +18,133 @@
 <div id="temp_content" style="display: none;">
 	<div class="post-content">
 <!-- 正文开始 -->
-<p>注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。</p>
+<p>注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释, 可以替换xml配置文件。</p>
+<h3>jdk中常见的注解</h3>
+<ul>
+	<li>@Override 限定重写父类方法，只能用于方法上</li>
+	<li>@Deprecated 用于表示某个程序元素(类、方法等)已过时</li>
+	<li>@SuppressWarnings 抑制编译器警告</li>
+</ul>
+<br><hr><br>
+<h3>按运行机制分类</h3>
+<ul>
+	<li>源码注解 注解只能在源码中存在，编译成class文件就不存在了</li>
+	<li>编译时注解 在class文件中仍存在</li>
+	<li>运行时注解 在运行阶段还气作用，甚至会影响运行逻辑的注解</li>
+</ul>
+<br><hr><br>
+<h3>自定义注解</h3>
+<p>java中使用@interface申明注解, 定义注解的格式：</p>
+<pre>
+<code>
+public @interface 注解名{定义体}
+</code>
+</pre>
+<p>代码示例：</p>
+<pre class='line-numbers language-java'>
+<code>
+public @interface MyAnnotation1 {
+	// 零个或多个属性
+}
+</code>
+</pre>
+<h4>注解的属性</h4>
+<p>注解中可以带属性，比如定义包含name和age属性的注解，如下：</p>
+<pre class='line-numbers language-java'>
+<code>
+public @interface MyAnnotation {
+
+    String name() default "hello";
+    int age();
+}
+</code>
+</pre>
+<p>使用方式：</p>
+<pre class='line-numbers language-java'>
+<code>
+@MyAnnotation(name = "ZhangSan", age = 18)
+public void test() {
+    // do something
+}
+</code>
+</pre>
+<p>1. 注解中的成员属性的数量可以是0个、1个或者多个，如果没有成员属性，则成该注解为标记注解</p>
+<P>2. 如果注解中只有一个成员属性，可以将其属性名称设置为value，在使用该注解的时候，不需要制定属性名</p>
+<p>3. 注解可以设置默认值，如上例中的name属性设置了默认值“hello”</p>
+<p>4. 成员属性的类型并不是随意的，类型范围有：</p>
+<ul>
+	<li>String类型</li>
+	<li>java中的基本类型</li>
+	<li>Class类型</li>
+	<li>枚举类型</li>
+	<li>注解类型</li>
+	<li>以上类型的一维数组</li>
+</ul>
+<h4>元注解</h4>
+<p>元注解是指用来修饰注解的注解</p>
+<h5>@Target</h5>
+<p>@Target用来描述Annotation作用的元素范围，如果没有申明，则默认可以用在任一程序元素上。 @Target的源码：</p>
+<pre class='line-numbers language-java'>
+<code>
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Target {
+    ElementType[] value();
+}
+</code>
+</pre>
+<p>可以看到@Target注解只有一个成员属性value，所以在使用时，可以省略属性名称，同时value的类型是ElementType的一维数组，查看ElementType源码：</p>
+<pre class='line-numbers language-java'>
+<code>
+public enum ElementType {
+    TYPE, // 用于描述类、接口(包括注解)、枚举
+
+    FIELD, // 用于描述字段 (包括枚举中的字段)
+
+    METHOD, // 用于描述方法
+
+    PARAMETER, // 用于描述参数
+
+    CONSTRUCTOR, // 用于描述构造方法
+
+    LOCAL_VARIABLE, // 用于描述局部变量
+
+    ANNOTATION_TYPE, // 用于描述注解
+
+    PACKAGE, // 用于描述包
+
+    TYPE_PARAMETER, 
+
+    TYPE_USE
+}
+</code>
+</pre>
+<p>接下来就可以使用了, 可以根据实际情况，设置注解使用的范围</p>
+<pre class='line-numbers language-java'>
+<code>
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+public @interface MyAnnotation {
+
+    String value();
+}
+</code>
+</pre>
+<h5>@Retention</h5>
+<p>@Retention指示注释类型的注释要保留多久,即用来描述注解的作用域，java源代码 --- class文件 --- 运行时</p>
+<pre class='line-numbers language-java'>
+<code>
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface Retention {
+
+    RetentionPolicy value();
+}
+</code>
+</pre>
+<h5>@Inherited</h5>
+<h5>@Documented</h5>
 <!-- 正文结束 -->
 	</div>
 </div>
