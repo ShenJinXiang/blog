@@ -170,6 +170,67 @@ public @interface Inherited {
 </code>
 </pre>
 <p>Inherited注解没有属性，是一个标记注解</p>
+<p>一个简单的例子，定义两个注解Annotation1和Annotation2，声明两个类Person和Student，Student继承自Person类，Annotation1设置为@Inherited标记</p>
+<pre class='line-numbers language-java'>
+<code>
+// Annotation1.java
+@Inherited
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Annotation1 {
+
+}
+
+// Annotation2.java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Annotation2 {
+
+}
+
+// Person.java
+@Annotation1
+public class Person {
+
+}
+
+// Student.java
+@Annotation2
+public class Student extends Person{
+
+}
+</code>
+</pre>
+<p>测试代码</p>
+<pre class='line-numbers language-java'>
+<code>
+@Test
+public void test3() {
+	Class personClass = Person.class;
+	Annotation[] pas = personClass.getAnnotations();
+	System.out.println("Person 类的注解有：");
+	for(Annotation anno : pas) {
+		System.out.println(anno.annotationType().getName());
+	}
+	Class studentClass = Student.class;
+	Annotation[] sas = studentClass.getAnnotations();
+	System.out.println("Student 类的注解有：");
+	for(Annotation anno : sas) {
+		System.out.println(anno.annotationType().getName());
+	}
+}
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+Person 类的注解有：
+com.shenjinxiang.annotation.Annotation1
+Student 类的注解有：
+com.shenjinxiang.annotation.Annotation1
+com.shenjinxiang.annotation.Annotation2
+</code>
+</pre>
 <br><hr><br>
 <h5>@Documented</h5>
 <p>@Documented用于描述其它类型的annotation应该被作为被标注的程序成员的公共API，因此可以被例如javadoc此类的工具文档化。Documented是一个标记注解，没有成员,源码如下：</p>
@@ -184,10 +245,67 @@ public @interface Documented {
 </pre>
 <br><hr><br>
 <h3>解析注解</h3>
+<!-- 
 <p>1. 通过反射技术获取到需要解析的类、字段或者方法</p>
 <p>2. 获取注解实例 </p>
 <p>3. 获取注解属性的值</p>
+-->
+<p>通常，我们需要通过反射技术解析注解，首先要获取需要解析的类、字段或方法，然后获取到注解实例，得到注解的属性值，从而做一些逻辑处理</p>
+<h4>Annotation接口</h4>
+<p>此接口中涉及到的方法主要有：annotationType</p>
+<pre class='line-numbers result-code'>
+<code>
+Class&lt;? extends Annotation&gt; annotationType();
+</code>
+</pre>
+<br>
+<h4>Class类</h4>
+<p>Class类涉及到的方法主要有：getAnnotation, isAnnotationPresent, getAnnotations, getDeclaredAnnotations</p>
+<pre class='line-numbers result-code'>
+<code>
+// 如果存在该元素的指定类型的注解，则返回这些注释，否则返回 null
+public &lt;A extends Annotation&gt; A getAnnotation(Class&lt;A&gt; annotationClass)
 
+// 如果指定类型的注解存在于此元素上，则返回 true，否则返回 false
+public boolean isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass)
+
+// 返回此元素上存在的所有注解 如果此元素没有注释，则返回长度为零的数组
+public Annotation[] getAnnotations()
+
+// 返回直接存在于此元素上的所有注解，忽略继承的注解
+// 如果没有注解直接存在于此元素上，则返回长度为零的一个数组
+public Annotation[] getDeclaredAnnotations()
+</code>
+</pre>
+<br>
+<h4>Field类</h4>
+<p>Filed类涉及到的方法主要有：getAnnotation, getDeclaredAnnotations</p>
+<pre class='line-numbers result-code'>
+<code>
+// 如果存在该元素的指定类型的注释，则返回这些注释，否则返回 null
+public &lt;T extends Annotation&gt; T getAnnotation(Class&lt;T&gt; annotationClass)
+
+// 返回直接存在于此元素上的所有注释，忽略继承的注释 
+// 如果没有注释直接存在于此元素上，则返回长度为零的一个数组
+public Annotation[] getDeclaredAnnotations()
+</code>
+</pre>
+<br>
+<h4>Method类</h4>
+<p>Method类中涉及到的方法主要有：getAnnotation, getDeclaredAnnotations, getParameterAnnotations</p>
+<pre class='line-numbers result-code'>
+<code>
+// 如果存在该元素的指定类型的注释，则返回这些注释，否则返回 null
+public &lt;T extends Annotation&gt; T getAnnotation(Class&lt;T&gt; annotationClass)
+
+// 返回直接存在于此元素上的所有注释，忽略继承的注释 
+// 如果没有注释直接存在于此元素上，则返回长度为零的一个数组
+public Annotation[] getDeclaredAnnotations()
+
+// 返回表示按照声明顺序对此 Method 对象所表示方法的形参进行注释的那个数组的数组
+public Annotation[][] getParameterAnnotations()
+</code>
+</pre>
 <!-- 正文结束 -->
 	</div>
 </div>
