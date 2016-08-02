@@ -46,9 +46,21 @@
 	<li>cc：抄送，将邮件发送给收件人的同时抄送给另一个收件人，收件人可以看到邮件抄送给了谁 </li>
 	<li>bcc：密送，将邮件发送给收件人的同时将邮件秘密发送给另一个收件人，收件人无法看到邮件密送给了谁</li>
 </ul>
-
-
 <p>邮件体指的就是邮件的具体内容。</p>
+<h4>MIME协议</h4>
+<p>MIME协议是对RFC822文档的升级和补充，它描述了如何生成一封复杂邮件。通常我们把MIME协议描述的邮件称之为MIME邮件，MIME协议描述的数据称之为MIME消息。 对于一封复杂邮件，如果包含了多个不同的数据，MIME协议规定了要使用分隔线对多段数据进行分隔，并使用Content-Type头字段对数据的类型、以及多个数据之间的关系进行描述。</p>
+<h5>Content-type头字段</h5>
+<p>以“主类型/子类型”的形式出现，主类型有text、image、audio、video、application、message等，分别表示文本、图片、音频、视频、应用程序、组合结构、消息等。每个主类型下面都有多个子类型，例如text主类型包含plain、html、xml、css等子类型。</p>
+<h5>Content-Disposition头字段</h5>
+<p>Content-Disposition头字段用于指定邮件阅读程序处理数据内容的方式，有inline和attachment两种标准方式，inline表示直接处理，而attachment表示当作附件处理。如果将Content-Disposition设置为attachment，在其后还可以指定filename属性，如下所示：  Content-Disposition: attachment; filename=“1.bmp” 上面的MIME头字段表示MIME消息体的内容为邮件附件，附件名“1.bmp”</p>
+<h5>Content-ID头字段</h5>
+<p>Content-ID头字段用于为“multipart/related”组合消息中的内嵌资源指定一个唯一标识号，在HTML格式的正文中可以使用这个唯一标识号来引用该内嵌资源。例如，假设将一个表示内嵌图片的MIME消息的Content-ID头字段设置为如下形式： Content-ID: img001 那么，在HTML正文中就需要使用如下HTML语句来引用该图片资源：</p>
+<pre class='line-numbers language-html'>
+<code>
+&lt;img src="cid:img001"&gt;
+</code>
+</pre>
+<p>注意，在引用Content-ID头字段标识的内嵌资源时，要在资源的唯一标识号前面加上“cid:”，以说明要采用唯一标识号对资源进行引用。</p>
 <!-- 正文结束 -->
 	</div>
 </div>
