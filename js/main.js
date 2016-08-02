@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		// ctx : "/blog/",
+		ctx : "/blog/",
 		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
@@ -28,6 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 14,
+				'title' : 'JavaMail创建和发送邮件',
+				'date' : '2016/08/02',
+				'category' : 'java',
+				'tags' : ['java'],
+				'desc' : '<p>JavaMail是用来处理email的API，可以方便的执行一些常用的邮件传输，我们可以用JavaMail创建并发送邮件，例如在java web项目中用户注册、密码认证、消息发布等很多地方会用到邮件服务，就需要用到JavaMail来创建和发送邮件</p>',
+				'url' : 'pages/java/20160802/JavaMail创建和发送邮件.html'
+			},
 			{
 				'id' : 13,
 				'title' : 'java注解',
