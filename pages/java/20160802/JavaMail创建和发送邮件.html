@@ -142,7 +142,71 @@ public class SimpleMail {
 }
 </code>
 </pre>
+<br>
 <h4>发送带图片的邮件</h4>
+<pre class='line-numbers language-java'>
+<code>
+public static void main(String[] args) throws Exception {
+        Properties prop = new Properties();
+        prop.setProperty("mail.host", "smtp.163.com");
+        prop.setProperty("mail.transport.protocol", "smtp");
+        prop.setProperty("mail.smtp.auth", "true");
+
+        // 创建session
+        Session session = Session.getInstance(prop);
+        // 开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
+        session.setDebug(true);
+
+        // 创建邮件
+        Message message = createImageMessage(session);
+
+        // 通过session得到transport对象
+        Transport ts = session.getTransport();
+
+        // 连上邮件服务器
+        ts.connect("user@163.com", "password");
+
+        // 发送邮件
+        ts.sendMessage(message, message.getAllRecipients());
+        ts.close();
+    }
+
+    private static Message createImageMessage(Session session) throws Exception {
+        MimeMessage message = new MimeMessage(session);
+        // 发件人
+        message.setFrom(new InternetAddress("user@163.com"));
+
+        // 收件人
+        message.setRecipient(Message.RecipientType.TO, 
+						new InternetAddress("user@qq.com"));
+
+        // 邮件标题
+        message.setSubject("附带一张图片");
+
+        // 准备邮件正文数据
+        MimeBodyPart text = new MimeBodyPart();
+        text.setContent("下面是一张图片：&lt;br/&gt;&lt;img src='cid:1.jpg'&gt;&lt;br/&gt;图片后信息", 
+						"text/html;charset=utf-8");
+
+        // 准备邮件图片数据
+        MimeBodyPart image = new MimeBodyPart();
+        DataHandler dh = new DataHandler(new FileDataSource("src/1.jpg"));
+        image.setDataHandler(dh);
+        image.setContentID("1.jpg");
+
+        // 描述数据关系
+        MimeMultipart mm = new MimeMultipart();
+        mm.addBodyPart(text);
+        mm.addBodyPart(image);
+        mm.setSubType("related");
+
+        message.setContent(mm);
+        message.saveChanges();
+        return message;
+    }
+}
+</code>
+</pre>
 <h4>发送带附件的邮件</h4>
 <h4>发送带图片和附件的邮件</h4>
 <!-- 正文结束 -->
