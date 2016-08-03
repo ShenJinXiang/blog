@@ -61,6 +61,90 @@
 </code>
 </pre>
 <p>注意，在引用Content-ID头字段标识的内嵌资源时，要在资源的唯一标识号前面加上“cid:”，以说明要采用唯一标识号对资源进行引用。</p>
+<br><hr><br>
+<h3>JavaMail相关API</h3>
+<p>Session类用于定义整个应用程序所需的环境信息，以及收集客户端与邮件服务器建立网络连接的会话信息，如邮件服务器的主机名、端口号、采用的邮件发送和接收协议等。Session对象根据这些信息构建用于邮件收发的Transport和Store对象，以及为客户端创建Message对象时提供信息支持</p>
+<p>创建和解析邮件内容的API：Message类是创建和解析邮件的核心API，它的实例对象代表一封电子邮件</p>
+<p>发送邮件的API：Transport类是发送邮件的核心API类，它的实例对象代表实现了某个邮件发送协议的邮件发送对象，例如SMTP协议</p>
+<p>接收邮件的API：Store类是接收邮件的核心API类，它的实例对象代表实现了某个邮件接收协议的邮件接收对象，例如POP3协议</p>
+<br><hr><br>
+<h3>发送邮件</h3>
+<ol style='padding: 10px 0 10px 20px;'>
+	<li>创建包含邮件服务器的网络连接信息的Session对象</li>
+	<li>创建代表邮件内容的Message对象</li>
+	<li>创建Transport对象、连接服务器、发送Message、关闭连接</li>
+</ol>
+<h4>发送简单邮件</h4>
+<pre class='line-numbers language-java'>
+<code>
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+public class SimpleMail {
+
+    public static void main(String[] args) throws Exception {
+        Properties prop = new Properties();
+        prop.setProperty("mail.host", "smtp.163.com");
+        prop.setProperty("mail.transport.protocol", "smtp");
+        prop.setProperty("mail.smtp.auth", "true");
+
+        // 创建session
+        Session session = Session.getInstance(prop);
+        // 开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
+        session.setDebug(true);
+
+        // 创建邮件
+        Message message = createSimpleMessage(session);
+
+        // 通过session得到transport对象
+        Transport ts = session.getTransport();
+
+        // 连上邮件服务器
+        ts.connect("user@163.com", "password");
+
+        // 发送邮件
+        ts.sendMessage(message, message.getAllRecipients());
+        ts.close();
+    }
+
+    /**
+     * 创建一封简单邮件
+     * @param session
+     * @return
+     * @throws shenjinxiang
+     * @throws MessagingException
+     */
+    private static Message createSimpleMessage(Session session) throws Exception {
+        MimeMessage message = new MimeMessage(session);
+
+        // 发件人
+        message.setFrom(new InternetAddress("user@163.com"));
+
+        // 收件人
+        message.setRecipient(Message.RecipientType.TO, 
+							new InternetAddress("user@qq.com"));
+
+        // 邮件标题
+        message.setSubject("发送简单邮件");
+
+        // 邮件内容
+        message.setContent("这是一封简单邮件，没有多余的图片、附件之类的信息。", 
+							"text/html;charset=utf-8");
+
+        return message;
+    }
+}
+</code>
+</pre>
+<h4>发送带图片的邮件</h4>
+<h4>发送带附件的邮件</h4>
+<h4>发送带图片和附件的邮件</h4>
 <!-- 正文结束 -->
 	</div>
 </div>
