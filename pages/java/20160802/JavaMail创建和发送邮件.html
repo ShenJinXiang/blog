@@ -57,7 +57,7 @@
 <p>以“主类型/子类型”的形式出现，主类型有text、image、audio、video、application、message等，分别表示文本、图片、音频、视频、应用程序、组合结构、消息等。每个主类型下面都有多个子类型，例如text主类型包含plain、html、xml、css等子类型。</p>
 <br>
 <h5>Content-Disposition头字段</h5>
-<p>Content-Disposition头字段用于指定邮件阅读程序处理数据内容的方式，有inline和attachment两种标准方式，inline表示直接处理，而attachment表示当作附件处理。如果将Content-Disposition设置为attachment，在其后还可以指定filename属性，如下所示：  Content-Disposition: attachment; filename=“1.bmp” 上面的MIME头字段表示MIME消息体的内容为邮件附件，附件名“1.bmp”</p>
+<p>Content-Disposition头字段用于指定邮件阅读程序处理数据内容的方式，有inline和attachment两种标准方式，inline表示直接处理，而attachment表示当作附件处理。如果将Content-Disposition设置为attachment，在其后还可以指定filename属性： Content-Disposition: attachment; filename=“1.bmp” MIME头字段表示MIME消息体的内容为邮件附件，附件名“1.bmp”</p>
 <br>
 <h5>Content-ID头字段</h5>
 <p>Content-ID头字段用于为“multipart/related”组合消息中的内嵌资源指定一个唯一标识号，在HTML格式的正文中可以使用这个唯一标识号来引用该内嵌资源。例如，假设将一个表示内嵌图片的MIME消息的Content-ID头字段设置为如下形式： Content-ID: img001 那么，在HTML正文中就需要使用如下HTML语句来引用该图片资源：</p>
