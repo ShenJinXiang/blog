@@ -1,10 +1,10 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
 		//ctx : "/blog/",
-		//ctx : "/Users/shenjinxiang/Documents/blog/",
+		ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -28,6 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id' : 15,
+				'title' : 'JavaScript数组',
+				'date' : '2016/09/10',
+				'category' : 'JavaScript',
+				'tags': ['JavaScript'],
+				'desc' : '<p>avaScript中数组，是程序中很常见的一种数据集合类型，而且本身很灵活强大：JavaScript是无类型的，数组元素可以是任意类型，即同一数组的不同元素可以是不同类型的；数组长度可变，可以根据实际需要增加或删除元素，动态改变数组长度</p>',
+				'url' : 'pages/JavaScript/20160910/JavaScript数组.html'
+			},
 			{
 				'id' : 14,
 				'title' : 'JavaMail创建和发送邮件',
