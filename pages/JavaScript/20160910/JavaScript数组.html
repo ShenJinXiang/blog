@@ -19,6 +19,27 @@
 	<div class="post-content">
 <!-- 正文开始 -->
 <p>JavaScript中数组，是程序中很常见的一种数据集合类型，而且本身很灵活强大：JavaScript是无类型的，数组元素可以是任意类型，即同一数组的不同元素可以是不同类型的；数组长度可变，可以根据实际需要增加或删除元素，动态改变数组长度。</p>
+<h3>创建数组</h3>
+<h4>数组直接量</h4>
+<p>创建数组最简单的方法，在方括号中将数组元素用逗号隔开即可。</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var empty = []; // 没有元素的数组
+var arr1 = [1, 2, 3, 4, 5]; // 创建5个数值的数组
+var arr2 = [1, true, 'abcd', 1.1, {x: 1, y: 2}]; // 元素类型不同的数组
+</code>
+</pre>
+<h4>构造函数Array()</h4>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr1 = new Array(); // 类似 直接量 []
+var arr2 = new Array(10); // 制定数组长度为10
+var arr3 = new Array(5, 4, 2, true, 'test', new Object());
+</code>
+</pre>
+<br><hr><br>
+<h3>数组的读写</h3>
+
 <!-- 正文结束 -->
 	</div>
 </div>
