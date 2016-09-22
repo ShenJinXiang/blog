@@ -39,6 +39,159 @@ var arr3 = new Array(5, 4, 2, true, 'test', new Object());
 </pre>
 <br><hr><br>
 <h3>数组的读写</h3>
+<h4>读取数组元素</h4>
+<p>使用[]操作符来访问数组中的元素</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr1 = ['aa', 'bb', 'cc', 'dd', 'ee'];
+console.log(arr1[0]); // aa
+console.log(arr1[1]); // bb
+console.log(arr1[2]); // cc 
+console.log(arr1[3]); // dd
+console.log(arr1[4]); // ee
+console.log(arr1[5]); // undefined
+</code>
+</pre>
+<h4>写入数组元素</h4>
+<p>可以使用[]操作符写入数组元素，类似于对象属性的赋值，不过数组元素赋值时，[]中是数字；数组是对象的特殊形式，只有0~2^32 - 2之间的整数属性才是数组的索引，数组根据需要更新其length属性的值</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [];
+arr[0] = 'a';
+console.log(arr); // [ 'a' ]
+console.log(arr.length); // 1
+arr[10] = 'b';
+console.log(arr); // [ 'a', , , , , , , , , , 'b' ]
+console.log(arr.length); // 11
+arr['msg'] = '测试数组'; 
+console.log(arr); // [ 'a', , , , , , , , , , 'b', msg: '测试数组' ]
+console.log(arr.length); // 11
+</code>
+</pre>
+<br><hr><br>
+<h3>数组的长度</h3>
+<p>每个数组都由一个length属性来表示其长度，可以获取和设置length的值</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+console.log(arr.length); // 5
+arr.length = 3;
+console.log(arr); // [ 1, 2, 3 ]
+arr.length = 0;
+console.log(arr); // []
+arr.length = 5;
+console.log(arr); [ , , , ,  ]
+</code>
+</pre>
+<br><hr><br>
+<h3>delete运算符参数数组元素</h3>
+<p>可以像删除对象属性一样使用delete运算符来删除数组元素，需要注意的是：1. delete运算符并不改变数组的长度；2. 使用delete运算符删除一个元素，数组将变成稀疏数组</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5, 6];
+console.log(arr.length); // 6
+delete arr[1];
+console.log(arr); // [ 1, , 3, 4, 5, 6 ]
+console.log(arr.length); // 6
+console.log(1 in arr); // false
+</code>
+</pre>
+<br><hr><br>
+<h3>稀疏数组</h3>
+<p>稀疏数组就是包含从0开始的不连续索引的数组,稀疏数组的length属性大于数组元素的个数</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr1 = new Array(5);
+console.log(arr1); // [ , , , ,  ]
+var arr2 = [];
+arr2[10] = 0;
+console.log(arr2); // [ , , , , , , , , , , 0 ]
+console.log(arr2.length); // 11
+console.log(arr2[1]); // undefined
+</code>
+</pre>
+<br><hr><br>
+<h3>数组的遍历</h3>
+<h4>使用for循环</h4>
+<i>常见的循环方式</i>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+for(var i = 0; i &lt; arr.length; i++) {
+	// 循环体
+}
+</code>
+</pre>
+<br>
+<i>对于稀疏数组，要排除null、undefined和不存在的元素</i>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+for(var i = 0; i &lt; arr.length; i++) {
+	if(!arr[i]) continue;
+	// 循环体
+}
+</code>
+</pre>
+<br>
+<i>只跳过undefined和不存在的元素</i>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+for(var i = 0; i &lt; arr.length; i++) {
+	if(arr[i] === undefined) continue;
+	// 循环体
+}
+</code>
+</pre>
+<br>
+<i>只想跳过不存在的元素，仍要处理存在的undefined元素</i>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+for(var i = 0; i &lt; arr.length; i++) {
+	if(!(i in arr)) continue;
+	// 循环体
+}
+</code>
+</pre>
+<br>
+<h4>for/in循环</h4>
+<p>使用for/in循环遍历稀疏数组时，可以过滤掉不存在的元素</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+for(var p in arr) {
+	// 循环体
+}
+</code>
+</pre>
+<br>
+<h4>forEach方法</h4>
+<p>forEach()方法用于遍历整个数组，接受一个函数，forEach用三个参数来调用这个函数：数组元素、元素的索引、数组本身</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [11, 22, 33, 44, 55, 66];
+arr.forEach(function(val, index, a){
+	console.log("index:", index, " value:", val);
+});
+</code>
+</pre>
+<p>输出结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+index: 0  value: 11
+index: 1  value: 22
+index: 2  value: 33
+index: 3  value: 44
+index: 4  value: 55
+index: 5  value: 66
+</code>
+</pre>
+<br><hr><br>
+
+
+
 
 <!-- 正文结束 -->
 	</div>
