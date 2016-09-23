@@ -336,6 +336,127 @@ console.log(arr.slice(-3, -2)); // [ 3 ]
 </code>
 </pre>
 <br>
+<h4>splice()方法</h4>
+<p>splice() 方法是数组中插入或删除元素的通用方法，会修改调用的数组；第一个参数指定了删除或修改的起始索引位置；第二个参数指定删除的元素个数，如没有指定，则从起始点到数组结尾所有元素都删除；返回删除掉的元素组成的数组</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(arr.splice(7)); // [ 7, 8, 9 ]
+console.log(arr); // [ 0, 1, 2, 3, 4, 5, 6 ]
+console.log(arr.splice(2, 2)); // [ 2, 3 ]
+console.log(arr); // [ 0, 1, 4, 5, 6 ]
+console.log(arr.splice(5)); // []
+console.log(arr); // [ 0, 1, 4, 5, 6 ]
+</code>
+</pre>
+<p>splice()中紧随前两个参数后的参数，指定了需要插入到数组中的元素，从起始位置开始插入</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+console.log(arr.splice(2, 0, 'a', 'b')); // []
+console.log(arr); // [ 1, 2, 'a', 'b', 3, 4, 5 ]
+console.log(arr.splice(2, 2, [1, 2,], 3)); // [ 'a', 'b' ]
+console.log(arr); // [ 1, 2, [ 1, 2 ], 3, 3, 4, 5 ]
+</code>
+</pre>
+<br>
+<h4>map()方法</h4>
+<p>map() 方法将调用数组的每个函数传递给指定的函数，并返回一个数组，包含该函数的返回值</p>
+<ul>
+<li>传递给map方法的函数应该有返回值</li>
+<li>map() 方法不会改变调用数组，而是返回一个新数组</li>
+<li>如果是稀疏数组，那么返回的也是同样长度的数组，同样的长度，同样的缺失元素</li>
+</ul>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var arr1 = arr.map(function(val){
+    return val * val;
+});
+
+console.log(arr); // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+console.log(arr1); // [ 1, 4, 9, 16, 25, 36, 49, 64, 81 ]
+</code>
+</pre>
+<br>
+<h4>filter()方法</h4>
+<p>filter() 方法返回的数组元素是调用的数组的一个子集。如果调用的函数返回true或能转换成true的值，那么判定为这个数组的成员</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var arr2 = arr.filter(function(val){
+    return val % 2 == 0;
+});
+
+console.log(arr); // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+console.log(arr2); // [ 2, 4, 6, 8 ]
+</code>
+</pre>
+<p>filter() 会跳过稀疏数组中的缺失元素，返回的数组总是稠密的</p>
+<pre class='line-numbers language-javascript'>
+<code>
+// 压缩稀疏数组的缺失元素
+var dense = sparse.filter(function(){
+	return true;
+});
+
+// 压缩缺失，且删除undefined和null元素
+a = a.filter(function(x){
+	return x !== null && x !== undefined;
+});
+</code>
+</pre>
+<br>
+<h4>every() 和 some()方法</h4>
+<p>every() 和 some() 方法是数组的逻辑判定：它们将数组元素应用指定的函数进行判定，返回true或false</p>
+<ul>
+<li>一旦every() 和some()确定返回值，就停止遍历</li>
+<li>every()在函数第一次返回false 就返回false，some() 在函数第一次返回true 就返回true</li>
+<li>空数组调用时，every() 返回true， some()放回false</li>
+</ul>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [];
+console.log(arr.every(function(){return true;})); // true
+console.log(arr.some(function(){return true;})); // false
+</code>
+</pre>
+<br>
+<h4>reduce() 和 reduceRight()</h4>
+<p>reduce() 和 reduceRight() 使用指定的函数将数组元素组合，生成单个值</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5,  6, 7, 8, 9];
+var sum = arr.reduce(function(x, y) {
+    console.log('x: ', x, ', y: ', y);
+    return x + y;
+});
+
+console.log(sum);
+
+/** 运行结果
+x:  1 , y:  2
+x:  3 , y:  3
+x:  6 , y:  4
+x:  10 , y:  5
+x:  15 , y:  6
+x:  21 , y:  7
+x:  28 , y:  8
+x:  36 , y:  9
+45
+*/
+</code>
+</pre>
+<br>
+<h4>indexOf() 和 lastIndexOf()</h4>
+<p>搜索整个数组中具有指定值的元素，返回找到的第一个元素的索引，没有找到就返回－1。indexOf() 从头到尾搜索，而lastIndexOf() 反向搜索</p>
+<ul>
+	<li>第一个参数是需要搜索的值</li>
+	<li>第二个参数是可选的，指定起始搜索位置，如果不指定，indexOf() 从0位置开始搜索，而lastIndexOf() 从尾部开始搜索</li>
+	<li>第二个参数可以是负数，代表相对于数组末尾的偏移量， 例如：－1指定最后一个元素</li>
+	<li>字符串也有indexOf() 和 lastIndexOf() 方法，用法类似</li>
+</ul>
+
 
 
 <!-- 正文结束 -->
