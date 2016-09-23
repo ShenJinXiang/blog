@@ -189,8 +189,153 @@ index: 5  value: 66
 </code>
 </pre>
 <br><hr><br>
+<h3>数组常用方法</h3>
+<h4>push()方法</h4>
+<p>push()方法用于给数组的末尾增加一个或多个元素，更新数组的length属性的值并返回</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [];
+console.log(arr.push('aa')); // 1
+console.log(arr); // [ 'aa' ]
+console.log(arr.length); // 1
+console.log(arr.push('bb', 'cc')); // 3
+console.log(arr); // [ 'aa', 'bb', 'cc' ]
+console.log(arr.length); // 3
+console.log(arr.push('dd', ['ee', 'ff'])); // 5
+console.log(arr); // [ 'aa', 'bb', 'cc', 'dd', [ 'ee', 'ff' ] ]
+console.log(arr.length); // 5
+</code>
+</pre>
+<br>
+<h4>pop()方法</h4>
+<p>删除末尾的元素，使数组长度减少1，并返回被删除的元素的值</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+console.log(arr.pop()); // 5
+console.log(arr); // [ 1, 2, 3, 4 ]
+console.log(arr.length); // 4
+</code>
+</pre>
+<br>
+<h4>unshift()方法</h4>
+<p>再数组的首部插入一个元素，并将其他元素依次移动到更高的索引位置, 更新数组的length属性值并返回</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [];
+console.log(arr.unshift('aa')); // 1
+console.log(arr); // [ 'aa' ]
+console.log(arr.length); // 1
+console.log(arr.unshift('bb', 'cc')); // 3
+console.log(arr); // [ 'bb', 'cc', 'aa' ]
+console.log(arr.length); // 3
+</code>
+</pre>
+<br>
+<h4>shift()方法</h4>
+<p>从数组头部删除一个元素，返回删除的元素，将所有元素下移至当前索引低1的位置，更新数组的length属性值</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = ['11', '22', '33', '44', '55'];
+console.log(arr.shift()); // 11
+console.log(arr); // [ '22', '33', '44', '55' ]
+console.log(arr.length); // 4
+</code>
+</pre>
+<br>
+<h4>join()方法</h4>
+<p>join()方法将数组中所有元素都转化为字符串并链接再一起，返回最后生产的字符串, 可以指定一个可选的字符串在生成的字符串中来分隔数组的各个元素，如果不指定分隔符，默认使用逗号</p>
+<p>Array.join()方法是String.split()方法的逆向操作，String.split()方法是将字符串分隔成若干块来创建一个数组</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = ['a', 'b', 'c', 'd', 'e'];
+console.log(arr.join()); // a,b,c,d,e
+console.log(arr.join('-')); // a-b-c-d-e
+var arr1 = new Array(20);
+console.log(arr1.join('-')); // -------------------
+</code>
+</pre>
+<br>
+<h4>reverse()方法</h4>
+<p>Array.reverse() 方法将数组中的元素颠倒顺序，返回逆序的数组，此方法修改了原数组</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+var arr1 = arr.reverse();
+console.log(arr); // [ 5, 4, 3, 2, 1 ]
+console.log(arr1); // [ 5, 4, 3, 2, 1 ]
+console.log(arr === arr1); // true
+</code>
+</pre>
+<br>
+<h4>sort()方法</h4>
+<p>Array.sort() 方法将数组中的元素排序并返回排序后的数组。当不带参数调用sort()时，数组元素以字母表顺序排序</p>
+<p>如果数组中包含undefined元素，它们会被排到数组的尾部</p>
+<p>为了按照其他方式而非字母表顺序进行数组排序，必须给sort() 传递一个比较函数，该函数决定了它的两个参数在排好序的数组中的先后顺序，假设第一个参数应该在后，函数应该返回一个大于0的数值</p>
+<i>按照数值大小排序：</i>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1111, 222, 33, 4];
+arr.sort();
+console.log(arr); // [ 1111, 222, 33, 4 ]
+arr.sort(function(x, y) {
+    return x - y;
+});
+console.log(arr); // [ 4, 33, 222, 1111 ]
+arr.sort(function(x, y) {
+    return y - x;
+});
+console.log(arr); // [ 1111, 222, 33, 4 ]
+</code>
+</pre>
+<i>忽略大小写排序：</i>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = ['ant', 'Bug', 'cat', 'Dog'];
+arr.sort();
+console.log(arr); // [ 'Bug', 'Dog', 'ant', 'cat' ]
+arr.sort(function(s, t){
+    var s1 = s.toLowerCase();
+    var t1 = t.toLowerCase();
+    if(s1 &lt; t1) return -1;
+    if(s1 &gt; t1) return 1;
+    return 0;
+});
+console.log(arr); // [ 'ant', 'Bug', 'cat', 'Dog' ]
+</code>
+</pre>
+<br>
+<h4>concat()方法</h4>
+<p>concat() 方法创建并返回一个新数组，它的元素包括调用concat()的原始数组的元素和concat()的没个参数。如果这些参数中的任何一个自身是数组，则连接的是数组的元素，而非数组本身</p>
+<p>concat()不会递归遍历数组的数组, 也不会修改修用的数组</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3];
+var arr1 = arr.concat(4, 5);
+var arr2 = arr.concat([4, 5]);
+var arr3 = arr.concat([4, 5], [6, 7]);
+var arr4 = arr.concat(4, [5, [6, 7]]);
 
-
+console.log(arr);  // [ 1, 2, 3 ]
+console.log(arr1); // [ 1, 2, 3, 4, 5 ]
+console.log(arr2); // [ 1, 2, 3, 4, 5 ]
+console.log(arr3); // [ 1, 2, 3, 4, 5, 6, 7 ]
+console.log(arr4); // [ 1, 2, 3, 4, 5, [ 6, 7 ] ]
+</code>
+</pre>
+<br>
+<h4>slice()方法</h4>
+<p>slice()方法返回指定数组的一个片段或子数组。两个参数分别表示数组的开始和结束位置，slice()不会修改调用的数组</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var arr = [1, 2, 3, 4, 5];
+console.log(arr.slice(0, 3)); // [ 1, 2, 3 ]
+console.log(arr.slice(3)); // [ 4, 5 ]
+console.log(arr.slice(1, -1)); // [ 2, 3, 4 ]
+console.log(arr.slice(-3, -2)); // [ 3 ]
+</code>
+</pre>
+<br>
 
 
 <!-- 正文结束 -->
