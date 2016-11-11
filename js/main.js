@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
-		ctx : "/",
+		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
+		ctx : "/blog/",
 		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
@@ -28,17 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
-			/*
 			{
 				'id': 16,
 				'title': 'Nodejs连接mysql数据库',
 				'date': '2016/11/11',
 				'category': 'nodejs',
 				'tags': ['JavaScript', 'nodejs'],
-				'desc': '',
+				'desc': '<p>开发过程中通常要涉及到数据库操作，node.js开发也免不了要操作数据库，由于比较熟悉mysql，所以先从mysql开始总结</p>',
 				'url': 'pages/nodejs/20161111/Nodejs连接mysql数据库.html'
 			},
-			*/
 			{
 				'id' : 15,
 				'title' : 'JavaScript数组',
