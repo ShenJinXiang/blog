@@ -226,7 +226,45 @@ OkPacket {
 </pre>
 <br><hr><br>
 <h3>数据库链接池</h3>
+<p>建立数据库链接池，并执行查询操作</p>
+<pre class='line-numbers language-javascript'>
+<code>
+ar mysql = require('mysql');
 
+var pool = mysql.createPool({
+	connectionLimit: 10,
+	host: 'localhost',
+	user: 'root',
+	password: 'root',
+	database: 'nodejs',
+	port: 3306
+});
+
+pool.query('select * from user', function (err, rows, fields) {
+	if (err) throw err;
+	console.log(rows);
+});
+</code>
+</pre>
+<p>运行结果：</p>
+<pre class='line-numbers result-code'>
+<code>
+[ RowDataPacket { id: 1, name: '曹操', age: 66 },
+  RowDataPacket { id: 3, name: '赵云', age: 21 },
+  RowDataPacket { id: 4, name: '刘备', age: 46 } ]
+</code>
+</pre>
+<p>数据库链接池中获取链接</p>
+<pre class='line-numbers language-javascript'>
+<code>
+pool.getConnection(function (err, connection) {
+	connection.query('select * from user', function (err, rows) {
+		connection.release();	// 返回链接给链接池
+		console.log(rows);
+	});
+});
+</code>
+</pre>
 <!-- 正文结束 -->
 	</div>
 </div>
