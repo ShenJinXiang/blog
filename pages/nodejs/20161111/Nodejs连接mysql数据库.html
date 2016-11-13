@@ -73,7 +73,7 @@ conn.end();
 <p>查询id是1的用户信息</p>
 <pre class='line-numbers language-javascript'>
 <code>
-conn.query('select * from user where id = ?', [1], function (err, rows, fields) {
+conn.query('select * from user where id = ?', 1, function (err, rows, fields) {
 	if (err) throw err;
 	console.log(rows);
 });
@@ -94,6 +94,10 @@ var sql = 'insert into user (`name`, `age`) values (?, ?)';
 conn.query(sql, ['刘备', 46], function (err, results) {
 	if (err) throw err;
 	console.log(results);
+	conn.query('select * from user', function (err, rows) {
+		if (err) throw err;
+		console.log(rows);
+	});
 });
 </code>
 </pre>
@@ -109,17 +113,13 @@ OkPacket {
   message: '',
   protocol41: true,
   changedRows: 0 }
-</code>
-</pre>
-<p>查看运行结果，可以知道新插入的记录的id值为：4，再次查询user表中所有记录：</p>
-<pre class='line-numbers result-code'>
-<code>
 [ RowDataPacket { id: 1, name: '张三', age: 18 },
   RowDataPacket { id: 2, name: '李四', age: 19 },
   RowDataPacket { id: 3, name: '王五', age: 20 },
   RowDataPacket { id: 4, name: '刘备', age: 46 } ]
 </code>
 </pre>
+<p>查看运行结果，可以知道新插入的记录的id值为：4，</p>
 <br>
 <p><b>修改记录</b></p>
 <pre class='line-numbers language-javascript'>
@@ -128,6 +128,10 @@ var sql = 'update user set name = ?, age = ? where id = ?';
 conn.query(sql, ['曹操', 66, 1], function (err, results) {
 	if (err) throw err;
 	console.log(results);
+	conn.query('select * from user', function (err, rows) {
+		if (err) throw err;
+		console.log(rows);
+	});
 });
 </code>
 </pre>
@@ -143,11 +147,6 @@ OkPacket {
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
-</code>
-</pre>
-<p>再次查询user表中所有记录：</p>
-<pre class='line-numbers result-code'>
-<code>
 [ RowDataPacket { id: 1, name: '曹操', age: 66 },
   RowDataPacket { id: 2, name: '李四', age: 19 },
   RowDataPacket { id: 3, name: '王五', age: 20 },
@@ -159,9 +158,13 @@ OkPacket {
 <pre class='line-numbers language-javascript'>
 <code>
 var sql = 'delete from user where id = ?';
-conn.query(sql, [2], function (err, results) {
+conn.query(sql, 2, function (err, results) {
 	if (err) throw err;
 	console.log(results);
+	conn.query('select * from user', function (err, rows) {
+		if (err) throw err;
+		console.log(rows);
+	});
 });
 </code>
 </pre>
@@ -177,11 +180,6 @@ OkPacket {
   message: '',
   protocol41: true,
   changedRows: 0 }
-</code>
-</pre>
-<p>再次查询user表中所有记录：</p>
-<pre class='line-numbers result-code'>
-<code>
 [ RowDataPacket { id: 1, name: '曹操', age: 66 },
   RowDataPacket { id: 3, name: '王五', age: 20 },
   RowDataPacket { id: 4, name: '刘备', age: 46 } ]
@@ -199,6 +197,10 @@ conn.query({
 }, function (err, results) {
 	if (err) throw err;
 	console.log(results);
+	conn.query('select * from user', function (err, rows) {
+		if (err) throw err;
+		console.log(rows);
+	});
 });
 </code>
 </pre>
@@ -214,11 +216,6 @@ OkPacket {
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
-</code>
-</pre>
-<p>nodejs.user表中的记录：</p>
-<pre class='line-numbers result-code'>
-<code>
 [ RowDataPacket { id: 1, name: '曹操', age: 66 },
   RowDataPacket { id: 3, name: '赵云', age: 21 },
   RowDataPacket { id: 4, name: '刘备', age: 46 } ]  
@@ -265,6 +262,45 @@ pool.getConnection(function (err, connection) {
 });
 </code>
 </pre>
+<br><hr></br>
+<h3>事务处理</h3>
+<p>这个也是比较见的情况，代码如下：</p>
+<pre class='line-numbers language-javascript'>
+<code>
+var insertSql = 'insert into user (`name`, `age`) values (?, ?)';
+var updateSql = 'update user set name = ?, age = ? where id = ?';
+conn.beginTransaction(function (err) {
+	if (err) throw err;
+	conn.query(insertSql, ['卡卡西', 24], function (err, result) {
+		if (err) {
+			return conn.rollback(function () {
+				throw err;
+			});
+		}
+		console.log(result);
+
+		conn.query(updateSql, ['武松', 27, 1], function (err, result) {
+			if (err) {
+				return conn.rollback(function () {
+					throw err;
+				});
+			}
+			console.log(result);
+			conn.commit(function (err) {		
+				if (err) {
+					return conn.rollback(function () {
+						throw err;
+					});
+				}
+				console.log('success!');
+			});
+		});
+	});
+
+});
+</code>
+</pre>
+<p>connection的beginTransaction() 方法开启事务，rollback() 方法回滚，commit() 方法提交事务。</p>
 <!-- 正文结束 -->
 	</div>
 </div>
