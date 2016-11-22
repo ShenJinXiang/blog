@@ -3,8 +3,8 @@ var LS = (function() {
 		url : 'http://shenjinxiang.com',
 		//ctx : "/",
 		//url : 'http://shenjinxiang.github.io',
-		//ctx : "/blog/",
-		ctx : "/Users/shenjinxiang/Documents/blog/",
+		ctx : "/blog/",
+		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -30,12 +30,12 @@ var LS = (function() {
 		postList : [
 			{
 				'id': 17,
-				'title': 'Nodejs总结:安装与使用',
+				'title': 'Nodejs总结：安装与使用',
 				'date': '2016/11/21',
 				'category': 'nodejs',
 				'tags': ['JavaScript', 'nodejs'],
 				'desc': '<p>Node.js的学习开始了一段时间了，做了一些小的练习，对这一阶段的内容做个总结，现在开始Node.js的安装和使用</p>',
-				'url': 'pages/nodejs/20161121/Nodejs总结:安装与使用.html'
+				'url': 'pages/nodejs/20161121/Nodejs总结：安装与使用.html'
 			},
 			{
 				'id': 16,
