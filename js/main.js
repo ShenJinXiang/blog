@@ -2,8 +2,8 @@ var LS = (function() {
 	var config = {
 		url : 'http://shenjinxiang.com',
 		//ctx : "/",
-		//url : 'http://shenjinxiang.github.io',
-		ctx : "/blog/",
+		url : 'http://shenjinxiang.github.io',
+		//ctx : "/blog/",
 		//ctx : "/Users/shenjinxiang/Documents/blog/",
 	    logo : {
 			'title' : 'LikeStar',
