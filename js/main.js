@@ -428,7 +428,6 @@ var LS = (function() {
 	 * 渲染 文章列表 
 	 */
 	function renderPostContent(pageNum) {
-		debugger;
 		$("#nav-menu a").removeClass("current").eq(0).addClass("current");
 		$("#main_content").empty();
 		var pageSize = config.pageSize;
@@ -440,7 +439,6 @@ var LS = (function() {
 			if(i >= pageNum * pageSize) {
 				break;
 			}
-		debugger;
 			var $post = $("<div class='post'></div>");
 			$post.append($("<h2 class='post-title'><a href='"+config.ctx+config.postList[i].url + "'>" + config.postList[i].title + "</a></h2>"));
 			$post.append($("<div class='post-meta'>" + config.postList[i].date + "</div>"));
