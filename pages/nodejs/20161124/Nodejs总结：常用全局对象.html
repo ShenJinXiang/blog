@@ -114,7 +114,97 @@ console.timeEnd('100000次循环');
 100000次循环: 2.038ms
 </code>
 </pre>
+<br><hr><br>
+<h3>process对象</h3>
+<p>进程对象process是一个全局对象，可以在任何地方访问到它，这个对象有很多属性和方法，这里只说几个简单的、目前可能会用到的</p>
+<h4>process.argv</h4>
+<p>一个包含命令行参数的数组。第一个元素会是 'node'， 第二个元素将是 .Js 文件的名称。接下来的元素依次是命令行传入的参数</p>
+<pre claee='line-numbers language-javascript'>
+<code>
+// argvTest.js
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+});
+</code>
+</pre>
+<p><i>执行并查看运行结果：</i></p>
+<pre class='line-numbers result-code'>
+<code>
+node argvTest.js hello shenjinxiang node.js
+0:  /usr/local/Cellar/node/6.2.2/bin/node
+1:  /Users/shenjinxiang/Documents/nodejs/nodejs总结/argvTest.js
+2:  hello
+3:  shenjinxiang
+4:  node.js
+</code>
+</pre>
 <br>
+<h4>process.cwd()</h4>
+<p>返回进程当前的工作目录</p>
+<pre class='line-numbers language-javascript'>
+<code>
+console.log('当前目录：', process.cwd());
+// 当前目录： /Users/shenjinxiang/Documents/nodejs/nodejs总结
+</code>
+</pre>
+<br>
+<h4>process.version</h4>
+<p>一个编译属性，包含 NODE_VERSION</p>
+<pre class='line-numbers language-javascript'>
+<code>
+console.log('Version: ' + process.version);
+Version: v6.2.2
+</code>
+</pre>
+<br>
+<h4>process.versions</h4>
+<p>一个属性，包含了 node 的版本和依赖</p>
+<pre class='line-numbers language-javascript'>
+<code>
+console.log(process.versions);
+/*
+{ http_parser: '2.7.0',
+  node: '6.2.2',
+  v8: '5.0.71.52',
+  uv: '1.9.1',
+  zlib: '1.2.8',
+  ares: '1.10.1-DEV',
+  icu: '57.1',
+  modules: '48',
+  openssl: '1.0.2h' }
+*/
+</code>
+</pre>
+<br><hr><br>
+<h3>__filename</h3>
+<p>字符串类型，当前所执行代码文件的文件路径</p>
+<pre class='line-numbers language-javascript'>
+<code>
+// filenameTest.js
+console.log(__filename);
+// /Users/shenjinxiang/Documents/nodejs/nodejs总结/filenameTest.js
+</code>
+</pre>
+<br><hr><br>
+<h3>__dirname</h3>
+<p>字符串类型，当前执行脚本所在目录的目录名</p>
+<pre class='line-numbers language-javascript'>
+<code>
+// dirnameTest.js
+console.log(__dirname);
+// /Users/shenjinxiang/Documents/nodejs/nodejs总结
+</code>
+</pre>
+<br><hr><br>
+<h3>定时器函数</h3>
+<h4>setTimeout(cb, ms)</h4>
+<p>与浏览器上Window对象的setTimeout的方法一样的效果，在至少ms毫秒后调用回调cb。实际延迟取决于外部因素，如操作系统定时器粒度及系统负载，返回一个代表该定时器的句柄值</p>
+<h4>clearTimeout(t)</h4>
+<p>停止一个之前通过setTimeout()创建的定时器。回调不会再被执行</p>
+<h4>setInterval(cb, ms)</h4>
+<p>每隔ms毫秒重复调用回调cb。注意，取决于外部因素，如操作系统定时器粒度及系统负载，实际间隔可能会改变。它不会少于ms但可能比ms长，返回一个代表该定时器的句柄值</p>
+<h4>clearInterval(t)</h4>
+<p>停止一个之前通过setInterval()创建的定时器。回调不会再被执行</p>
 <!-- 正文结束 -->
 	</div>
 </div>
