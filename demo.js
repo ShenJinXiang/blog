@@ -1,4 +1,6 @@
-console.info('hello world');
-console.info('hello', 'world');
-let name = 'shenjinxiang';
-console.info('this is my name: %s', name);
+console.time('100000次循环');
+var arr = [];
+for (let index = 0; index < 100000; index++) {
+	arr.push(index);
+}
+console.timeEnd('100000次循环');

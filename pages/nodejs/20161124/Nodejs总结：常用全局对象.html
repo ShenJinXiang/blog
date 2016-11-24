@@ -60,6 +60,62 @@ hello world
 this is my name: shenjinxiang
 </code>
 </pre>
+<br>
+<h4>console.error([data], [...])</h4>
+<p>与console.log() 一样，不过是输出至stderr 输出错误消息的</p>
+<h4>console.warn([data], [...])</h4>
+<p>打印警告信息</p>
+<h4>console.dir(obj)</h4>
+<p>调试的时候经常会用到，对 obj 使用 util.inspect 并将结果字符串输出到 stdout，说白了就是对象obj的字符串形式打印出来</p>
+<pre class='line-numbers language-javascript'>
+<code>
+let o = {
+	x: 1,
+	y: 2,
+	z: 'BeiJing',
+	m: [1, 2, 3, 4, 5],
+	n: {
+		x: 11,
+		y: 22,
+		z: ['a', 'b', 'c']
+	}
+};
+console.dir(o);
+</code>
+</pre>
+<p><i>运行结果：</i></p>
+<pre class='line-numbers result-code'>
+<code>
+{ x: 1,
+  y: 2,
+  z: 'BeiJing',
+  m: [ 1, 2, 3, 4, 5 ],
+  n: { x: 11, y: 22, z: [ 'a', 'b', 'c' ] } }
+</code>
+</pre>
+<br>
+<h4>console.time(label)</h4>
+<p>并不进行输出，标记一个时间点，开始计时，与console.timeEnd(label)配合使用</p>
+<br>
+<h4>console.timeEnd(label)</h4>
+<p>结束计时器，输出结果，与console.time(label) 配合使用</p>
+<pre class='line-numbers language-javascript'>
+<code>
+console.time('100000次循环');
+var arr = [];
+for (let index = 0; index < 100000; index++) {
+	arr.push(index);
+}
+console.timeEnd('100000次循环');
+</code>
+</pre>
+<p><i>运行结果：</i></p>
+<pre class='line-numbers result-code'>
+<code>
+100000次循环: 2.038ms
+</code>
+</pre>
+<br>
 <!-- 正文结束 -->
 	</div>
 </div>
