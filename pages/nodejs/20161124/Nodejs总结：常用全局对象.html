@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 Node.js JavaScript 博客">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 NODE nodejs Node.js JavaScript 博客">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+<!-- 正文开始 -->
+<p>在浏览器中，宿主对象Window，为顶级作用域对象，定义在Window对象上的属性，即为全局属性，例如：document, location等属性</p>
+<p>在Node.js中不存在Window对象，但是也存在一个全局对象：global, global是全局对象的一个引用，可以在node命令行中直接输入global来查看</p>
+<h3>conlose对象</h3>
+<p>console 用于提供控制台标准输出，与浏览器上的console 对象类似，调试代码的时候常用到</p>
+<h4>console.log([data], [...])</h4>
+<p>向stdout打印信息并另起一行，可以说是最常用的一个方法了</p>
+<pre class='line-numbers language-javascript'>
+<code>
+console.log('hello wrold');
+console.log('hello', 'world');
+console.log('今年是%d年', 2016); // c语言中的printf() 函数
+console.log('今年是%d年'); // 看看这个
+</code>
+</pre>
+<p><i>运行结果：</i></p>
+<pre class='line-numbers result-code'>
+<code>
+hello wrold
+hello world
+今年是2016年
+今年是%d年
+</code>
+</pre>
+<br>
+<h4>console.info([data], [...])</h4>
+向stdout打印信息，与console.log()差别不大
+<pre class='line-numbers language-javascript'>
+<code>
+console.info('hello world');
+console.info('hello', 'world');
+let name = 'shenjinxiang';
+console.info('this is my name: %s', name);
+</code>
+</pre>
+<p><i>运行结果：</i></p>
+<pre class='line-numbers result-code'>
+<code>
+hello world
+hello world
+this is my name: shenjinxiang
+</code>
+</pre>
+<!-- 正文结束 -->
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['date', 'category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 18
+		}
+	});
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>
+

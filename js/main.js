@@ -1,8 +1,8 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
-		//ctx : "/blog/", // windows
+		//ctx : "/",	// 正式
+		ctx : "/blog/", // windows
 		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
@@ -27,6 +27,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 18,
+				'title': 'Nodejs总结：常用全局对象',
+				'date': '2016/11/24',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>在浏览器中，宿主对象Window，为顶级作用域对象，定义在Window对象上的属性，即为全局属性，例如：document, location等属性</p>',
+				'url': 'pages/nodejs/20161124/Nodejs总结：常用全局对象.html'
+			},
 			{
 				'id': 17,
 				'title': 'Nodejs总结：安装与使用',
