@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
+		//ctx : "/",	// 正式
 		//ctx : "/blog/", // windows
-		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
+		ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -27,6 +27,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 19,
+				'title': 'Nodejs总结：模块和包',
+				'date': '2016/11/25',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>我们了解了Node.js的一些基本用法，可以用node运行js脚本文件，但是在实际开发的时候是远远不够的，开发一个具有一定规模的程序不可能只用一个文件，我们需要把各个功能拆分、封装然后组合起来，模块就是为了解决这个问题</p>',
+				'url': 'pages/nodejs/20161125/Nodejs总结：模块和包.html'
+			},
 			{
 				'id': 18,
 				'title': 'Nodejs总结：常用全局对象',
