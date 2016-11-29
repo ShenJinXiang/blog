@@ -28,6 +28,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id': 20,
+				'title': 'Nodejs总结：事件处理',
+				'date': '2016/11/29',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>events模块是Node.js最重要的模块，可以说是Node.js事件编程的基石</p>',
+				'url': 'pages/nodejs/20161129/Nodejs总结：事件处理.html'
+			},
+			{
 				'id': 19,
 				'title': 'Nodejs总结：模块和包',
 				'date': '2016/11/25',
