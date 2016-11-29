@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
+		//ctx : "/",	// 正式
 		//ctx : "/blog/", // windows
-		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
+		ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -27,6 +27,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 21,
+				'title': 'Nodejs总结：一些实用工具',
+				'date': '2016/11/30',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>本文主要介绍nodejs中一些工具方法，涉及到util、querystring、url以及path模块的一些可能用到的方法，很多地方可能要用到这些工具方法</p>',
+				'url': 'pages/nodejs/20161130/Nodejs总结：一些实用工具.html'
+			},
 			{
 				'id': 20,
 				'title': 'Nodejs总结：事件处理',
