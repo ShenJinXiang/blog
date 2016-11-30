@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
+		//ctx : "/",	// 正式
 		//ctx : "/blog/", // windows
-		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
+		ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -27,6 +27,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 22,
+				'title': 'Nodejs总结：文件系统',
+				'date': '2016/12/01',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': "<p>Node.js中提供了文件系统(fs)模块，用来执行文件操作，使用时调用：require('fs') 引入</p>",
+				'url': 'pages/nodejs/20161201/Nodejs总结：文件系统.html'
+			},
 			{
 				'id': 21,
 				'title': 'Nodejs总结：一些实用工具',
