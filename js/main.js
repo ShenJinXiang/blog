@@ -28,6 +28,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id': 23,
+				'title': 'Nodejs总结：http服务器',
+				'date': '2016/12/11',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>javaWeb创建一个简单的服务器，需要tomcat等中间件，创建项目文件，配置web.xml文件等操作。在Node.js中，不需要这么麻烦，Node.js标准库提供了http模块，封装了一个高效的HTTP服务器，http.Server是http模块的HTTP服务器对象...</p>',
+				'url': 'pages/nodejs/20161211/Nodejs总结：http服务器.html'
+			},
+			{
 				'id': 22,
 				'title': 'Nodejs总结：文件系统',
 				'date': '2016/12/01',
