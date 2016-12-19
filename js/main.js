@@ -8,7 +8,7 @@ var LS = (function() {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
 		},
-		pageSize : 5,
+		pageSize : 10,
 	    description : '申锦祥的博客',
 		music_src : "music/网易游戏 - 傲来.mp3",
 	    menu : [
