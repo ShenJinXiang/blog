@@ -1,7 +1,7 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
+		 ctx : "/",	// 正式
 		//ctx : "/blog/", // windows
 		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
@@ -9,8 +9,9 @@ var LS = (function() {
 			'url' : 'index.html'
 		},
 		pageSize : 10,
-	    description : '申锦祥的博客',
-		music_src : "music/网易游戏 - 傲来.mp3",
+	  description : '申锦祥的博客',
+		//music_src : "music/网易游戏 - 傲来.mp3",
+		music_src: "music/Opinions of the Misinformed.mp3",
 	    menu : [
 			{
 				'title' : '首页',
