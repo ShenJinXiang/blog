@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 Node.js JavaScript 博客">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 NODE nodejs Node.js JavaScript 博客">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+	<style>
+ul, ol {padding-left: 20px;}
+.table {border-collapse: collapse;width: 100%;}
+.table th, .table td{border: 1px solid #ccc;padding-left:10px; line-height: 30px;}
+	</style>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+<!-- 正文开始 -->
+<p>上一节用http模块创建了一个最最简单的web服务器，这一节继续用http模块的基本功能，实现一个人员管理模块，数据保存在文件中，这里需要用到nodejs的文件系统fs模块</p>
+<br>
+<h3>整体思路</h3>
+<ol>
+	<li>数据存储在data.txt文件中，通过fs模块读写数据</li>
+	<li>data.txt文件中保存的数据为JSON格式</li>
+	<li>按键值对形式保存数据，用户id为键，用户信息为值，用户信息包括id、姓名(name)、年龄(age)、地址(address)、说明(discription)</li>
+	<li>由于没有介绍模板引擎，所以没有页面，通过js拼成页面</li>
+	<li>功能包括 显示所有人员列表，添加、修改、删除人员</li>
+	<li>用户主键采用uuid</li>
+	<li>只是实现简单功能</li>
+</ol>
+<br><hr><br>
+<h3>环境搭建</h3>
+<p>创建user_module目录</p>
+<pre class='line-numbers result-code'>
+<code>
+$ mkdir user_module
+$ cd user_module
+</code>
+</pre>
+<p>初始化项目，生成package.json</p>
+<pre class='line-numbers result-code'>
+<code>
+$ npm init
+</code>
+</pre>
+<!-- 正文结束 -->
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['date', 'category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 24
+		}
+	});
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>
+
+

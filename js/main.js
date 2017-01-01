@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		 ctx : "/",	// 正式
+		//ctx : "/",	// 正式
 		//ctx : "/blog/", // windows
-		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
+		ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
@@ -28,6 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 24,
+				'title': '实现简单的人员管理模块',
+				'date': '2016/12/30',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>上一节用http模块创建了一个最最简单的web服务器，这一节继续用http模块的基本功能，实现一个人员管理模块，数据保存在文件中，这里需要用到nodejs的文件系统fs模块</p>',
+				'url': 'pages/nodejs/20161230/实现简单的人员管理模块.html'
+			},
 			{
 				'id': 23,
 				'title': 'Nodejs总结：http服务器',
