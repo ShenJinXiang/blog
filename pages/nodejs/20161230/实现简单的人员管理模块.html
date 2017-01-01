@@ -50,6 +50,311 @@ $ cd user_module
 $ npm init
 </code>
 </pre>
+<p>引入node-uuid模块，用于生成uuid<p>
+<pre class='line-numbers result-code'>
+<code>
+$ npm install node-uuid --save
+</code>
+</pre>
+<p>创建lib目录，存放js文件核心代码</p>
+<pre class='line-numbers result-code'>
+<code>
+$ mkdir lib
+</code>
+</pre>
+<br><hr><br>
+<h3>创建http服务器</h3>
+<p><i>lib目录中创建server.js文件，内容：</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/server.js
+const http = require('http');
+
+http.createServer(function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('shenjinxiang');
+	res.end();
+}).listen(3000);
+console.log('Server running at 3000 port.');
+</code>
+</pre>
+<p><i>运行server.js:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+$ node lib/server.js
+Server running at 3000 port.
+</code>
+</pre>
+<p>打开浏览器输入地址：http://localhost:3000 即可查看结果</p>
+
+<p>一个基础的http服务器，已经创建了，接下来需要将server.js修改为模块:</p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/server.js
+const http = require('http');
+
+exports.start = function () {
+	function onRequest (req, res) {
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write('shenjinxiang');
+		res.end();
+	}
+	http.createServer(onRequest).listen(3000);
+	console.log('Server running at 3000 port.');
+}
+</code>
+</pre>
+<p><i>user_module下创建index.js，内容:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// index.js
+const server = require('./lib/server');
+
+server.start();
+</code>
+</pre>
+<p><i>运行index.js:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+$ node index.js
+Server running at 3000 port.
+</code>
+</pre>
+<p>浏览器访问http://localhost:3000，结果与上面是一样的</p>
+<br><hr><br>
+<h3>创建路由</h3>
+<p>上面的服务器只是一个最基本的http服务器，接下来，需要添加路由处理程序，通过解析请求req，获取请求的资源路径和参数，进行不同的处理，展示不同的信息给用户</p>
+<p><i>lib目录下创建route.js，内容:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/route.js
+const util = require('util');
+const url = require('url');
+
+function route(req) {
+	let urlObj = url.parse(req.url, true);
+	let pathname = urlObj.pathname;
+	util.log('请求路径：', pathname);
+}
+
+exports.route = route;
+</code>
+</pre>
+<p><i>修改index.js，引入route.js:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// index.js
+const server = require('./lib/server');
+const router = require('./lib/route');
+
+server.start(router.route);
+</code>
+</pre>
+<p><i>与此同时，修改server.js:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/server.js
+const http = require('http');
+const url = require('url');
+const util = require('util');
+
+exports.start = function (route) {
+	function onRequest(req, res) {
+		route(req);
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write('shenjinxiang');
+		res.end();
+	}
+	http.createServer(onRequest).listen(3000);
+	console.log('Server running at 3000 port.');
+}
+</code>
+</pre>
+<p><i>运行index.js:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+$ node index.js
+Server running at 3000 port.
+</code>
+</pre>
+<p><i>浏览器访问http://localhost:3000/ 后台打印信息:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+3 Dec 15:19:51 - 请求路径： /
+</code>
+</pre>
+<p><i>浏览器访问http://localhost:3000/userList 后台打印信息:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+3 Dec 15:20:47 - 请求路径： /userList
+</code>
+</pre>
+<br><hr><br>
+<h3>添加路由处理程序</h3>
+<p>可以看到，我们已经获取到请求路径了，但是这远远不够，我们需要针对不同的请求路径，给予用户不同的响应信息</p>
+<p><i>lib目录下创建requestHandlers.js</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/requestHandlers.js
+exports.index = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;index&lt;/p&gt;');
+	res.end();
+};
+
+exports.user = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;user function&lt;/p&gt;');
+	res.end();
+};
+
+exports.addUser = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;addUser function&lt;/p&gt;');
+	res.end();
+};
+
+exports.addUserForm = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;addUserForm function&lt;/p&gt;');
+	res.end();
+};
+
+exports.updUser = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;updUser function&lt;/p&gt;');
+	res.end();
+};
+
+exports.updUserForm = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;updUserForm function&lt;/p&gt;');
+	res.end();
+};
+
+exports.delUser = function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('&lt;p&gt;delUser function&lt;/p&gt;');
+	res.end();
+};
+</code>
+</pre>
+<p><i>修改index.js，引入requestHandlers.js:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// index.js
+const server = require('./lib/server');
+const router = require('./lib/route');
+const requestHandler = require('./lib/requestHandlers');
+
+let handle = {};
+handle['/'] = requestHandler.index;
+handle['/user'] = requestHandler.user;
+handle['/addUser'] = requestHandler.addUser;
+handle['/addUserForm'] = requestHandler.addUserForm;
+handle['/updUser'] = requestHandler.updUser;
+handle['/updUserForm'] = requestHandler.updUserForm;
+handle['/delUser'] = requestHandler.delUser;
+
+server.start(router.route, handle);
+</code>
+</pre>
+<p><i>修改server.js:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/server.js
+const http = require('http');
+
+exports.start = function (route, handle) {
+	function onRequest(req, res) {
+		route(handle, req, res);
+	}
+	http.createServer(onRequest).listen(3000);
+	console.log('Server running at 3000 port.');
+}
+</code>
+</pre>
+<p><i>修改route.js:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>
+// lib/route.js
+const util = require('util');
+const url = require('url');
+
+function route(handle, req, res) {
+	let urlObj = url.parse(req.url, true);
+	let pathname = urlObj.pathname;
+	util.log('请求路径：', pathname);
+	if (typeof handle[pathname] === 'function') {
+		handle[pathname](req, res);
+	} else {
+		res.writeHead(404, {'Content-Type': 'text/html'});
+		res.write('<p>404 Not found</p>');
+		res.end();
+	}
+}
+
+exports.route = route;
+</code>
+</pre>
+<p><i>修改完毕，测试目前的程序，启动index.js:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+$ node index.js
+Server running at 3000 port.
+</code>
+</pre>
+<p>在浏览器中访问该服务器，按不同的路径，显示了不同的结果。至此，路由分配编写完毕，接下来从数据读取方面着手，最后整合在一起</p>
+<br><hr><br>
+<h3>数据存储方式</h3>
+<p>数据存储在文件中，按json格式存储格式如下：</p>
+<pre class='line-numbers language-'>
+<code>
+{
+	"id1": {
+		"id": "id1",
+		"name": "姓名1",
+		"age": "年龄1",
+		"address": "地址1",
+		"discription": "说明1"
+	},
+	"id2": {
+		"id": "id2",
+		"name": "姓名2",
+		"age": "年龄2",
+		"address": "地址2",
+		"discription": "说明2"
+	},
+	"id3": {
+		"id": "id3",
+		"name": "姓名3",
+		"age": "年龄3",
+		"address": "地址3",
+		"discription": "说明3"
+	},
+	"id4": {
+		"id": "id4",
+		"name": "姓名4",
+		"age": "年龄4",
+		"address": "地址4",
+		"discription": "说明4"
+	}
+}
+</code>
+</pre>
+<br><hr><br>
+<h3>编写数据读写模块</h3>
+<p><i>创建data.txt文件，用于保存数据:</i></p>
+<pre class='line-numbers result-code'>
+<code>
+$ touch lib/data.txt
+</code>
+</pre>
+
+
+
+
+
 <!-- 正文结束 -->
 	</div>
 </div>
