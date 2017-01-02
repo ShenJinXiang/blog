@@ -1,9 +1,9 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		//ctx : "/",	// 正式
+		ctx : "/",	// 正式
 		//ctx : "/blog/", // windows
-		ctx : "/Users/shenjinxiang/Documents/blog/", // mac
+		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
 			'url' : 'index.html'
