@@ -489,7 +489,7 @@ var LS = (function() {
 		var $widget = $("<div class='widget'><div class='widget-title'>最近文章</div></div>");
 		var $postul = $("<ul class='post-list'></ul>");
 		for(var i = 0; i < config.postList.length; i++) {
-			if(i >= 6) {break}
+			if(i >= 10) {break}
 			var $li = $("<li class='post-list-item'><a class='post-list-link' href='" + config.ctx + config.postList[i].url + "'>" + config.postList[i].title + "</a></li>");
 			$postul.append($li);
 		}
