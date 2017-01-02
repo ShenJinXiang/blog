@@ -29,6 +29,15 @@ var LS = (function() {
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
 			{
+				'id': 25,
+				'title': 'Nodejs总结：Express介绍',
+				'date': '2017/01/01',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>Express是一个基于Node.js平台的极简的、灵活的web应用开发框架，类似于Java Web 开发中的 struts、springMVC 等框架</p>',
+				'url': 'pages/nodejs/20170101/Nodejs总结：Express介绍.html'
+			},
+			{
 				'id': 24,
 				'title': '实现简单的人员管理模块',
 				'date': '2016/12/30',
