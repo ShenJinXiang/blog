@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="keywords" content="LiksStar ShenJinXiang 申锦祥 Node.js JavaScript 博客">
+	<meta name="description" content="LiksStar ShenJinXiang 申锦祥 NODE nodejs Node.js JavaScript 博客">
+	<link rel='icon' href="../../../images/title.ico" type="image/x-ico" />
+	<link rel="stylesheet" href="../../../plugin/prism/prism.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<title>LikeStar</title>
+	<style>
+ul, ol {padding-left: 20px;}
+.table {border-collapse: collapse;width: 100%;}
+.table th, .table td{border: 1px solid #ccc;padding-left:10px; line-height: 30px;}
+	</style>
+</head>
+<body>
+<div id="temp_content" style="display: none;">
+	<div class="post-content">
+<!-- 正文开始 -->
+
+<p>express中的路由处理，相当于java Web框架中controller处理，针对不同的请求，调用不同的处理程序，给予用户不同的界面展示，express中路由是由一个url、http请求(get、post等)和若干句柄组成，结构如下:</p>
+<pre class='line-numbers result-code'>
+<code>
+app.METHOD(path, [callback...], callback)
+</code>
+</pre>
+<p>app是express对象的实例，METHOD是一个http请求方法，path是服务器上的路径，callback是当路由匹配时要执行的函数</p>
+<pre class='line-numbers language-javascript'>
+<code>const express = require('express');
+let app = express();
+
+// 匹配get请求的 '/' 路径
+app.get('/', function (req, res) {
+    res.send('hello world');
+});
+</code>
+</pre>
+<br>
+<h3>路由方法</h3>
+<p>路由方法源于http请求方法，和express实例相关联，下面是针对 '/' 定义的get和post请求:</p>
+<pre class='line-numbers language-javascript'>
+<code>// get 请求方式的路由
+app.get('/', function (req, res) {
+    res.send('GET request');
+});
+
+// post 请求方式的路由
+app.post('/', function (req, res) {
+    res.send('POST request');
+});
+</code>
+</pre>
+
+<!-- 正文结束 -->
+	</div>
+</div>
+<script src="../../../plugin/jquery/jquery.js"></script>
+<script src="../../../plugin/prism/prism.js"></script>
+<script src="../../../js/main.js"></script>
+<script><!--{{{-->
+$(function(){
+	LS.init({
+		'currentMenu' : 1,
+		'sidebar' : ['date', 'category', 'tags', 'post'],
+		'content' : {
+			'type' : 'post',
+			'id' : 26
+		}
+	});
+});
+</script><!--}}}-->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript"><!--{{{-->
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script><!--}}}-->
+<!-- 多说公共JS代码 end -->
+</body>
+</html>
+
+
+

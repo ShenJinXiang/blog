@@ -1,8 +1,8 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
-		//ctx : "/blog/", // windows
+		//ctx : "/",	// 正式
+		ctx : "/blog/", // windows
 		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
@@ -28,6 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 26,
+				'title': 'Nodejs总结：Express路由',
+				'date': '2017/01/05',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>express中的路由处理，相当于java Web框架中controller处理，针对不同的请求，调用不同的处理程序，给予用户不同的界面展示，express中路由是由一个url、http请求(get、post等)和若干句柄组成</p>',
+				'url': 'pages/nodejs/20170105/Nodejs总结：Express路由.html'
+			},
 			{
 				'id': 25,
 				'title': 'Nodejs总结：Express介绍',
