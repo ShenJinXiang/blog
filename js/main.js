@@ -1,8 +1,8 @@
 var LS = (function() {
 	var config = {
 		url : 'http://www.shenjinxiang.com',
-		ctx : "/",	// 正式
-		//ctx : "/blog/", // windows
+		//ctx : "/",	// 正式
+		ctx : "/blog/", // windows
 		//ctx : "/Users/shenjinxiang/Documents/blog/", // mac
 	  logo : {
 			'title' : 'LikeStar',
@@ -28,6 +28,15 @@ var LS = (function() {
 		],
 		sideBar : ['category', 'tags', 'posts'],
 		postList : [
+			{
+				'id': 27,
+				'title': 'Nodejs总结：Express中间件',
+				'date': '2017/01/12',
+				'category': 'nodejs',
+				'tags': ['JavaScript', 'nodejs'],
+				'desc': '<p>在express中，中间件很重要，完全是由路由和中间件构成的一个web开发框架，本质上来说，一个express应用就是在调用各种中间件</p>',
+				'url': 'pages/nodejs/20170112/Nodejs总结：Express中间件.html'
+			},
 			{
 				'id': 26,
 				'title': 'Nodejs总结：Express路由',
