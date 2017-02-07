@@ -110,7 +110,7 @@
 
 		function getMarkCanvas() {
 			let markCanvas = document.createElement('canvas');
-			markCanvas.width = 480;
+			markCanvas.width = 400;
 			markCanvas.height = 100;
 			let ctx = markCanvas.getContext('2d');
 			
@@ -118,7 +118,7 @@
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
 			ctx.font = '40px cursive';
-			ctx.fillText('www.shenjinxiang.com', markCanvas.width / 2, markCanvas.height / 2);
+			ctx.fillText('www.shenjinxiang.com', markCanvas.width / 2, markCanvas.height / 2, 340);
 			return markCanvas;
 		}
 })();
