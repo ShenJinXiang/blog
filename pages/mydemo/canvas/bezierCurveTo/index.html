@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<style>
+		*{margin:0;padding:0;background-color: #000;}
+
+		h1 {color: #fff; text-align:center; margin-top: 10px;}
+		#main{width: 1200px;margin: 20px auto; height: 600px;}
+		#canvas{display: block; cursor:pointer; float: left;background-color:#fff;}
+		#code{width:390px; float:right;height: 600px; background-color: #eee; padding: 40px 0 0 0; box-sizing: border-box; list-style: none;}
+		#code li{text-indent: 20px; height: 28px; line-height: 28px; font-size: 14px;}
+		#code li:nth-child(odd){background-color: #ccc;}
+		#code li:nth-child(even){background-color: #ddd;}
+	</style>
+	<title>三次贝塞尔曲线</title>
+</head>
+<body>
+	<h1>Canvas三次贝塞尔曲线</h1>
+	<div id='main'>
+		<canvas id='canvas'>浏览器不支持canvas</canvas>
+		<ul id='code'></ul>
+	</div>
+<script src='./index.js'></script>
+</body>
+</html>
