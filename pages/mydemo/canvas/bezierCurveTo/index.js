@@ -1,17 +1,17 @@
 (function() {
-		let canvas = document.getElementById('canvas');
+		var canvas = document.getElementById('canvas');
 		canvas.width = 800;
 		canvas.height = 600;
-		let context = canvas.getContext('2d');
-		let markCanvas = getMarkCanvas();
+		var context = canvas.getContext('2d');
+		var markCanvas = getMarkCanvas();
 
-		let point = [
+		var point = [
 			{x: 200, y: 300},
 			{x: 300, y: 100},
 			{x: 500, y: 500},
 			{x: 600, y: 300}
 		];
-		let current = {
+		var current = {
 			isDown: false,
 			isMove: false,
 			mouseX: -1,
@@ -34,7 +34,7 @@
 			function drawBaseLine() {
 				context.lineWidth = 1;
 
-				for (let i = 0; i < point.length; i++) {
+				for (var i = 0; i < point.length; i++) {
 					context.strokeStyle = '#444';
 					context.beginPath();
 					if (i == current.pIndex && current.isDown && current.isMove) {
@@ -68,20 +68,20 @@
 				context.bezierCurveTo(point[1].x, point[1].y, point[2].x, point[2].y, point[3].x, point[3].y);
 				context.stroke();
 
-				let code = '<li>context.lineWidth = 5;</li>'
+				var code = '<li>context.lineWidth = 5;</li>'
 						+ '<li>context.strokeStyle = "#058";</li>'
 						+ '<li>context.beginPath();</li>'
 						+ '<li>context.moveTo(' + point[0].x + ', ' + point[0].y + ');</li>'
 						+ '<li>context.bezierCurveTo(' + point[1].x + ', ' + point[1].y + ', ' + point[2].x + ', ' + point[2].y + ', ' + point[3].x + ', ' + point[3].y + ');</li>'
 						+ '<li>context.stroke();</li>'
-				let codeNode = document.getElementById('code');
+				var codeNode = document.getElementById('code');
 				codeNode.innerHTML = code;
 			}
 		}
 
 		function mouseMove(e) {
 			if (current.isDown) {
-				let mouse = getMouse(e);
+				var mouse = getMouse(e);
 				current.mouseX = mouse.x;
 				current.mouseY = mouse.y;
 				current.isMove = true;
@@ -90,7 +90,7 @@
 		}
 
 		function mouseDown(e) {
-			let mouse = getMouse(e);
+			var mouse = getMouse(e);
 			current.mouseX = mouse.x;
 			current.mouseY = mouse.y;
 			current.isDown = true;
@@ -105,7 +105,7 @@
 		}
 		
 		function getMouse(e) {
-			let box = canvas.getBoundingClientRect();
+			var box = canvas.getBoundingClientRect();
 			return {
 				x: e.clientX - box['left'],
 				y: e.clientY - box['top']
@@ -113,10 +113,10 @@
 		}
 
 		function getMarkCanvas() {
-			let markCanvas = document.createElement('canvas');
+			var markCanvas = document.createElement('canvas');
 			markCanvas.width = 400;
 			markCanvas.height = 100;
-			let ctx = markCanvas.getContext('2d');
+			var ctx = markCanvas.getContext('2d');
 			
 			ctx.fillStyle = 'rgba(204, 204, 204, 0.5)';
 			ctx.textAlign = 'center';
