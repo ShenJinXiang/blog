@@ -73,6 +73,7 @@
 		drawTime();
 		drawHand();
 		drawOrigin();
+		drawMarkCanvas();
 
 		function drawBackgroundImage() {
 			context.fillStyle = context.createPattern(img, 'repeat');
@@ -300,6 +301,25 @@
 				context.shadowOffsetY = 5;
 				context.fill();
 				context.restore();
+			}
+
+		}
+
+		function drawMarkCanvas() {
+			var markCanvas = getMarkCanvas();
+			context.drawImage(markCanvas, canvas.width - markCanvas.width, canvas.height - markCanvas.height);
+			function getMarkCanvas() {
+				var markCanvas = document.createElement('canvas');
+				markCanvas.width = 450;
+				markCanvas.height = 100;
+				var ctx = markCanvas.getContext('2d');
+			
+				ctx.fillStyle = 'rgba(220, 220, 220, 0.5)';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'middle';
+				ctx.font = '40px Arial';
+				ctx.fillText('www.shenjinxiang.com', markCanvas.width / 2, markCanvas.height / 2, 380);
+				return markCanvas;
 			}
 		}
 	}
