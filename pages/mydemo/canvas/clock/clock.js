@@ -1,8 +1,8 @@
 (function(){
 	var config = {
 		canvas : {
-			width : 500,
-			height : 500,
+			width : window.innerWidth,
+			height : window.innerHeight,
 		},
 		clock : {
 			radius : 200,
@@ -26,10 +26,15 @@
 
 	var currentDateObj;
 
-	setInterval(function(){
-		update();
-		draw();
-	}, 500);
+	var img = new Image();
+	img.src = './zq02.png';
+
+	img.onload = function () {
+		setInterval(function(){
+			update();
+			draw();
+		}, 500);
+	};
 
 	function update(){
 		currentDateObj = getDateObj();
@@ -61,17 +66,28 @@
 	function draw() {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
+		drawBackgroundImage();
 		drawBorder();
 		drawScale();
 		drawNumbers();
 		drawTime();
 		drawHand();
 		drawOrigin();
+
+		function drawBackgroundImage() {
+			context.fillStyle = context.createPattern(img, 'repeat');
+			context.fillRect(0, 0, canvas.width, canvas.height);
+		}
 		
 		/**
 		 * 绘制表盘边框
 		 */
 		function drawBorder() {
+			context.beginPath();
+			context.fillStyle = '#eee';
+			context.arc(canvas.width / 2, canvas.height / 2, config.clock.radius, 0, 2 * Math.PI, false);
+			context.fill();
+
 			context.save();
 			context.beginPath();
 			context.arc(canvas.width / 2, canvas.height / 2, config.clock.radius, 0, 2 * Math.PI, false);
@@ -148,6 +164,7 @@
 				}
 				context.textAlign = 'center';
 				context.textBaseline = 'middle';
+				context.fillStyle = '#000';
 				context.fillText(i + 1, -radius * Math.cos((-i * 30 - 120) * Math.PI  / 180), radius * Math.sin((-i * 30 - 120) * Math.PI / 180));
 				context.closePath();
 				context.restore();
