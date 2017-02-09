@@ -5,8 +5,8 @@
 			height : window.innerHeight,
 		},
 		clock : {
-			radius : 200,
-			borderWidth : 10,
+			radius : 202,
+			borderWidth : 12,
 			origin : {
 				radius : 8,
 				color : '#333'
@@ -85,8 +85,11 @@
 		 */
 		function drawBorder() {
 			context.beginPath();
-			context.fillStyle = '#eee';
+			context.fillStyle = '#fff';
 			context.arc(canvas.width / 2, canvas.height / 2, config.clock.radius, 0, 2 * Math.PI, false);
+			context.shadowBlur = 20;
+			context.shadowOffsetX = 5;
+			context.shadowOffsetY = 5;
 			context.fill();
 
 			context.save();
@@ -95,7 +98,9 @@
 			context.arc(canvas.width / 2, canvas.height / 2, config.clock.radius - config.clock.borderWidth, 0, 2 * Math.PI, true);
 			context.fillStyle = "#333";
 			context.shadowColor = "#444";
-			context.shadowBlur = 10;
+			context.shadowBlur = 15;
+			context.shadowOffsetX = 5;
+			context.shadowOffsetY = 5;
 			context.closePath();
 			context.fill();
 			context.restore();
@@ -193,6 +198,7 @@
 				context.textBaseline = 'middle';
 				context.shadowColor = '#ccc';
 				context.shadowBlur = 2;
+				context.fillStyle = '#444';
 				context.closePath();
 				context.fillText(currentDateObj.dateStr, 0, 40);
 			}
