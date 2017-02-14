@@ -19,6 +19,11 @@
 		}
 	};
 
+	window.onresize = function () {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	};
+
 	var canvas = document.getElementById('canvas');
 	canvas.width = config.canvas.width;
 	canvas.height = config.canvas.height;
