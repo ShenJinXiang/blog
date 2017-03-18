@@ -121,6 +121,8 @@
 			context.fillStyle = config.clock.origin.color;
 			context.shadowColor = "#444";
 			context.shadowBlur = 3;
+			context.shadowOffsetX = 2;
+			context.shadowOffsetY = 2;
 			context.closePath();
 			context.fill();
 			context.restore();
@@ -216,6 +218,8 @@
 				context.fillStyle = "#555";
 				context.shadowColor = "#444";
 				context.shadowBlur = 3;
+				context.shadowOffsetX = 2;
+				context.shadowOffsetY = 2;
 				context.closePath();
 				context.fillRect(-47, 60, 30, 30);
 				context.fillRect(-15, 60, 30, 30);
