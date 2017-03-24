@@ -1,29 +1,29 @@
 (function(){
-	let config = {
-		img: './002.jpg',
+	var config = {
+		img: './001.jpg',
 		r: 50,
 		x: 500,
 		y: 200,
 		v: 1
 	};
-	let current = {
+	var current = {
 		isPlay: false
 	};
-	let timer;
+	var timer;
 
-	let box = document.getElementById('box');
-	let img = document.getElementById('backimg');
-	let canvas = document.getElementById('canvas');
-	let resetBtn = document.getElementById('resetBtn');
-	let showBtn = document.getElementById('showBtn');
+	var box = document.getElementById('box');
+	var img = document.getElementById('backimg');
+	var canvas = document.getElementById('canvas');
+	var resetBtn = document.getElementById('resetBtn');
+	var showBtn = document.getElementById('showBtn');
 	box.style.width = window.innerWidth + 'px';
 	box.style.height = window.innerHeight + 'px';
 	img.src = config.img;
 
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-	let context = canvas.getContext('2d');
-
+	var context = canvas.getContext('2d');
+	var markCanvas = getMarkCanvas();
 	init();
 
 
@@ -70,5 +70,21 @@
 		context.clip();
 		context.drawImage(img, 0, 0, canvas.width, canvas.height);
 		context.restore();
+		context.drawImage(markCanvas, canvas.width - markCanvas.width, canvas.height - markCanvas.height);
+
+	}
+
+	function getMarkCanvas() {
+		var markCanvas = document.createElement('canvas');
+		markCanvas.width = 400;
+		markCanvas.height = 100;
+		var ctx = markCanvas.getContext('2d');
+		
+		ctx.fillStyle = 'rgba(204, 204, 204, 0.5)';
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		ctx.font = '40px cursive';
+		ctx.fillText('www.shenjinxiang.com', markCanvas.width / 2, markCanvas.height / 2, 340);
+		return markCanvas;
 	}
 })();
