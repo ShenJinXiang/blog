@@ -1,6 +1,6 @@
 (function(){
 	let config = {
-		img: './001.jpg',
+		img: './002.jpg',
 		r: 50,
 		x: 500,
 		y: 200,
