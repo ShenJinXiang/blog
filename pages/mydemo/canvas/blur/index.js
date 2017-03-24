@@ -18,6 +18,8 @@
 	var showBtn = document.getElementById('showBtn');
 	box.style.width = window.innerWidth + 'px';
 	box.style.height = window.innerHeight + 'px';
+	resetBtn.style.left = (window.innerWidth / 2 - 200) + 'px';
+	showBtn.style.right = (window.innerWidth / 2 - 200) + 'px';
 	img.src = config.img;
 
 	canvas.width = window.innerWidth;

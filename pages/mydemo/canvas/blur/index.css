@@ -5,5 +5,3 @@ body {margin: 0px; padding: 0px;}
 #canvas{display: block; position: absolute; top:0px; left: 0px; z-index: 20px;}
 .btn {position: absolute; bottom: 100px; background-color: transparent; width: 100px; height:32px; line-height:32px;border: 1px solid #ccc; color: #eee; font-weight: bold; font-size: 14px; border-radius: 5px; cursor: pointer; z-index: 30px;}
 .btn:hover {border-color: #fff; color: #fff;}
-.reset {left: 600px;}
-.show {right: 600px;}
