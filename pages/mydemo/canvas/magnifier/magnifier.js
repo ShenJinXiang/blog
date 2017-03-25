@@ -1,6 +1,6 @@
 (function(){
 	var config = {
-		src: './002.jpg',
+		src: './002.JPG',
 		scale: 5,
 		r: 100
 	};
