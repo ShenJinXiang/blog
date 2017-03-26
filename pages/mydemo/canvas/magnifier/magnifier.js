@@ -12,6 +12,7 @@
 
 	var canvas = document.getElementById('canvas');
 	var offCanvas = document.createElement('canvas');
+	var markCanvas = getMarkCanvas();
 	canvas.width = window.innerWidth - 200;
 	canvas.height = window.innerHeight - 50;
 	var context = canvas.getContext('2d');
@@ -61,6 +62,7 @@
 	function drawImg() {
 		context.drawImage(img, data.canvas.imgx, data.canvas.imgy, data.canvas.imgw, data.canvas.imgh);
 		offContext.drawImage(img, 0, 0, offCanvas.width, offCanvas.height);
+		context.drawImage(markCanvas, canvas.width - markCanvas.width, canvas.height - markCanvas.height);
 	}
 
 	function drawMagnifier(point) {
@@ -92,5 +94,19 @@
 			x: x - box.left,
 			y: y - box.top
 		};
+	}
+
+	function getMarkCanvas() {
+		var markCanvas = document.createElement('canvas');
+		markCanvas.width = 400;
+		markCanvas.height = 100;
+		var ctx = markCanvas.getContext('2d');
+		
+		ctx.fillStyle = 'rgba(204, 204, 204, 0.5)';
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		ctx.font = '40px cursive';
+		ctx.fillText('www.shenjinxiang.com', markCanvas.width / 2, markCanvas.height / 2, 340);
+		return markCanvas;
 	}
 })();

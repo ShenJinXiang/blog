@@ -1,6 +1,7 @@
 (function(){
 	var config = {
 		img: './002.jpg',
+		//img: '../magnifier/003.jpg',
 		r: 50,
 		x: 500,
 		y: 200,
