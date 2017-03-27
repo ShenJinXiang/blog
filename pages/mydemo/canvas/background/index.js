@@ -22,6 +22,12 @@
 			update();
 		}, config.time);
 
+		window.onresize = function () {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			draw();
+			update();
+		}
 		function initBalls() {
 			for (var i = 0; i < 500; i++) {
 				balls.push({
