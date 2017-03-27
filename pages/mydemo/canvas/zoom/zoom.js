@@ -10,13 +10,14 @@
 	canvas.height = window.innerHeight - 100;
 	var context = canvas.getContext('2d');
 
-	var markCanvas = getMarkCanvas();
-
 	var range = document.getElementById('range');
 	range.style.width = canvas.width + 'px';
 	range.max = config.max;
 	range.min = config.min;
 	range.step = 0.01;
+	range.value = 1;
+
+	var markCanvas = getMarkCanvas();
 
 	var img = new Image();
 	img.src = config.img;
