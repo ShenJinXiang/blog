@@ -1,0 +1,107 @@
+id: 2
+title: vim中移动
+date: 2016-04-12
+category: tools
+tags: vim
+description: 在vim中，提供了很多移动的方式，怎么样更加有效快捷的移动需要长期的实践；那么第一步，就是认识这些命令...
+
+------
+<p>在vim中，提供了很多移动的方式，怎么样更加有效快捷的移动需要长期的实践；那么第一步，就是认识这些命令...</p>
+<!-- 简单移动 -->
+<h4>简单移动</h4>
+<pre class="line-numbers language-none">
+<code>k	 上
+j	 下
+h	 左
+l	 右 </code>
+</pre>
+<p >可以在命令前写数字 比如 10j 则相当于按10下j的效果</p>
+<!-- 按word移动 -->
+<h4>按单词移动</h4>
+<pre class="line-numbers language-none">
+<code>w	 将光标移动到下一个word的首字符上
+b	 将光标向后移动到前一个word的首字符上
+e	 将光标移动到word的最后一个字符上
+ge	 将光标移动到上一个word的最后一个字符上 </code>
+</pre>
+<!-- 行首行尾 -->
+<h4>移动到行首行尾</h4>
+<pre class="line-numbers language-none">
+<code>$	 将光标移动到当前行行尾 对应键盘上的<End>键  
+^	 将光标移动到当前行的第一个非空白字符上
+0	 将光标移动到当前行的第一个字符上	对应 <Home>键 </code>
+</pre>
+<p >1$表示移动到当前行的行尾 10$表示移动到下9行的行尾，0命令之前不可以加数字 因为0本身就是数字了</p>
+<!-- 移动到指定的字符上 -->
+<h4>移动到指定的字符上</h4>
+<pre class="line-numbers language-none">
+<code>fx	 将光标移动到第一个x上 如 fh 表示移动到第一个h上
+Fx	 fx 的反向操作向左搜索移动到第一个x字符上 
+tx	 类似f搜索，不过光标是停留在被搜索的字符之前的一个字符上
+Tx	 tx 的反向操作 向左搜索
+ =========================示例=========================
+ public class void main(String[] args)
+ ----->-------->
+  fc      fo
+ public class void main(String[] args)
+ ---->-------->
+  tc      to
+ To err is human. To really foul up you need a computer.
+ ------------------------------>
+              3fl
+ To err is human. To really foul up you need a computer.
+ ----------------------------->
+              3tl </code>
+</pre>
+<!-- 按括号跳转 -->
+<h4>按括号跳转</h4>
+<pre class="line-numbers language-none">
+<code>%	 跳转到匹配的括号，如果光标在 ( 上 按 % 就会跳转到对应的 ) 上 </code>
+</pre>
+<p >同样适用于 [] {} 可以用 :set matchpairs 显示可以匹配的括号， 如果当前光标并没有停留在一个可用的括号字符上，%会向前找到第一个括号，然后找到与它匹配的括号</p>
+<!-- 跳转到指定行 -->
+<h4>跳转到指定行</h4>
+<pre class="line-numbers language-none">
+<code>nG	 跳转到第n行 n为行号 
+G	 跳转到整个文章的最后一行
+gg	 跳转到整个文章的第一行
+H	 跳转到屏幕上第一行 Home
+L	 跳转到屏幕上最后一行 Last
+M	 跳转到屏幕中间行 Middle
+n%	 跳转到文章百分比的位置 </code>
+</pre>
+<p >100% 跳转到文章最后一行 和G一样效果 50% 跳转到文章中间行</p>
+<h4>翻页、滚屏</h4>
+<pre class='line-numbers language-none'>
+<code>CTRL-U	 文本向下滚动半屏 即你可以看到屏幕上半屏的内容了
+CTRL-D	 文本向上滚动半屏
+CTRL-E	 文本向上滚动一行
+CTRL-Y	 文本向下滚动一行 windows没效果
+CTRL-F	 文本向上滚动一屏 你可以看到下一个屏幕的内容
+CTRL-B	 文本向下滚动一屏 可以看上一个屏幕的内容
+zz	 将当前光标所在行移动到屏幕中间，不是修改文档内容，是整个文档移动
+zt	 将当前光标所在行移动到屏幕顶端
+zb	 将当前光标所在行移动到屏幕底端 </code>
+</pre>
+<h4>简单搜索</h4>
+<pre class="line-numbers language-none">
+<code>/string	 用于搜索一个字符串
+?string	 反向搜索一个字符串
+n	 在搜索出的结果中跳转
+N	 在搜索的结果中反向跳转
+
+*	 全文搜索光标所在单词
+#	 * 的反向搜索 </code>
+</pre>
+<p >比如要搜索一个字符串 public 输入命令  /public  按回车 就会找到文章中所有的public, 然后按字母n 就可以跳转到下一个位置 N则跳转到上一个位置。</p>
+<p >如果搜索的时候需要忽略大小写，可以输入 :set ignorecase 设置， 如果再次搜索 public 就会同时匹配 Public和public，要回到大小写精确匹配，可以输入 :set noignorecase</p>
+<p >如果已经搜索过了， 取消搜索怎么办？很简单，搜索一个文件中不存在的字符就可以了^_^</p>
+<h4>按标记跳转</h4>
+<pre class="line-numbers language-none">
+<code>``	 跳转到上次所在位置
+CTRL-O	 跳转到更早些停止光标的位置
+CTRL-I	 跳回到后来停止光标的位置
+
+mx	 当前位置定义为 x 标记， 可以使用 `x 跳回来 </code>
+</pre>
+<p >mx中x表示a-z之间的任意字母，意思是可以定义26出标记，如果在当前位置输入 me ， 以后不论在页面任何位置， 只要按下 `e 就会跳回到定位为 e 的标记的位置。可以输入 :marks 查看标记列表</p>

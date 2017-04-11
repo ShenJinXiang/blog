@@ -1,0 +1,156 @@
+id: 3
+title: Python学习笔记：list和tuple
+date: 2016-04-15
+category: Python
+tags: Python
+description: list 是Python 内置的一种数据类型，是一种有序的集合，可以随时添加或删除元素，可以包含任何种类的对象：数字、字符串甚至其他列表
+
+------
+<p>list 是Python 内置的一种数据类型，是一种有序的集合，可以随时添加或删除元素，可以包含任何种类的对象：数字、字符串甚至其他列表。</p>
+<h4>创建list</h4>
+<pre class="line-numbers language-python">
+<code># 创建一个表示人名的list 这个list包含四个元素
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+# 创建一个空的list
+empty_list = []
+# list 中的元素可以是任意类型
+test = ['a', 'hello', 23, 45.6, 078, True, ['Bob', 'Lucy']] </code>
+</pre>
+<h4>按索引访问list中的元素</h4>
+<pre class="line-numbers language-python">
+<code># list是一个有序集合，可以按元素索引获取元素，索引从0开始
+names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names[0])		# Bob
+print(names[1])		# Tom
+print(names[2])		# Mary
+print(names[3])		# Lucy
+print(names[4])		# 越界了， IndexError: list index out of range
+# names只有4个元素 有效索引是 0, 1, 2, 3
+
+# 还可以倒序访问list中的元素
+print(names[-1])		# Lucy
+print(names[-2])		# Mary
+print(names[-3])		# Tom
+print(names[-4])		# Bob
+print(names[-5])		# 同样会越界 IndexError: list index out of range
+# list中元素的正序索引 加 倒序索引的绝对值 应该等于list的总长度
+# 无论正序还是倒序 都要小心越界 </code>
+</pre>
+<h4>list添加新元素</h4>
+<pre class="line-numbers language-python">
+<code>names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names)	
+# ['Bob', 'Tom', 'Mary', 'Lucy']
+# append() 方法，给list末尾追加元素
+names.append('LiLei')
+print(names)	
+# ['Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
+# insert() 方法，接受两个参数，第一个参数是索引号，第二个参数是待添加的元素
+names.insert(0, 'Amy')	# 添加到第一个元素位置上
+print(names)	
+# ['Amy', 'Bob', 'Tom', 'Mary', 'Lucy', 'LiLei']
+names.insert(2, 'Dave')	# 第三个位置添加元素
+print(names)	
+# ['Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei']
+names.insert(100, 'Alan')	# 第一个参数很大
+print(names)	
+# ['Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Alan']
+names.insert(-1, 'Susan')
+print(names)	
+# ['Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan']
+names.insert(-100, 'Lisa')	
+print(names)	
+# ['Lisa', 'Amy', 'Bob', 'Dave', 'Tom', 'Mary', 'Lucy', 'LiLei', 'Susan', 'Alan'] </code>
+</pre>
+<h4>list中删除元素</h4>
+<pre class="line-numbers language-python">
+<code>names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names)
+# pop() 方法删除掉最后一个元素，返回删除掉的元素
+name = names.pop()
+print(name)			# Lucy
+print(names)			# ['Bob', 'Tom', 'Mary']
+# 可以给pop() 方法传入一个索引，删除掉对应的元素， 返回删除掉的元素
+name = names.pop(1)
+print(name)			# Tom
+print(names)			# ['Bob', 'Mary']
+# 如果传入的索引不在有效范围内则报异常
+names.pop(100)
+names.pop(-100)		# IndexError: pop index out of range
+
+# remove() 方法按值删除元素
+names.remove('Bob')
+print(names)			# ['Mary']
+
+# clear() 清空列表
+names.clear()
+print(names)			# [] </code>
+</pre>
+<h4>list 替换元素</h4>
+<pre class="line-numbers language-python">
+<code>names = ['Bob', 'Tom', 'Mary', 'Lucy']
+print(names)
+# 替换元素很简单 重新赋值就可以了
+names[1] = 'Dave'
+print(names)				# ['Bob', 'Dave', 'Mary', 'Lucy'] </code>
+</pre>
+<h4>list相关操作</h4>
+<pre class="line-numbers language-python">
+<code>names = ['Bob', 'Tom', 'Mary', 'Lucy']
+# len() 获取list长度
+print(len(names))			# 4
+# 排序
+names.sort()
+print(names)					# ['Bob', 'Lucy', 'Mary', 'Tom']
+# 与sort相反的是 反向排序 reverse() 方法
+
+# index() 方法 获取元素索引
+print(names.index('Lucy'))	# 1
+# 判断元素在list中
+print('Bob' in names)		# True
+print('Dave' in names)		# False
+
+# 遍历列表
+for name in names :
+	print(name, end = ' ')
+# Bob Lucy Mary Tom
+
+print(names * 3)
+# ['Bob', 'Lucy', 'Mary', 'Tom', 'Bob', 'Lucy', 'Mary', 'Tom', 'Bob', 'Lucy', 'Mary', 'Tom'] </code>
+</pre>
+<p>Tuple 是另外一种有序的列表，中文翻译为“元组”。tuple和list非常类型，但是，tuple一旦创建完毕，就不能修改了。 </p>
+<h4>创建tuple</h4>
+<pre class="line-numbers language-python">
+<code># 创建一个包含四个人名tuple
+names = ('Bob', 'Tom', 'Mary', 'Lucy')
+print(names)	# ('Bob', 'Tom', 'Mary', 'Lucy')
+# 创建一个空的tuple
+names = ()
+print(names)	# ()
+# 创建含有一个元素的tuple
+names = ("Bob")
+print(names)	# Bob 
+# 错了，不应该是这个结果，因为() 可以表示tuple，也可以作为括号表示运算符优先级
+names = ('Bob',)
+print(names)	# ('Bob',)
+# 多加一个 , 避免发生歧义 </code>
+</pre>
+<h4>访问tuple中的元素</h4>
+<pre class="line-numbers language-python">
+<code># 访问tuple中元素的方法与访问list中的元素是一样的
+names = ('Bob', 'Tom', 'Mary', 'Lucy')
+print(names)	# ('Bob', 'Tom', 'Mary', 'Lucy')
+print(names[0])	# Bob
+print(names[1])	# Tom
+print(names[2])	# Mary
+print(names[3])	# Lucy
+print(names[4])	# IndexError: tuple index out of range
+
+# 也可以用反序索引访问tuple
+print(names[-1])	# Lucy
+print(names[-2])	# Mary
+print(names[-3])	# Tom
+print(names[-4])	# Bob
+print(names[-5])	# IndexError: tuple index out of range
+# 同样的都要小心越界问题 </code>
+</pre>

@@ -14,7 +14,7 @@ let fileList = function() {
 	return fileArr;
 };
 
-let asPost = function(file, callback) {
+let asPost = function(file) {
 	let post = new Post();
 	let filePath = path.join(process.cwd(), config.src, file);
 	let lines = fsUtil.readLines(filePath);
