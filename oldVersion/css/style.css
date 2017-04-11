@@ -1,0 +1,380 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	display: block;
+	box-sizing: border-box;
+}
+
+p {
+	display: block;
+	-webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+a {
+	text-decoration: none;
+	background-color: transparent;
+	transition: color 0.5s ease-in;
+}
+
+ul {
+	display: block;
+	list-style-type: disc;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 40px;
+}
+
+li{
+	display: list-item;
+	text-align: -webkit-match-parent;
+}
+
+body {
+	font-family: "TIBch", "Classic Grotesque W01", "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;
+	background-color: #ebeefb;
+}
+
+.header {
+	background: -webkit-linear-gradient(#224ea8, #0a3757);
+	background: -o-linear-gradient(#224ea8, #0a3757);
+	background: -moz-linear-gradient(#224ea8, #0a3757);
+	background: linear-gradient(#224ea8, #0a3757);
+	text-align: left;
+}
+
+.content {
+	padding: 0 30px;
+	max-width: 1150px;
+	margin: 0 auto;
+}
+
+.header-content {
+	padding: 60px 0 0;
+	position: relative;
+	color: #e5e9fd;
+	padding-bottom: 40px;
+}
+
+.site-name .description{
+	margin-top: 10px;
+	font-size: 14px;
+	font-family: "黑体";
+}
+
+#logo {
+	font-size: 40px;
+	color: #e5e9fd;
+	font-weight: bold;
+	
+}
+
+#logo:hover {
+	color: #a5a5a5;
+}
+
+#nav-menu {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#nav-menu a{
+	color: #e5e9fd;
+	padding: 5px 20px;
+	font-size: 14px;
+}
+
+#nav-menu a:hover{
+	color: #a5a5a5;
+	border-bottom: 1px solid #ccc;
+}
+
+#nav-menu a.current {
+	border: 1px solid #eee;
+	border-radius: 4px;
+}
+
+/* ------------------------------------------------------ */
+
+.layout {
+	color: #656565;
+}
+
+.layout a {
+	color: #656565;
+}
+
+.layout a:hover {
+	color: #1f1f1f;
+}
+
+.main-content { 
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+.main-content .content-box {
+	display: inline-block;
+	width: 75%;
+	margin: 0;
+}
+
+.content-container {
+	padding-right: 50px;
+	padding-top : 40px;
+	min-height: 600px;
+}
+
+.main-content .side-box {
+	display: inline-block;
+	width: 25%;
+	margin: 0;
+}
+
+#sidebar {
+	border-left: 1px solid #656565;
+	color: #656565;
+	padding-left: 35px;
+	margin-top: 40px;
+	padding-bottom: 20px;
+	word-wrap: break-word;
+	font-family: sans-serif;
+}
+
+#sidebar .widget {
+	margin-bottom: 30px;
+}
+
+#sidebar .widget .widget-title {
+	line-height: 2.7;
+	margin-top: 0;
+	font-size: 16px;
+	border-bottom: 1px solid #656565;
+	font-weight: normal;
+}
+
+#sidebar .widget ul {
+	padding: 0;
+	display: block;
+	list-style: none;
+}
+
+#sidebar .widget ul li{
+	margin: 5px 0;
+	line-height: 1.5;
+}
+
+#categoryList a{
+	font-size: 14px;
+}
+
+#sidebar .widget .tagcloud {
+	margin-top: 10px;
+}
+
+#sidebar .widget .tagcloud a {
+	line-height: 1.5; 
+	padding: 5px;
+	display: inline-block;
+	font-size: 14px;
+}
+
+#calendar_table {
+	width: 100%;
+	text-align: center;
+	font-size: 13px;
+	border-collapse: collapse;
+}
+
+#calendar_table tr{
+	height: 30px;
+	line-height: 30px;
+}
+
+#calendar_table .currentDay {
+	color: #224ea8;
+}
+
+#calendar_table .currentMonth {
+	color: #888;
+}
+
+#calendar_table .otherMonth{
+	color: #ddd;
+}
+
+.calendar-title-box{
+	position: relative;
+	text-align: center;
+}
+
+.prev-month{
+	cursor: pointer;
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+	border-left: 0px;
+	border-right: 9px solid #000;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	position: absolute;
+	top: 17px;
+	left: 0px;
+}
+
+.next-month{
+	cursor: pointer;
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+	border-right: 0px;
+	border-left: 9px solid #000;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	position: absolute;
+	top: 17px;
+	right: 0px;
+}
+
+.post-list-link {
+	font-size:13px;
+}
+
+.post {
+	padding: 25px 0 15px;
+}
+
+.post .post-title {
+	margin: 0;
+	text-align: left;
+	font: bold 25px/1.1 "ff-tisa-web-pro",Cambria,"Times New Roman",Georgia,Times,sans-serif;
+}
+
+.post .post-meta {
+	padding: 0;
+	margin: 10px 0 0;
+	font-size: 12px;
+}
+
+.post .post-content {
+	clear: left;
+	font-size: 15px;
+	line-height: 1.77;
+	padding-top: 15px;
+	text-align: justify;
+	word-break: normal;
+	margin-bottom: 20px;
+}
+
+.post-archive {
+	font-size: 15px;
+	line-height: 2;
+	padding-bottom: .8em;
+}
+
+.post-archive h2 {
+	margin: 0;
+	font: bold 25px/1.1 "ff-tisa-web-pro",Cambria,"Times New Roman",Georgia,Times,sans-serif;
+}
+
+.post-archive .date{
+	padding-right: .7em;
+}
+
+.post-nav {
+	border-top: 1px solid #aaa;
+	margin-bottom: 20px;
+	margin-top: 15px;
+	overflow: hidden;
+	padding: 10px;
+	white-space: nowrap;
+	font-size:14px;
+}
+
+.post-nav a.next{
+	float: right;
+}
+
+.post-nav a.prev{
+	float: left;
+}
+
+.label-title{
+	margin-top: 1.1em;
+	font-size: 20px;
+	font-weight: normal;
+	color: #888;
+}
+
+.readmore a{
+	font-size: 14px;
+	margin:-10px 0;
+	padding: 5px 10px;
+	border: 1px solid #131313;
+	border-radius: 5px;
+	float: right;
+}
+
+.page-navigator{
+	margin-top: 20px;
+	border-top: 1px solid #555;
+	padding-top: 20px;
+	text-align:center;
+	font-size: 14px;
+	height: 30;
+	line-height: 30px;
+}
+
+.page-navigator .prev-page {
+	float: left;
+}
+
+.page-navigator .next-page {
+	float: right;
+}
+
+.page-navigator .page-span {
+	display: inline-block;
+	border: 1px solid #ccc;
+	padding: 0px 5px;
+	margin: 0 6px;
+	cursor: pointer;
+}
+
+.page-navigator .page-span:hover{
+	/*
+	border-bottom: 1px solid #d26911;
+	*/
+	border-bottom: 1px solid #555;
+}
+
+.page-navigator .current{
+	/*
+	border: 1px solid #d26911;
+	*/
+	border: 1px solid #555;
+}
+/* ------------------------------------------------------ */
+.footer .content{
+	margin-top: 20px;
+	color: #141414;
+	text-align: left;
+}
+
+
+/* ------------------------------------------------------ */
+.result-code{
+	background-color: #333;
+	border-radius: 3px;
+	color: #ddd;
+}

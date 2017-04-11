@@ -1,4 +1,4 @@
-/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+clike+javascript+bash+c+csharp+cpp+jade+java+json+less+python+sql+swift+vim&plugins=line-numbers */
+/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+clike+javascript+bash+c+cpp+git+http+jade+java+json+lua+nginx+perl+php+python+sql+vim&plugins=line-numbers */
 /**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
@@ -38,11 +38,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	/*
 	background: #272822;
-	background: #0a3757;
-	*/
-	background: #002B36;
 }
 
 /* Inline code */

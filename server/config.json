@@ -1,0 +1,100 @@
+{
+	"title": "LikeStar",
+	"description": "申锦祥的个人博客",
+	"pageSize": 10,
+	"src": "/src/posts",
+	"url": {
+		"index": "/",
+		"archives": "/archives",
+		"demo": "/demo"
+	},
+	"paths": {
+		"home": {
+			"name": "首页",
+			"index": "home",
+			"path": "/"
+		},
+		"page": {
+			"name": "分页",
+			"index": "page",
+			"path": "/pages/page/#pageNum#"
+		},
+		"archives": {
+			"name": "归档",
+			"index": "archives",
+			"path": "/pages/archives"
+		},
+		"tags": {
+			"name": "标签",
+			"index": "tags",
+			"path": "/pages/archives/tags/#tag#"
+		},
+		"category": {
+			"name": "分类",
+			"index": "category",
+			"path": "/pages/archives/category/#category#"
+		},
+		"demo": {
+			"name": "demo",
+			"index": "demo",
+			"path": "/pages/demo"
+		},
+		"post": {
+			"name": "post",
+			"index": "post",
+			"path": "/pages/posts/#category#/#year#/#month#/#day#/#title#/"
+		}
+	},
+	"demo" : [
+		{
+			"title": "Canvas时钟",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/clock/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "Canvas arcTo()函数演示",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/arcTo/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "Canvas二次贝塞尔曲线",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/quadraticCurveTo/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "Canvas三次贝塞尔曲线",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/bezierCurveTo/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "background",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/background/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "探照灯",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/clip/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "模糊",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/blur/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "放大镜",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/magnifier/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "isPointInPath",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/isPointInPath/index.html",
+			"date": "2017-04-02"
+		},
+		{
+			"title": "图片缩放",
+			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/zoom/index.html",
+			"date": "2017-04-02"
+		}
+	]
+}

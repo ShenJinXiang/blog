@@ -1,0 +1,15 @@
+{
+  "name": "blog_server",
+  "version": "1.0.0",
+  "description": "用于博客启测试启动服务的脚本",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shenjinxiang",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "express": "^4.15.2"
+  }
+}
