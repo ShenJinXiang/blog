@@ -24,6 +24,26 @@ p{
 	font-weight:400;
 	font-size:14px;
 }
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+table tr{
+	height: 32px;
+	line-height: 32px;
+}
+table tr:nth-child(even) {
+	background-color: #f1f1f1;
+}
+table th{
+	text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+table td{
+    border: 1px solid #ddd;
+	padding-left: 8px;
+}
 a:link,a:visited{
 	opacity:1;
 	-webkit-transition:all .15s linear;

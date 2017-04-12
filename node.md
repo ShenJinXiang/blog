@@ -42,6 +42,9 @@ blog/
    |                           |-- index.js
    |                           |-- index.css
    |
+   |-- src/
+   |   |-- posts/                                       原始文章
+   |
    |-- static/                                          静态文件
    |   |-- #category#/
    |       |-- #year#/
