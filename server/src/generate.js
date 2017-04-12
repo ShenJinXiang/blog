@@ -5,7 +5,7 @@ let generate = function() {
 	let posts = ap.posts();
 
 	posts.sort(function(post1, post2) {
-		return post2.id > post1.id;
+		return parseInt(post2.id) > parseInt(post1.id);
 	});
 
 	html.postsHtml(posts);
