@@ -1,3 +1,4 @@
+/*
 const html = require('./html');
 const Post = require('./Post');
 let arr = [
@@ -262,3 +263,6 @@ html.archivesHtml(posts);
 html.tagsHtml(posts);
 html.categoryHtml(posts);
 html.demoHtml();
+*/
+const os = require('os');
+console.log(os.type());

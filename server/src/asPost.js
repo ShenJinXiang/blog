@@ -19,9 +19,9 @@ let asPost = function(file) {
 	let filePath = path.join(process.cwd(), config.src, file);
 	let lines = fsUtil.readLines(filePath);
 
-	let headIndex = lines.indexOf('------' + os.EOL);
-	if (headIndex == -1) {
-		headIndex = lines.indexOf('------');
+	let headIndex = lines.indexOf('------');
+	if (os.type() == 'Windows_NT') {
+		headIndex = lines.indexOf('------\r');
 	}
 	let headerArr = lines.slice(0, headIndex);
 	let bodyArr = lines.slice(headIndex + 1);
