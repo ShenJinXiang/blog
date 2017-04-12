@@ -35,6 +35,7 @@ let page = fsUtil.readFile(path.join(__dirname, '/template/page.html'));
  * tags
  */
 let posts = fsUtil.readFile(path.join(__dirname, '/template/posts.html'));
+let post = fsUtil.readFile(path.join(__dirname, '/template/post.html'));
 
 /**
  * 上一页、下一页按钮组
@@ -86,6 +87,7 @@ exports.menu2 = menu2;
 exports.menu3 = menu3;
 exports.page = page;
 exports.posts = posts;
+exports.post = post;
 exports.pageBtns = pageBtns;
 exports.pageBtn = pageBtn;
 

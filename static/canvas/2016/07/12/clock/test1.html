@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+canvas{display:block;margin:5px auto;border:1px solid #ccc;}
+</style>
+</head>
+<body>
+<canvas id='canvas'></canvas>
+<script>
+(function(){
+	var canvas = document.getElementById("canvas");
+	canvas.width = 200;
+	canvas.height = 160;
+	var context = canvas.getContext('2d');
+	context.moveTo(20, 70);
+	context.lineTo(140, 70);
+	context.lineTo(140, 40);
+	context.lineTo(180, 80);
+	context.lineTo(140, 120);
+	context.lineTo(140, 90);
+	context.lineTo(20, 90);
+	context.lineWidth = 2;
+	context.strokeStyle = "#058";
+	context.stroke();
+ })();
+</script>
+</body>
+</html>

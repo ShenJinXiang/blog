@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+canvas{display:block;margin:5px auto;border:1px solid #ccc;}
+</style>
+</head>
+<body>
+<canvas id='canvas'></canvas>
+<script>
+(function(){
+	var canvas = document.getElementById("canvas");
+	canvas.width = 500;
+	canvas.height = 200;
+	var context = canvas.getContext('2d');
+	context.font = "bold 40px Arial";
+	context.fillStyle = '#058';
+	context.fillText("Canvas制作简单钟表", 50, 50);
+	context.strokeStyle = '#058';
+	context.strokeText("Canvas制作简单钟表", 50, 150);
+ })();
+</script>
+</body>
+</html>
+

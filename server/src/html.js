@@ -205,7 +205,7 @@ let postsHtml = function(postList) {
 	let index = template.index;
 	let menu0 = template.menu0;
 	let page = template.page;
-	let posts = template.posts;
+	let postH = template.post;
 	let pageBtns = template.pageBtns;
 	let pageBtn = template.pageBtn;
 	
@@ -216,7 +216,7 @@ let postsHtml = function(postList) {
 			let tagHref = stringUtil.replace(config.paths.tags.path, {tag: tag});
 			tagsHtml.push(`<a href='${tagHref}'>${tag}</a>`);
 		});
-		let postContent = stringUtil.replace(posts, {
+		let postContent = stringUtil.replace(postH, {
 			url: item.getUrl(),
 			title: item.getTitle(),
 			description: item.getContent(),
