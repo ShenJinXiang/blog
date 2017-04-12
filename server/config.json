@@ -47,54 +47,64 @@
 	},
 	"demo" : [
 		{
-			"title": "Canvas时钟",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/clock/index.html",
-			"date": "2017-04-02"
-		},
-		{
-			"title": "Canvas arcTo()函数演示",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/arcTo/index.html",
-			"date": "2017-04-02"
-		},
-		{
-			"title": "Canvas二次贝塞尔曲线",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/quadraticCurveTo/index.html",
-			"date": "2017-04-02"
-		},
-		{
-			"title": "Canvas三次贝塞尔曲线",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/bezierCurveTo/index.html",
-			"date": "2017-04-02"
-		},
-		{
-			"title": "background",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/background/index.html",
-			"date": "2017-04-02"
-		},
-		{
-			"title": "探照灯",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/clip/index.html",
-			"date": "2017-04-02"
-		},
-		{
-			"title": "模糊",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/blur/index.html",
-			"date": "2017-04-02"
-		},
-		{
 			"title": "放大镜",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/magnifier/index.html",
-			"date": "2017-04-02"
+			"url": "/static/canvas/2017/03/02/magnifier/index.html",
+			"date": "2017-03-02"
 		},
 		{
 			"title": "isPointInPath",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/isPointInPath/index.html",
-			"date": "2017-04-02"
+			"url": "/static/canvas/2017/02/18/isPointInPath/index.html",
+			"date": "2017-02-18"
+		},
+		{
+			"title": "探照灯",
+			"url": "/static/canvas/2017/02/09/clip/index.html",
+			"date": "2017-02-09"
+		},
+		{
+			"title": "Canvas二次贝塞尔曲线",
+			"url": "/static/canvas/2017/02/02/quadraticCurveTo/index.html",
+			"date": "2017-02-02"
+		},
+		{
+			"title": "Canvas三次贝塞尔曲线",
+			"url": "/static/canvas/2017/02/02/bezierCurveTo/index.html",
+			"date": "2017-02-02"
+		},
+		{
+			"title": "贪吃蛇",
+			"url": "/static/canvas/2017/01/18/tcs/index.html",
+			"date": "2017-01-18"
+		},
+		{
+			"title": "Canvas arcTo()函数演示",
+			"url": "/static/canvas/2017/01/17/arcTo/index.html",
+			"date": "2017-01-17"
+		},
+		{
+			"title": "background",
+			"url": "/static/canvas/2016/12/20/background/index.html",
+			"date": "2016-12-20"
 		},
 		{
 			"title": "图片缩放",
-			"url": "http://www.shenjinxiang.com/pages/mydemo/canvas/zoom/index.html",
-			"date": "2017-04-02"
+			"url": "/static/canvas/2016/08/23/zoom/index.html",
+			"date": "2016-08-23"
+		},
+		{
+			"title": "模糊",
+			"url": "/static/canvas/2016/08/13/blur/index.html",
+			"date": "2016-08-13"
+		},
+		{
+			"title": "计时器",
+			"url": "/static/canvas/2016/06/12/timer/index.html",
+			"date": "2016-06-12"
+		},
+		{
+			"title": "Canvas时钟",
+			"url": "/static/canvas/2016/05/20/clock/index.html",
+			"date": "2016-05-20"
 		}
 	]
 }

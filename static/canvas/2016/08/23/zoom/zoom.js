@@ -1,7 +1,7 @@
 (function(){
 
 	var config = {
-		img: '../magnifier/001.jpg',
+		img: './001.jpg',
 		min: 0.5,
 		max: 3
 	};
