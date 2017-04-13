@@ -2,7 +2,7 @@ id: 18
 title: Nodejs总结：常用全局对象
 date: 2016-11-24
 category: nodejs
-tags: javascript nodejs
+tags: javascript, nodejs
 description: 在浏览器中，宿主对象Window，为顶级作用域对象，定义在Window对象上的属性，即为全局属性，例如：document, location等属性
 
 ------

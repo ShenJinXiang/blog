@@ -2,7 +2,7 @@ id: 17
 title: Nodejs总结：安装与使用
 date: 2016-11-21
 category: nodejs
-tags: javascript nodejs
+tags: javascript, nodejs
 description: Node.js的学习开始了一段时间了，做了一些小的练习，对这一阶段的内容做个总结，现在开始Node.js的安装和使用
 
 ------

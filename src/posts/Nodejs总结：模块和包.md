@@ -2,7 +2,7 @@ id: 19
 title: Nodejs总结：模块和包
 date: 2016-11-25
 category: nodejs
-tags: javascript nodejs
+tags: javascript, nodejs
 description: 我们了解了Node.js的一些基本用法，可以用node运行js脚本文件，但是在实际开发的时候是远远不够的，开发一个具有一定规模的程序不可能只用一个文件，我们需要把各个功能拆分、封装然后组合起来，模块就是为了解决这个问题
 
 ------
@@ -27,7 +27,7 @@ var sayHello = function () {
 exports.setName = setName;
 exports.say = sayHello;</code>
 </pre>
-<i>在同一个目录下创建personTest.js文件，内容为：</i><
+<i>在同一个目录下创建personTest.js文件，内容为：</i>
 <pre class='line-numbers language-javascript'>
 <code>// personTest.js
 var p = require('./person');
