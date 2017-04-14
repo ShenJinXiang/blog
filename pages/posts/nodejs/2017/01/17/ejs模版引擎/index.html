@@ -1,12 +1,74 @@
-id: 28
-title: ejs模版引擎
-date: 2017-01-17
-category: nodejs
-tags: javascript, nodejs
-description: express使用到现在的阶段，有一个很重要的问题还没解决，那就是mvc模式中的view层，之前我们只是简单的给浏览器发送一个字符串，或者拼接html字符串，对于简单的页面来说还可以实现，但是实际开发的时候显然是不合适的...
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
 
-------
-<p>express使用到现在的阶段，有一个很重要的问题还没解决，那就是mvc模式中的view层，之前我们只是简单的给浏览器发送一个字符串，或者拼接html字符串，对于简单的页面来说还可以实现，但是实际开发的时候显然是不合适的，类似于java web开发的时候有jsp、FreeMarker等模板引擎，nodejs中同样也有模板引擎，比如 jade、ejs等模板引擎，今天简单介绍一下ejs，原因很简单，这个非常容易上手</p>
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/nodejs/2017/01/17/ejs模版引擎/'>ejs模版引擎</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>express使用到现在的阶段，有一个很重要的问题还没解决，那就是mvc模式中的view层，之前我们只是简单的给浏览器发送一个字符串，或者拼接html字符串，对于简单的页面来说还可以实现，但是实际开发的时候显然是不合适的，类似于java web开发的时候有jsp、FreeMarker等模板引擎，nodejs中同样也有模板引擎，比如 jade、ejs等模板引擎，今天简单介绍一下ejs，原因很简单，这个非常容易上手</p>
 <h3>安装ejs</h3>
 <p>ejs安装很简单，同样是使用npm工具</p>
 <pre class='line-numbers language-none'>
@@ -321,3 +383,47 @@ table th, table td {border: 1px solid #ccc; line-height: 28px;text-indent:10px;}
 </pre>
 <p>启动app.js应用，浏览器访问 "http://localhost:3000/" 运行结果和之前的例子一样</p>
 <p>到目前为止，我们已经可以用ejs的一些简单使用了，其实ejs还有很多特性，这里不做介绍了，其实是我也不会，在摸索中。。 哈~~</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-01-17</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/nodejs'>nodejs</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/nodejs'>nodejs</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2017/01/12/Nodejs总结：Express中间件/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
