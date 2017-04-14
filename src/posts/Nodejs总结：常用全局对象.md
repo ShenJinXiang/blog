@@ -1,4 +1,4 @@
-id: 18
+id: 17
 title: Nodejs总结：常用全局对象
 date: 2016-11-24
 category: nodejs

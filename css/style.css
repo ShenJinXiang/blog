@@ -19,6 +19,9 @@ body{
 	margin:0 auto 30px;
 	overflow-x: hidden;
 }
+ol li {
+	line-height: 30px;
+}
 p{
 	line-height:1.9em;
 	font-weight:400;
