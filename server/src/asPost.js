@@ -20,9 +20,11 @@ let asPost = function(file) {
 	let lines = fsUtil.readLines(filePath);
 
 	let headIndex = lines.indexOf('------');
+	/*
 	if (os.type() == 'Windows_NT') {
 		headIndex = lines.indexOf('------\r');
 	}
+	*/
 	let headerArr = lines.slice(0, headIndex);
 	let bodyArr = lines.slice(headIndex + 1);
 	parseHeaderArr(headerArr);

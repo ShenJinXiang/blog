@@ -1,3 +1,4 @@
+const os = require('os');
 const fs = require('fs');
 const exec = require('child_process').exec;
 const readline = require('readline');
@@ -67,7 +68,7 @@ let readLines = function(file, callback) {
 */
 let readLines = function(file) {
 	let content = readFile(file);
-	return content.split('\n');
+	return content.split(os.EOL);
 }
 
 let readdir = function(file) {
