@@ -1,10 +1,10 @@
 (function() {
-	let canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('canvas');
 	canvas.width = 660;
 	canvas.height = canvas.width * 2 / 3;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 	
-	let config = {
+	var config = {
 		x: canvas.width / 2,
 		y: canvas.height / 2,
 		r: 100
@@ -37,10 +37,10 @@
 
 	function drawGQ() {
 
-		let gWidth = canvas.width / 30;
-		let [maxX, maxY] = [5, 5];		// 大五角星的坐标
-		let minX = [10, 12, 12, 10];	// 小五角星的x坐标值
-		let minY = [2, 4, 7, 9];		// 小五角星的y坐标值
+		var gWidth = canvas.width / 30;
+		var [maxX, maxY] = [5, 5];		// 大五角星的坐标
+		var minX = [10, 12, 12, 10];	// 小五角星的x坐标值
+		var minY = [2, 4, 7, 9];		// 小五角星的y坐标值
 
 		// 红色背景
 		context.fillStyle = 'red';
@@ -50,7 +50,7 @@
 		drawStar(maxX * gWidth, maxY * gWidth, 3 * gWidth, -Math.PI / 2);
 
 		// 小五角星
-		for (let i = 0; i < 4; i++) {
+		for (var i = 0; i < 4; i++) {
 			drawStar(minX[i] * gWidth, minY[i] * gWidth, gWidth, 
 					Math.PI + Math.atan((minY[i] - maxY ) / (minX[i] - maxX)));
 		}
@@ -64,8 +64,8 @@
 		context.scale(r, r);
 		context.rotate(rotate);
 		context.beginPath();
-		let dig = 2 * 2 * Math.PI / 5;
-		for(let i = 0; i < 5; i++) {
+		var dig = 2 * 2 * Math.PI / 5;
+		for(var i = 0; i < 5; i++) {
 			context.lineTo(Math.cos(i * dig), Math.sin(i * dig));
 		}
 		context.closePath();
