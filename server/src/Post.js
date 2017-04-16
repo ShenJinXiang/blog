@@ -1,6 +1,9 @@
+const os = require('os');
 const dateUtil = require('./dateUtil');
 const stringUtil = require('./stringUtil');
 const config = require('../config');
+const parse = require('./parse');
+
 /**
  * id
  * title - 标题
@@ -118,7 +121,8 @@ Post.prototype.getSource = function() {
 };
 
 Post.prototype.getContent = function() {
-	return this.source.join('\n');
+	//return this.source.join(os.EOL);
+	return parse(this.source).join(os.EOL);
 };
 
 module.exports = Post;
