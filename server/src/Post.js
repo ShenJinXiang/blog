@@ -14,8 +14,6 @@ const parse = require('./parse');
 function Post(id, title, dateStr, category, tags, description, url) {
 	this.id = id;
 	this.title = title;
-
-
 	this.category = category;
 	this.tags = tags;
 	this.description = description;
@@ -34,6 +32,14 @@ Post.prototype.getTitle = function () {
 };
 Post.prototype.setTitle = function (title) {
 	this.title = title;
+};
+
+Post.prototype.getType = function() {
+	return this.type;
+};
+
+Post.prototype.setType = function(type) {
+	this.type = type;
 };
 
 Post.prototype.setDate = function (dateStr) {
@@ -122,7 +128,10 @@ Post.prototype.getSource = function() {
 
 Post.prototype.getContent = function() {
 	//return this.source.join(os.EOL);
-	return parse(this.source).join(os.EOL);
+	if (this.type === '.md') {
+		return parse(this.source).join(os.EOL);
+	}
+	return this.source.join(os.EOL);
 };
 
 module.exports = Post;

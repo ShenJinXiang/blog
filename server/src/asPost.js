@@ -7,7 +7,7 @@ const config = require('../config');
 
 let fileList = function() {
 	let fileArr = fsUtil.readdir(path.join(process.cwd(), config.src));
-	let reg = /(.md)$/
+	let reg = /(.md|.html)$/
 	fileArr = fileArr.filter(function(item) {
 		return reg.test(item);
 	});
@@ -17,6 +17,7 @@ let fileList = function() {
 let asPost = function(file) {
 	let post = new Post();
 	let filePath = path.join(process.cwd(), config.src, file);
+	post.setType(path.extname(filePath));
 	let lines = fsUtil.readLines(filePath);
 
 	let headIndex = lines.indexOf('------');
