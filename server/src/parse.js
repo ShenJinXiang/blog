@@ -12,6 +12,7 @@ const CURRENT = {
 };
 
 const regs = {
+	HTML: /^\s*\<.+\>\s*$/,
 	H1: /^[\s]*[#]{1}[^#]{1}.*/,
 	H2: /^[\s]*[#]{2}[^#]{1}.*/,
 	H3: /^[\s]*[#]{3}[^#]{1}.*/,
@@ -299,6 +300,9 @@ let parse = function(lineArr) {
 function parseLine() {
 //	return currentStatus.line;
 	if (currentStatus.status === CURRENT.DEFAULT) {
+		if (regs.HTML.test(currentStatus.line)) {
+			return currentStatus.line;
+		}
 		if (regs.H1.test(currentStatus.line)) {
 			return h1(currentStatus.line);
 		}
