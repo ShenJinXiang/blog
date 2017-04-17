@@ -8,7 +8,11 @@ blog/
    |   |-- style.css
    |
    |-- images/                                           图片文件
-   |   |-- title.ico
+   |   |-- title.ico                                     博客图标
+   |   |-- #category#/
+   |       |-- #year#/
+   |           |-- #month#/
+   |               |-- #date#/
    |
    |-- js/                                               脚本文件
    |   |-- common.js
@@ -63,15 +67,41 @@ blog/
    |   |-- jquery.js
    |
    |-- server/                                          nodejs脚本文件
+   |   |-- node_modules/
    |   |-- src/
-   |   |-- app.js
    |   |   |-- template/
+   |   |   |   |-- archive.html
+   |   |   |   |-- archives.html
+   |   |   |   |-- archiveTitle.html
+   |   |   |   |-- demolist.html
+   |   |   |   |-- index.html
+   |   |   |   |-- main.html
+   |   |   |   |-- menu0.html
+   |   |   |   |-- menu1.html
+   |   |   |   |-- menu2.html
+   |   |   |   |-- menu3.html
+   |   |   |   |-- page.html
+   |   |   |   |-- pageBtn.html
+   |   |   |   |-- pageBtns.html
+   |   |   |   |-- post.html
+   |   |   |   |-- posts.html
+   |   |   |
    |   |   |-- Post.js
+   |   |   |-- asPost.js
+   |   |   |-- server.js
+   |   |   |-- clean.js
+   |   |   |-- generate.js
+   |   |   |-- html.js
+   |   |   |-- log.js
+   |   |   |-- parse.js
    |   |   |-- fsUtil.js
    |   |   |-- stringUtil.js
    |   |   |-- dateUtil.js
+   |   |   |-- template.js
    |   |
+   |   |-- app.js
    |   |-- config.json
+   |   |-- package.json
    |
    |-- index.html                                       首页
 ```
