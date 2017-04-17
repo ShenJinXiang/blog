@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/canvas/2017/03/04/图形变换/'>图形变换</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>canvas中的图形变换，主要涉及到图形的偏移、旋转、缩放功能。本文所有的代码采用的html模板均为：</p>
+<pre class="line-numbers language-html">
+<code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset='utf-8'&gt;
+	&lt;style&gt;
+		canvas{display:block; border: 1px solid #ccc;margin: 0px auto;}
+	&lt;/style&gt;
+	&lt;title&gt;canvas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;canvas id='mycanvas'&gt;&lt;/canvas&gt;
+&lt;script src='外部js路径'&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+
+<h2>translate()方法</h2>
+<p>CanvasRenderingContext2D的<code class="inline_code">translate()</code>方法为当前画布添加水平和垂直偏移量。默认情况下，canvas中的坐标系统是以左上角为坐标原点<code class="inline_code">(0, 0)</code>，水平向右<code class="inline_code">x</code>坐标值增加、垂直向下<code class="inline_code">y</code>坐标值增加。<code class="inline_code">translate()</code>方法接受两个Number类型参数，分别设置x轴和y轴方向的偏移量</p>
+
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.fillStyle = 'blue';
+	context.translate(50, 50);
+	context.fillRect(0, 0, 200, 200);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/04/001.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>使用<code class="inline_code">fillRect()</code>方法填充一个<code class="inline_code">200 * 200</code>的矩形空间，在此之前使用<code class="inline_code">translate()</code>方法设置<code class="inline_code">x</code>、<code class="inline_code">y</code>方向的偏移量都为50。可以看到，虽然填充的起始点坐标设置为<code class="inline_code">(0, 0)</code>，但是在<code class="inline_code">translate()</code>方法影响下，相当于将坐标原点移动到了<code class="inline_code">(50, 50)</code>位置</p>
+
+<h2>保存还原绘图状态</h2>
+<p>如果多次调用<code class="inline_code">translate()</code>方法会怎么样呢？看下面的例子：</p>
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.fillStyle = 'blue';
+	context.translate(50, 50);
+	context.fillRect(0, 0, 200, 200);
+
+	context.fillStyle = 'red';
+	context.translate(150, 150);
+	context.fillRect(0, 0, 200, 200);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/04/002.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>这个例子中画了两个矩形，第一个矩形的位置没什么问题，是在<code class="inline_code">(50, 50)</code>的位置开始画了一个蓝色的矩形，但是第二个矩形的位置有问题，不是在<code class="inline_code">translate()</code>设置的<code class="inline_code">(150, 150)</code>位置开始画的，而是在<code class="inline_code">(200, 200)</code>位置开始绘制的矩形，可以知道两次<code class="inline_code">translate()</code>方法效果累加了，这个时候我们需要在每次调用完<code class="inline_code">translate()</code>之后，将状态返回到原来的状态，采用下面的方法：</p>
+
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.fillStyle = 'blue';
+	context.translate(50, 50);
+	context.fillRect(0, 0, 200, 200);
+	context.translate(-50, -50);
+
+	context.fillStyle = 'red';
+	context.translate(150, 150);
+	context.fillRect(0, 0, 200, 200);
+	context.translate(-150, -150);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/04/003.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>这样第二个矩形的其实位置在<code class="inline_code">(150, 150)</code>位置。但是有个问题就是每次调用结束以后都需要再次调用<code class="inline_code">translate()</code>设置相反的参数，恢复原来状态，是一件很繁琐的事情，而且代码量大了以后，很难维护，这时需要用到<code class="inline_code">save()</code>和<code class="inline_code">restore()</code>方法</p>
+
+<p>CanvasRenderingContext2D对象的<code class="inline_code">save()</code>将复制当前绘图状态，并将这个副本压入已保存的绘图状态栈中，这样就可以临时改变绘图状态。 CanvasRenderingContext2D对象的<code class="inline_code">restore()</code>从以保存的绘图状态的栈中弹出最后一个保存状态，并根据这个状态充值CanvasRenderingContext2D的各项属性、裁剪路径以及转换矩阵。所以上面的代码可以修改为：</p>
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.save();
+	context.fillStyle = 'blue';
+	context.translate(50, 50);
+	context.fillRect(0, 0, 200, 200);
+	context.restore();
+
+	context.save();
+	context.fillStyle = 'red';
+	context.translate(150, 150);
+	context.fillRect(0, 0, 200, 200);
+	context.restore();
+})();</code>
+</pre>
+
+<p>查看html页面，效果与上面是一样的，在实际开发的时候<code class="inline_code">save()</code>和<code class="inline_code">restore()</code>方法是成对出现的。这两个方法之间的绘图状态不会影响之前和之后的绘图</p>
+
+<h2>rotate()方法</h2>
+<p>改变当前转换矩阵，接下来在画布上绘制的任何对象都将旋转指定的角度，&lt;canvas&gt;元素并没有旋转，角度的单位是弧度制。角度转换为弧度的方法：乘以<code class="inline_code">Math.PI</code>，再除以<code class="inline_code">180</code>。例子：</p>
+
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.save();
+	context.fillStyle = '#058';
+	context.translate(200, 200);
+	context.rotate(Math.PI / 6);
+	context.fillRect(-100, -100, 200, 200);
+	context.restore();
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/04/004.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>在这里同时使用<code class="inline_code">translate()</code>和<code class="inline_code">rotate()</code>方法，偏移<code class="inline_code">(200, 200)</code>同时旋转30度角，可以看到<code class="inline_code">rotate()</code>方法是按顺时针旋转的</p>
+
+<h2>scale()方法</h2>
+<p>接受两个Number类型的参数，分别表示在<code class="inline_code">x</code>和<code class="inline_code">y</code>轴方向上的缩放比例，这个方法添加一个缩放转换到画布的当前转换矩阵中，缩放在水平方向与垂直方向上是相互独立的，如果参数为负数，则为反向，这意味着可以随意的放大和缩小图形，也可以绘制图形的相对于<code class="inline_code">x</code>、<code class="inline_code">y</code>轴的对称图形和相对于坐标原点的点对称图形，这里说到的坐标轴是指的当前状态的坐标，而不是系统默认坐标</p>
+<p>例子：</p>
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.lineWidth = 2;
+
+	context.save();
+	context.scale(1, 1);
+	context.strokeRect(25, 25, 100, 100);
+	context.restore();
+
+	context.save();
+	context.scale(2, 2);
+	context.strokeRect(25, 25, 100, 100);
+	context.restore();
+
+	context.save();
+	context.scale(3, 3);
+	context.strokeRect(25, 25, 100, 100);
+	context.restore();
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/04/005.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>绘制了三个矩形边框，初始的宽高都是<code class="inline_code">100</code>，线条宽度是<code class="inline_code">2</code>，分别缩放了<code class="inline_code">1</code>、<code class="inline_code">2</code>、<code class="inline_code">3</code>倍，从结果可以看到，左上角的位置也经过了缩放，设置的起始点在<code class="inline_code">(50, 50)</code>，缩放以后的起始点分别为<code class="inline_code">(50, 50)</code>、<code class="inline_code">(100, 100)</code>和<code class="inline_code">(150, 150)</code>，另外线条宽度也进行过缩放，宽度分别为5、10、15像素，再看一个例子：</p>
+
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	// 辅助线
+	context.strokeStyle = '#aaa';
+	context.moveTo(0, canvas.height / 2);
+	context.lineTo(canvas.width, canvas.height / 2);
+	context.stroke();
+	context.moveTo(canvas.width / 2, 0);
+	context.lineTo(canvas.width / 2, canvas.height);
+	context.stroke();
+
+	// 绘制图案
+	for (let i = 0; i &lt; 4; i++) {
+		context.save();
+		context.fillStyle = 'red';
+		context.translate(200, 200);
+		if (i == 0) {
+			context.scale(5, 10);
+		} else if (i == 1) {
+			context.scale(-5, 10);
+		} else if (i == 2) {
+			context.scale(5, -10);
+		} else if (i == 3) {
+			context.scale(-5, -10);
+		}
+		context.beginPath();
+		context.lineTo(10, 10);
+		context.lineTo(20, 10);
+		context.lineTo(10, 20);
+		context.closePath();
+		context.fill();
+		context.restore();
+	}
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/04/006.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>在这个例子中，先在canvas的中间绘制两天中轴线作为辅助线，然后绘制四个图案，这次个图案的路径、样式都是一样的，唯一的不同在于<code class="inline_code">scale</code>的参数正负号，可以看到路径中的直角三角形，经过不同的缩放以后的效果</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-03-04</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/02/26/线条的属性/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			<!-- 多说评论框 start -->
+<div class='pinglun-box'>
+	<div class="ds-thread" data-thread-key="34" data-title="图形变换" data-url="http://www.shenjinxiang.com/pages/posts/canvas/2017/03/04/图形变换/"></div>
+</div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
