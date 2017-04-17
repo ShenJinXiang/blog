@@ -1,0 +1,356 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/canvas/2017/02/26/线条的属性/'>线条的属性</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>上节中，介绍了绘制线段、连续线段、折线段、封闭图形的边框以及填充等，在实际绘图中，线条可以说是基本要素，现在我主要看看线条的一些属性。同样的，需要html模板：</p>
+<pre class="line-numbers language-html">
+<code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset='utf-8'&gt;
+	&lt;style&gt;
+		canvas{display:block; border: 1px solid #ccc;margin: 0px auto;}
+	&lt;/style&gt;
+	&lt;title&gt;canvas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;canvas id='mycanvas'&gt;&lt;/canvas&gt;
+&lt;script src='外部js路径'&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+
+<h2>lineWidth属性</h2>
+<p>用于设置线条的宽度，<code class="inline_code">lineWidth</code>属性之前用过的，也很好理解，属性值为数字类型，默认值为<code class="inline_code">1</code>，即<code class="inline_code">1</code>像素宽。值大于<code class="inline_code">1</code>时线条的中心在路径上，路径两边各占一半的宽度，看下面代码：</p>
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.beginPath();
+	context.lineTo(50, 180);
+	context.lineTo(350, 180);
+	context.strokeStyle = 'red';
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(50, 220);
+	context.lineTo(350, 220);
+	context.strokeStyle = 'red';
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(50, 200);
+	context.lineTo(350, 200);
+	context.lineWidth = 40;
+	context.strokeStyle = '#ddd';
+	context.stroke();
+})();</code>
+</pre>
+<p>效果如下：</p>
+
+<iframe src='/static/canvas/2017/02/26/001.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>很好理解也很简单的例子，先绘制了两条相距<code class="inline_code">40</code>像素、宽度为<code class="inline_code">1</code>像素、红色的平行线段，最后在中间绘制了一条宽度为80的浅灰色线段，说明当宽度大于<code class="inline_code">1</code>时，线条的中心在路径上，路径两边各占一半宽度</p>
+
+<h2>strokeStyle属性</h2>
+<p>用于设置线条颜色、图案或渐变，目前我们只用到颜色，图案和渐变色以后会有说明。如果设置颜色的话，<code class="inline_code">strokeStyle</code>属性的值为一个字符串，可以是css中表示颜色的字符串</p>
+
+<p>另外，对于<code class="inline_code">fillStyle</code>属性，用于设置填充的颜色、图案或渐变，可以和<code class="inline_code">strokeStyle</code>一样的，只是用途不同</p>
+
+<h2>lineCap属性</h2>
+<p>lineCap属性定义线条末端的样式，只有在画粗线条时这个属性才有用，属性值为字符串类型，下面是说明</p>
+
+<table><tr><th>值</th><th>含义</th></tr>
+<tr><td>'butt'</td><td>默认值，线条没有线帽，线条的终点上平直的，与线条方向垂直，线条不会超过终点</td></tr>
+<tr><td>'round'</td><td>线条由一个半圆形的线帽，半圆的直径等于线条的宽度，半圆在线条的终点处向外扩展、距离为线条宽度的一半</td></tr>
+<tr><td>'square'</td><td>这个值定义线条由一个矩形的线帽，和'butt'类似，但线条的终点处会扩展出其宽度一半的距离</td></tr>
+</table>
+<p>代码示例：</p>
+<pre class="line-numbers language-javascript">
+<code>(function(){
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	
+	// 设置通用样式
+	context.lineWidth = 40;
+	context.strokeStyle = '#058';
+	
+	// lineCap属性值为 butt
+	context.beginPath();
+	context.lineTo(50, 100);
+	context.lineTo(350, 100);
+	context.lineCap = 'butt';
+	context.stroke();
+
+	// lineCap属性值为 round
+	context.beginPath();
+	context.lineTo(50, 200);
+	context.lineTo(350, 200);
+	context.lineCap = 'round';
+	context.stroke();
+
+	// lineCap属性值为 square
+	context.beginPath();
+	context.lineTo(50, 300);
+	context.lineTo(350, 300);
+	context.lineCap = 'square';
+	context.stroke();
+
+	// 绘制辅助线，便于观察
+	
+	context.lineWidth = 1;
+	context.strokeStyle = '#aaa';
+	context.lineCap = 'butt';
+
+	context.beginPath();
+	context.lineTo(30, 0);
+	context.lineTo(30, context.canvas.width);
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(50, 0);
+	context.lineTo(50, context.canvas.width);
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(350, 0);
+	context.lineTo(350, context.canvas.width);
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(370, 0);
+	context.lineTo(370, context.canvas.width);
+	context.stroke();
+})();</code>
+</pre>
+
+<p>效果：</p>
+
+<iframe src='/static/canvas/2017/02/26/002.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>上图中绘制了三条宽度为<code class="inline_code">40</code>像素的直线段，<code class="inline_code">lineCap</code>属性取不同的值，竖直的四条浅灰色线条为辅助线，可以看到各自的效果</p>
+
+<p>lineCap属性只是定义了线条末端的样式，代码：</p>
+
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.beginPath();
+	context.moveTo(50, 175);
+	context.lineTo(250, 175);
+	context.lineTo(250, 100);
+	context.lineTo(350, 200);
+	context.lineTo(250, 300);
+	context.lineTo(250, 225);
+	context.lineTo(50, 225);
+
+	context.strokeStyle = '#058';
+	context.lineWidth = 10;
+	context.lineCap = 'round';
+
+	context.stroke();
+})();</code>
+</pre>
+
+<p>效果：</p>
+
+<iframe src='/static/canvas/2017/02/26/003.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>上图是一个连续的线段图形，设置了lineCap属性值为“round”，可以看到只有开始和结束的位置有圆角样式，线段的连接处是没有的</p>
+
+<p>另外，上一级关于封闭路径的处理，我们使用了<code class="inline_code">closePath()</code>，因为使用<code class="inline_code">lineTo()</code>的时候会有个小缺口，就那个例子而言，如果<code class="inline_code">lingCap</code>属性值设置为<code class="inline_code">square</code>同样可以达到效果，但是建议使用<code class="inline_code">closePath()</code>方法</p>
+
+<h2>lineJoin属性</h2>
+<p>lineCap属性定义了线条末端的样式，lineJoin属性则定义了线条相交点的样式，只对线条宽度大于1的情况才有效</p>
+
+<p>lineJoin的属性值为字符串类型，可能的值为：</p>
+
+<table><tr><th>值</th><th>说明</th></tr>
+<tr><td>'miter'</td><td>默认值，两天线段的外边缘一直扩展到它们相交</td></tr>
+<tr><td>'round'</td><td>定义交合部分顶点的外边缘为一段实心圆弧，直径与线条的宽度相等</td></tr>
+<tr><td>'bevel'</td><td>顶点的外边缘应该和一个填充的三角形相交</td></tr>
+</table>
+<p>代码：</p>
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	// 开始绘制
+	context.lineWidth = 5;
+	context.strokeStyle = '#058';
+
+	context.beginPath();
+	context.lineTo(25, 350);
+	context.lineTo(75, 50);
+	context.lineTo(125, 350);
+	context.lineJoin = 'miter';
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(150, 350);
+	context.lineTo(200, 50);
+	context.lineTo(250, 350);
+	context.lineJoin = 'round';
+	context.stroke();
+
+	context.beginPath();
+	context.lineTo(275, 350);
+	context.lineTo(325, 50);
+	context.lineTo(375, 350);
+	context.lineJoin = 'bevel';
+	context.stroke();
+})();</code>
+</pre>
+
+<p>效果：</p>
+
+<iframe src='/static/canvas/2017/02/26/004.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>上图中一次画了三个折线段，分别设置<code class="inline_code">lineJoin</code>属性值为“miter”、“round”和“bevel”，可以看到交点的效果是不同的。</p>
+
+<p>需要注意的是属性值为miter的时候，如果角度很小，即尖角很锐利的时候，扩展部分会很长，这个时候涉及到另外一个属性：<code class="inline_code">miterLimit</code>，<code class="inline_code">miterLimit</code>属性设置斜交部分长度的上线。这个值定义斜交部分长度与线宽的一半之间的比例，默认为10，即斜交部分的长度不会超过线条宽度的5倍，如果超过了允许的最大值，这两条线条将以斜面而不是斜接的方式连接</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-26</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/02/17/Canvas绘制直线/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			<!-- 多说评论框 start -->
+<div class='pinglun-box'>
+	<div class="ds-thread" data-thread-key="33" data-title="线条的属性" data-url="http://www.shenjinxiang.com/pages/posts/canvas/2017/02/26/线条的属性/"></div>
+</div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
