@@ -1,6 +1,6 @@
-id: 30
+id: 29
 title: java可变参数
-date: 2017-01-26
+date: 2017-02-02
 category: java
 tags: java
 description: 可变参数是java1.5增加的新特性，提供了可以用可变的参数数量调用的方法，适用于参数个数不确定，类型确定的情况，java把可变参数当做数组处理

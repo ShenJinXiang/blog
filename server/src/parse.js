@@ -73,80 +73,81 @@ let handler = function(content) {
 	content = handlerCODE(content);
 	return content;
 
-	function handlerJKH(content) {
-		let ltReg = /\</g
-		let gtReg = /\>/g
-		content = content.replace(ltReg, '&lt;');
-		content = content.replace(gtReg, '&gt;');
-		return content;
-	}
-
-	function handlerA(content) {
-		let aTextReg = /\[.*\]/
-		let urlReg = /\(.+\)/
-		let as = content.match(regs.A);
-		if (as != null && as.length > 0) {
-			let contents = content.split(regs.A);
-			content = ''; 
-			for (let ai = 0; ai < as.length; ai++) {
-				let item = as[ai];
-				let text = item.match(aTextReg)[0];
-				let url = item.match(urlReg)[0];
-				text = stringUtil.trim(text.substring(1, text.length - 1));
-				url = stringUtil.trim(url.substring(1, url.length - 1));
-				let atext = '<a href="' + url + '">' + text + '</a>';
-				content += contents[ai] + atext;
-			}
-			content += contents[contents.length - 1];
-		}
-		return content;
-	}
-
-	function handlerB(content) {
-		let bs = content.match(regs.B_INLINE);
-		if (bs != null && bs.length > 0) {
-			let contents = content.split(regs.B_INLINE);
-			content = '';
-			for (let bi = 0; bi < bs.length; bi++) {
-				let item = bs[bi];
-				let text = '<b>' + stringUtil.trim(item.substring(2, item.length - 2)) + '</b>';
-				content += contents[bi] + text;
-			}
-			content += contents[contents.length - 1];
-		}
-		return content;
-	}
-
-	function handlerI(content) {
-		let bs = content.match(regs.I_INLINE);
-		if (bs != null && bs.length > 0) {
-			let contents = content.split(regs.I_INLINE);
-			content = '';
-			for (let bi = 0; bi < bs.length; bi++) {
-				let item = bs[bi];
-				let text = '<i>' + stringUtil.trim(item.substring(1, item.length - 1)) + '</i>';
-				content += contents[bi] + text;
-			}
-			content += contents[contents.length - 1];
-		}
-		return content;
-	}
-
-	function handlerCODE(content) {
-		let bs = content.match(regs.CODE_INLINE);
-		if (bs != null && bs.length > 0) {
-			let contents = content.split(regs.CODE_INLINE);
-			content = '';
-			for (let bi = 0; bi < bs.length; bi++) {
-				let item = bs[bi];
-				let text = '<code class="inline_code">' + stringUtil.trim(item.substring(1, item.length - 1)) + '</code>';
-				content += contents[bi] + text;
-			}
-			content += contents[contents.length - 1];
-		}
-		return content;
-	}
 };
+
+function handlerJKH(content) {
+	let ltReg = /\</g
+	let gtReg = /\>/g
+	content = content.replace(ltReg, '&lt;');
+	content = content.replace(gtReg, '&gt;');
+	return content;
+}
+
+function handlerA(content) {
+	let aTextReg = /\[.*\]/
+	let urlReg = /\(.+\)/
+	let as = content.match(regs.A);
+	if (as != null && as.length > 0) {
+		let contents = content.split(regs.A);
+		content = ''; 
+		for (let ai = 0; ai < as.length; ai++) {
+			let item = as[ai];
+			let text = item.match(aTextReg)[0];
+			let url = item.match(urlReg)[0];
+			text = stringUtil.trim(text.substring(1, text.length - 1));
+			url = stringUtil.trim(url.substring(1, url.length - 1));
+			let atext = '<a href="' + url + '">' + text + '</a>';
+			content += contents[ai] + atext;
+		}
+		content += contents[contents.length - 1];
+	}
+	return content;
+}
+
+function handlerB(content) {
+	let bs = content.match(regs.B_INLINE);
+	if (bs != null && bs.length > 0) {
+		let contents = content.split(regs.B_INLINE);
+		content = '';
+		for (let bi = 0; bi < bs.length; bi++) {
+			let item = bs[bi];
+			let text = '<b>' + stringUtil.trim(item.substring(2, item.length - 2)) + '</b>';
+			content += contents[bi] + text;
+		}
+		content += contents[contents.length - 1];
+	}
+	return content;
+}
+
+function handlerI(content) {
+	let bs = content.match(regs.I_INLINE);
+	if (bs != null && bs.length > 0) {
+		let contents = content.split(regs.I_INLINE);
+		content = '';
+		for (let bi = 0; bi < bs.length; bi++) {
+			let item = bs[bi];
+			let text = '<i>' + stringUtil.trim(item.substring(1, item.length - 1)) + '</i>';
+			content += contents[bi] + text;
+		}
+		content += contents[contents.length - 1];
+	}
+	return content;
+}
+
+function handlerCODE(content) {
+	let bs = content.match(regs.CODE_INLINE);
+	if (bs != null && bs.length > 0) {
+		let contents = content.split(regs.CODE_INLINE);
+		content = '';
+		for (let bi = 0; bi < bs.length; bi++) {
+			let item = bs[bi];
+			let text = '<code class="inline_code">' + stringUtil.trim(item.substring(1, item.length - 1)) + '</code>';
+			content += contents[bi] + text;
+		}
+		content += contents[contents.length - 1];
+	}
+	return content;
+}
 
 let img = function(line) {
 	let alt1_index =  line.indexOf('[');
@@ -193,7 +194,7 @@ let code1 = function(line) {
 
 let code2 = function(line, preLine, nextLine) {
 	let beginReg = /^[`]{3}/
-	line = handler(line);
+	line = handlerJKH(line);
 	if (beginReg.test(preLine)) {
 		line = '<code>' + line;
 	}
