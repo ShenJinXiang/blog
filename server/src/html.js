@@ -68,7 +68,7 @@ let pagesHtml = function(postList) {
 		let pageBtnsHtml = stringUtil.replace(pageBtns, {prePageBtn: preBtn, nextPageBtn: nextBtn});
 
 		// 生成整个页面的主体内容
-		let pageContent = stringUtil.replace(page, {page: postArrHtml.join(''), pagebtns: pageBtnsHtml});
+		let pageContent = stringUtil.replace(page, {page: postArrHtml.join(''), pagebtns: pageBtnsHtml, pinglun: ''});
 		let html = stringUtil.replace(index, {title: config.title, description: config.description, menu: menu1, main: pageContent});
 		fsUtil.writeFile(dirpath, html);
 	}
@@ -208,6 +208,7 @@ let postsHtml = function(postList) {
 	let postH = template.post;
 	let pageBtns = template.pageBtns;
 	let pageBtn = template.pageBtn;
+	let pinglun = template.pinglun;
 	
 	postList.forEach(function(item, i) {
 		let tagsHtml = [];
@@ -247,7 +248,13 @@ let postsHtml = function(postList) {
 			});
 		}
 		let pageBtnsContent = stringUtil.replace(pageBtns, {prePageBtn: preBtn, nextPageBtn: nextBtn});
-		let pageContent = stringUtil.replace(page, {page: postContent, pagebtns: pageBtnsContent});
+		let pageContent;
+		if (config.pinglun) {
+			let pinglunContent = stringUtil.replace(pinglun, {id: item.getId(), title: item.getTitle(), url: config.domain + item.getUrl()});
+			pageContent = stringUtil.replace(page, {page: postContent, pagebtns: pageBtnsContent, pinglun: pinglunContent});
+		} else {
+			pageContent = stringUtil.replace(page, {page: postContent, pagebtns: pageBtnsContent, pinglun: ''});
+		}
 		let html = stringUtil.replace(index, {
 				title: config.title,
 				description: config.description,

@@ -80,6 +80,14 @@ let archive = fsUtil.readFile(path.join(__dirname, '/template/archive.html'));
  */
 let demoList = fsUtil.readFile(path.join(__dirname, '/template/demoList.html'));
 
+/**
+ * 评论
+ * id 
+ * title
+ * url
+ */
+let pinglun = fsUtil.readFile(path.join(__dirname, '/template/pinglun.html'));
+
 exports.index = index;
 exports.menu0 = menu0;
 exports.menu1 = menu1;
@@ -96,3 +104,4 @@ exports.archiveTitle = archiveTitle;
 exports.archive = archive;
 
 exports.demoList = demoList;
+exports.pinglun = pinglun;
