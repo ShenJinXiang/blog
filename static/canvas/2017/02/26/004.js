@@ -1,8 +1,8 @@
 (function() {
-	let canvas = document.getElementById('mycanvas');
+	var canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
 	canvas.height = 400;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	// 开始绘制
 	context.lineWidth = 5;

@@ -1,8 +1,8 @@
 (function() {
-	let canvas = document.getElementById('mycanvas');
+	var canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
 	canvas.height = 400;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	// 开始绘制
 	// 辅助线
@@ -15,7 +15,7 @@
 	context.stroke();
 
 	// 绘制图案
-	for (let i = 0; i < 4; i++) {
+	for (var i = 0; i < 4; i++) {
 		context.save();
 		context.fillStyle = 'red';
 		context.translate(200, 200);

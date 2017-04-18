@@ -1,0 +1,420 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/canvas/2017/03/09/绘制中国国旗/'>绘制中国国旗</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>对于前面几节了解以后，可以尝试做一些简单的图形了，比如咱们的国旗，国旗的图形很简单，我们都知道，旗面为红色，长宽比为<code class="inline_code">3:2</code>，左上方缀黄色五角星五颗，四颗小星环拱一颗大星左面，并各有一个角正对大星的中心点。五颗星的位置、大小关系如下图：</p>
+<iframe src='/static/canvas/2017/03/09/001.html' width='100%' height='500px' frameborder='0' ></iframe>
+
+<h2>绘制正多边形</h2>
+<p>先扯点题外话，绘制正多边形，我们知道正多边形的连接点都在一个圆上，这个圆为外接圆，绘制思路是这样的：我们只绘制中心在<code class="inline_code">(0, 0)</code>点正多边形，然后通过图形变换的方式，绘制成需要的位置、大小和角度。我们希望可以封装成一个通用方法，绘制任意边数的正多边形，代码：</p>
+<pre class="line-numbers language-javascript">
+<code>
+/**
+ * 绘制正多边形边框
+ */
+function strokeRegPolygon(ctx, num, sx, sy, radius, rotate) {
+	ctx.save();
+	ctx.translate(sx, sy);
+	ctx.rotate(rotate);
+	ctx.beginPath();
+	for (let i = 0; i &lt; num; i++) {
+		ctx.lineTo(Math.cos(i * 2 * Math.PI / num) * radius, Math.sin(i * 2 * Math.PI / num) * radius);
+	}
+	ctx.closePath();
+	ctx.stroke();
+	ctx.restore();
+}
+
+/**
+ * 填充正多边形
+ */
+function fillRegPolygon(ctx, num, sx, sy, radius, rotate) {
+	ctx.save();
+	ctx.translate(sx, sy);
+	ctx.rotate(rotate);
+	ctx.beginPath();
+	for (let i = 0; i &lt; num; i++) {
+		ctx.lineTo(Math.cos(i * 2 * Math.PI / num) * radius, Math.sin(i * 2 * Math.PI / num) * radius);
+	}
+	ctx.closePath();
+	ctx.fill();
+	ctx.restore();
+}</code>
+</pre>
+
+<p>这两个方法并没有对参数进行检查，会有一个连接点在x轴方向上，可以通过<code class="inline_code">rotate</code>参数调整旋转角度，单位为弧度制，可以用来绘制正多边形边框和填充正多边形</p>
+
+<h2>绘制五角星</h2>
+<p>绘制五角星不算复杂，一样的思路，一共<code class="inline_code">10</code>个断点，其中内层的<code class="inline_code">5</code>个点在一个圆上，外层的<code class="inline_code">5</code>个点在一个圆上，同时，我们希望不只是五角星，而是多角星，同样的，封装成通用方法，代码：</p>
+<pre class="line-numbers language-javascript">
+<code>/**
+ * 绘制边框
+ */
+function strokeStar(ctx, num, sx, sy, R, r, rotate) {
+	ctx.save();
+	ctx.translate(sx, sy);
+	ctx.rotate(rotate);
+	ctx.beginPath();
+	for (let i = 0; i &lt; num; i++) {
+		ctx.lineTo(Math.cos(i * 2 * Math.PI / num) * R, 
+				Math.sin(i * 2 * Math.PI / num) * R);
+		ctx.lineTo(Math.cos(i * 2 * Math.PI / num + Math.PI / num) * r, 
+				Math.sin(i * 2 * Math.PI / num + Math.PI / num) * r);
+	}
+	ctx.closePath();
+	ctx.stroke();
+	ctx.restore();
+}
+
+/**
+ * 填充
+ */
+function fillStar(ctx, num, sx, sy, R, r, rotate) {
+	ctx.save();
+	ctx.translate(sx, sy);
+	ctx.rotate(rotate);
+	ctx.beginPath();
+	for (let i = 0; i &lt; num; i++) {
+		ctx.lineTo(Math.cos(i * 2 * Math.PI / num) * R, 
+				Math.sin(i * 2 * Math.PI / num) * R);
+		ctx.lineTo(Math.cos(i * 2 * Math.PI / num + Math.PI / num) * r, 
+				Math.sin(i * 2 * Math.PI / num + Math.PI / num) * r);
+	}
+	ctx.closePath();
+	ctx.fill();
+	ctx.restore();
+}</code>
+</pre>
+
+<p>下面是调用的代码：</p>
+
+<pre class="line-numbers language-javascript">
+<code>(function(){
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext("2d");
+
+	strokeStar(context, 5, 100, 100, 75, 35, -Math.PI / 2);
+
+	context.lineWidth = 3;
+	context.strokeStyle = '#058';
+	strokeStar(context, 5, 300, 100, 75, 35, -Math.PI / 2);
+
+	context.fillStyle = 'yellow';
+	fillStar(context, 5, 100, 300, 75, 35, -Math.PI / 2);
+
+	fillStar(context, 5, 300, 300, 75, 35, -Math.PI / 2);
+	strokeStar(context, 5, 300, 300, 75, 35, -Math.PI / 2);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/09/002.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>同样不止是可以绘制五角星，通过调整这两个方法的参数，可以得到一些变种图形，比如讲其中一个圆的半径设置成很小，可以呈现很尖锐的图形，也可以将两个远的半径设置成一样的，呈现成正多边形的图形</p>
+<pre class="line-numbers language-javascript">
+<code>(function(){
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext("2d");
+	
+	context.lineWidth = 1;
+	context.strokeStyle = '#058';
+	context.fillStyle = 'yellow';
+
+	strokeStar(context, 3, 100, 100, 75, 5, -Math.PI / 2);
+	fillStar(context, 3, 100, 100, 75, 5, -Math.PI / 2);
+	
+	strokeStar(context, 4, 300, 100, 75, 5, 0);
+	fillStar(context, 4, 300, 100, 75, 5, 0);
+	
+	fillStar(context, 9, 100, 300, 75, 5, -Math.PI / 2);
+	strokeStar(context, 9, 100, 300, 75, 5, -Math.PI / 2);
+	
+	strokeStar(context, 4, 300, 300, 75, 75, Math.PI / 8);
+	fillStar(context, 4, 300, 300, 75, 75, Math.PI / 8);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/09/003.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<h2>非零环绕规则</h2>
+<p>在实际开发的时候，构成一个图片的路径可能会很复杂，绘制的路径可能会有交叉，在调用<code class="inline_code">fill()</code>填充的时候，需要判断哪些部分是路径的内部需要填充，哪些部分是不需要填充的，使用非零环绕规则：</p>
+<p>对于路径中指定范围区域，从该区域内部画一条足够长的线段(射线)，使此线段的完全落在路径范围之外，然后，将计数器初始化为<code class="inline_code">0</code>，每当这个线段与路径上的直线或曲线相交时，就改变计数器的值，如果是与路径顺时针相交时，那么计数器就加<code class="inline_code">1</code>， 如果是与路径逆时针相交时，那么计数器就减<code class="inline_code">1</code></p>
+<p>如果计数器始终不为0，那么此区域就在路径范围里面，在调用<code class="inline_code">fill()</code>方法时，浏览器就会对其进行填充。如果最终值是0，那么此区域就不在路径范围内，浏览器就不会对其进行填充</p>
+<p>一个很简单的例子，画一个回字形的图形，可以有很多实现方式，最简单的方法是直接绘制一个矩形边框，变宽宽度设置的很宽就可以了，如果要用<code class="inline_code">fill()</code>填充的时候，代码：</p>
+<pre class="line-numbers language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	context.fillStyle = "#058";
+	context.beginPath();
+	context.moveTo(100, 100);
+	context.lineTo(300, 100);
+	context.lineTo(300, 300);
+	context.lineTo(100, 300);
+	context.closePath();
+	context.moveTo(125, 125);
+	context.lineTo(125, 275);
+	context.lineTo(275, 275);
+	context.lineTo(275, 125);
+	context.closePath();
+	context.fill();
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/09/004.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>绘制回字形图案，外边的方形路径顺时针，里边的方形路径逆时针，对于中心区域来说，按照非零环绕规则，不属于路径内部，所以并没有填充</p>
+
+<p>接下来再看看五角星的绘制，一个标准的五角星，应该是在正五边形的基础上，对角线连接组成的图案，按照非零环绕规则，当使用<code class="inline_code">fill()</code>的时候内部都可以填充，所以绘制一个标准的五角星，只需要依次绘制正五边形的对角线即可</p>
+<pre class="line-numbers language-javascript">
+<code>// 五角星
+function drawStar(x, y, r, rotate) {
+	context.save();
+	context.fillStyle = 'yellow';
+	context.translate(x, y);
+	context.scale(r, r);
+	context.rotate(rotate);
+	context.beginPath();
+	let dig = 2 * 2 * Math.PI / 5;
+	for(let i = 0; i &lt; 5; i++) {
+		context.lineTo(Math.cos(i * dig), Math.sin(i * dig));
+	}
+	context.closePath();
+	context.fill();
+	context.restore();
+}</code>
+</pre>
+
+<p>下面是调用<code class="inline_code">drawStar()</code>的代码：</p>
+<pre class="line-numbers language-javascript">
+<code>(function(){
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+	
+	drawStar(200, 200, 100, -Math.PI / 2);
+
+	// 五角星
+	function drawStar(x, y, r, rotate) {
+		context.save();
+		context.fillStyle = 'yellow';
+		context.translate(x, y);
+		context.scale(r, r);
+		context.rotate(rotate);
+		context.beginPath();
+		let dig = 2 * 2 * Math.PI / 5;
+		for(let i = 0; i &lt; 5; i++) {
+			context.lineTo(Math.cos(i * dig), Math.sin(i * dig));
+		}
+		context.closePath();
+		context.fill();
+		context.restore();
+	}
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/09/005.html' width='100%' height='450px' frameborder='0' ></iframe>
+
+<p>这样即绘制了一个标准的五角星图案</p>
+
+<h2>绘制国旗</h2>
+<p>这样我们就可以绘制国旗了，步骤如下：</p>
+
+<ol><li>初始化canvas宽高，宽高比为<code class="inline_code">3:2</code></li>
+<li>将整个canvas填充为红色</li>
+<li>根据最上面的示例图，确定五个五角星的相对位置</li>
+<li>绘制大的五角星，然后根据大五角星和小五角星的圆心连接线的角度确定小五角星的角度，绘制小五角星</li>
+</ol>
+<p>具体实现代码：</p>
+<pre class="line-numbers language-javascript">
+<code>(function(){
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 660;
+	canvas.height = canvas.width * 2 / 3;
+	let context = canvas.getContext('2d');
+	
+	let gWidth = canvas.width / 30;
+
+	let [maxX, maxY] = [5, 5];		// 大五角星的坐标
+	let minX = [10, 12, 12, 10];	// 小五角星的x坐标值
+	let minY = [2, 4, 7, 9];		// 小五角星的y坐标值
+
+	draw();
+	function draw() {
+		// 红色背景
+		context.fillStyle = 'red';
+		context.fillRect(0, 0, canvas.width, canvas.height);
+
+		// 大五角星
+		drawStar(maxX * gWidth, maxY * gWidth, 3 * gWidth, -Math.PI / 2);
+
+		// 小五角星
+		for (let i = 0; i &lt; 4; i++) {
+			drawStar(minX[i] * gWidth, minY[i] * gWidth, gWidth, 
+					Math.PI + Math.atan((minY[i] - maxY ) / (minX[i] - maxX)));
+		}
+	}
+
+	// 五角星
+	function drawStar(x, y, r, rotate) {
+		context.save();
+		context.fillStyle = 'yellow';
+		context.translate(x, y);
+		context.scale(r, r);
+		context.rotate(rotate);
+		context.beginPath();
+		let dig = 2 * 2 * Math.PI / 5;
+		for(var i = 0; i &lt; 5; i++) {
+			context.lineTo(Math.cos(i * dig), Math.sin(i * dig));
+		}
+		context.closePath();
+		context.fill();
+		context.restore();
+	}
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/09/006.html' width='100%' height='500px' frameborder='0' ></iframe>
+
+<p>代码中五角星的坐标值是按照最上面示例图中辅助线切割的小格子来确定的。大五角星的半径为<code class="inline_code">3</code>个格子宽度，小五角星的宽度为<code class="inline_code">1</code>个格子宽度。这样就实现了绘制中国国旗图案</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-03-09</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/03/04/图形变换/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			<!-- 多说评论框 start -->
+<div class='pinglun-box'>
+	<div class="ds-thread" data-thread-key="35" data-title="绘制中国国旗" data-url="http://www.shenjinxiang.com/pages/posts/canvas/2017/03/09/绘制中国国旗/"></div>
+</div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

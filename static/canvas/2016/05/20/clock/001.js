@@ -1,8 +1,8 @@
 (function() {
-	let canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('canvas');
 	canvas.width = 300;
 	canvas.height = 300;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	let img = new Image();
 	img.src = './001.png';

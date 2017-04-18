@@ -1,12 +1,12 @@
 (function(){
-	let config = {
+	var config = {
 		rows: 20,
 		columns: 20,
 		sx: 3,
 		sy: 3
 	};
 
-	let current = {
+	var current = {
 		score: 0,
 		direction: 0,
 		data: [],
@@ -18,14 +18,14 @@
 		interval: 400
 	};
 
-	let canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('canvas');
 	canvas.width = config.rows * 20 + config.sx * 2;
 	canvas.height = config.columns * 20 + config.sy * 2;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
-	let score = document.getElementById('score');
-	let speed = document.getElementById('speed');
-	let rePlayBtn = document.getElementById('rePlay');
+	var score = document.getElementById('score');
+	var speed = document.getElementById('speed');
+	var rePlayBtn = document.getElementById('rePlay');
 	rePlayBtn.onclick = rePlay;
 
 	document.body.onkeydown = function(e) {
@@ -58,7 +58,7 @@
 	}
 
 	function update() {
-		let firstGrid = {x: current.data[0].x, y: current.data[0].y};
+		var firstGrid = {x: current.data[0].x, y: current.data[0].y};
 		if (current.direction == 0) {
 			firstGrid.y = (firstGrid.y == 0) ? (config.rows - 1) : (firstGrid.y - 1);
 		} else if (current.direction == 1) {
@@ -92,9 +92,9 @@
 
 	function drawByCurrent() {
 		context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-		let {rows, columns, sx, sy} = config;
-		for (let r = 0; r < rows; r++) {
-			for (let c = 0; c < columns; c++) {
+		var {rows, columns, sx, sy} = config;
+		for (var r = 0; r < rows; r++) {
+			for (var c = 0; c < columns; c++) {
 				if (current.gData[c][r] == 0) {
 					drawGrid(sx + c * 20, sy + r * 20, 'rgba(0, 0, 0, 0.1)');
 				} else {
@@ -117,9 +117,9 @@
 
 	function initGdata() {
 		current.gData = [];
-		for (let r = 0; r < config.rows; r++) {
-			let arr = [];
-			for (let c = 0; c < config.columns; c++) {
+		for (var r = 0; r < config.rows; r++) {
+			var arr = [];
+			for (var c = 0; c < config.columns; c++) {
 				arr.push(0);
 			}
 			current.gData.push(arr);
@@ -137,8 +137,8 @@
 			current.gData[current.next.x][current.next.y] = 1;
 		} else {
 			while (true) {
-				let x = Math.floor(Math.random() * config.columns);
-				let y = Math.floor(Math.random() * config.columns);
+				var x = Math.floor(Math.random() * config.columns);
+				var y = Math.floor(Math.random() * config.columns);
 				if (current.gData[x][y] == 0) {
 					current.gData[x][y] = 1;
 					current.next = {x: x, y: y};
