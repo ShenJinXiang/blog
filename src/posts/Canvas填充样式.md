@@ -1,5 +1,5 @@
 id: 37
-title: 绘制曲线
+title: Canvas填充样式
 date: 2017-03-27
 category: canvas
 tags: javascript, canvas
