@@ -70,13 +70,13 @@
 	<div class='post-content'>
 		<p><p>之前介绍过express、ejs的使用，也介绍了nodejs操作mysql数据库，现在将这些整合起来，做一个简单的员工管理系统</p>
 
-<h2>功能说明</h2>
+<h3>功能说明</h3>
 
 <ul><li>数据存储在mysql数据库中，后台用express框架</li>
 <li>包含一个登陆、注册页面和主页面</li>
 <li>主页面包括左侧的部门信息，以及右侧的员工列表，可以添加删除修改员工和部门信息</li>
 </ul>
-<h2>目录结构</h2>
+<h3>目录结构</h3>
 <p>创建工作目录employee</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir employee</code>
@@ -99,7 +99,7 @@
   |-- views/                               存放ejs文件    </code>
 </pre>
 
-<h2>初始化环境</h2>
+<h3>初始化环境</h3>
 <p>初始化包，创建package.json</p>
 <pre class="line-numbers language-none">
 <code>$ npm init</code>
@@ -151,7 +151,7 @@
 <li>ztrr - 树形控件</li>
 <li>layer - 弹出框控件</li>
 </ul>
-<h2>项目配置文件</h2>
+<h3>项目配置文件</h3>
 <p>创建lib目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir lib</code>
@@ -186,7 +186,7 @@
 </ul>
 <p>noLogin 指明拦截配置信息，除了noLogin指定的路由，其他所有请求都需要session验证</p>
 
-<h2>创建MD5工具模块</h2>
+<h3>创建MD5工具模块</h3>
 <p>有登录、注册功能，针对密码做个简单的MD5处理，lib目录下创建utils目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir lib/utils</code>
@@ -221,7 +221,7 @@ exports.sha1 = function (content) {
 };</code>
 </pre>
 
-<h2>创建数据库操作模块</h2>
+<h3>创建数据库操作模块</h3>
 <p>utils目录下创建mysqlUtil.js</p>
 <pre class="line-numbers language-none">
 <code>$ touch /lib/utils/mysqlUtil.js</code>
@@ -407,7 +407,7 @@ exports.delById = function () {
 };</code>
 </pre>
 
-<h2>创建数据库表</h2>
+<h3>创建数据库表</h3>
 <p>lib目录下创建sql目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir lib/sql</code>
@@ -466,7 +466,7 @@ CREATE TABLE `employee` (
 mysql&gt; source ~/Users/shenjinxiang/Documents/employee/lib/sql/mysql.sql;</code>
 </pre>
 
-<h2>搭建express应用</h2>
+<h3>搭建express应用</h3>
 <p>创建app.js文件</p>
 <pre class="line-numbers language-none">
 <code>$ touch app.js</code>
@@ -512,7 +512,7 @@ app.listen(3000, function () {
 
 <p>一个简单的应用已经好了，当然，现在没有引入任何路由，项目启动起来也没有任何意义</p>
 
-<h2>添加自定义中间件</h2>
+<h3>添加自定义中间件</h3>
 <p><b>创建路由日志中间件</b></p>
 
 <p>lib目录下创建middleware目录</p>
@@ -586,7 +586,7 @@ app.use(require('./lib/middleware/routeLog'));
 app.use(require('./lib/middleware/loginFilter'));</code>
 </pre>
 
-<h2>配置路由模块</h2>
+<h3>配置路由模块</h3>
 <p>lib目录下创建routes目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir lib/routes</code>
@@ -663,7 +663,7 @@ app.listen(3000, function () {
 });</code>
 </pre>
 
-<h2>添加页面css文件</h2>
+<h3>添加页面css文件</h3>
 <p>public目录下创建css目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir public/css</code>
@@ -913,7 +913,7 @@ input[type="checkbox"]:focus {
 }</code>
 </pre>
 
-<h2>添加页面公用js文件</h2>
+<h3>添加页面公用js文件</h3>
 <p>public 目录下创建js目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir public/js</code>
@@ -1008,7 +1008,7 @@ function closeLayer() {
 }</code>
 </pre>
 
-<h2>登录、注册模块</h2>
+<h3>登录、注册模块</h3>
 <p>创建views目录</p>
 <pre class="line-numbers language-none">
 <code>$ mkdir views</code>
@@ -1348,7 +1348,7 @@ exports.register = function (obj, callback) {
 
 <p>这个模块中，使用了node-uuid包，用于生成数据库中主键id，至此登录、注册功能完成</p>
 
-<h2>主页面开发</h2>
+<h3>主页面开发</h3>
 <p>在lib/routes/index.js这个路由中配置了/main 路由，用于跳转至主页面</p>
 <pre class="line-numbers language-javascript">
 <code>/**
@@ -2106,7 +2106,7 @@ exports.queryOne = function (id, callback) {
 }</code>
 </pre>
 
-<h2>运行效果</h2>
+<h3>运行效果</h3>
 <p>至此，利用express、ejs、mysql完成一个简单的员工管理模块，可以运行app.js文件，浏览器中访问应用了</p>
 
 <img alt="" width='700px' src="/images/nodejs/2017/02/10/019.png">

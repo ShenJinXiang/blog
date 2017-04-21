@@ -71,7 +71,7 @@
 		<p><p>对于前面几节了解以后，可以尝试做一些简单的图形了，比如咱们的国旗，国旗的图形很简单，我们都知道，旗面为红色，长宽比为<code class="inline_code">3:2</code>，左上方缀黄色五角星五颗，四颗小星环拱一颗大星左面，并各有一个角正对大星的中心点。五颗星的位置、大小关系如下图：</p>
 <iframe src='/static/canvas/2017/03/09/001.html' width='100%' height='500px' frameborder='0' ></iframe>
 
-<h2>绘制正多边形</h2>
+<h3>绘制正多边形</h3>
 <p>先扯点题外话，绘制正多边形，我们知道正多边形的连接点都在一个圆上，这个圆为外接圆，绘制思路是这样的：我们只绘制中心在<code class="inline_code">(0, 0)</code>点正多边形，然后通过图形变换的方式，绘制成需要的位置、大小和角度。我们希望可以封装成一个通用方法，绘制任意边数的正多边形，代码：</p>
 <pre class="line-numbers language-javascript">
 <code>
@@ -110,7 +110,7 @@ function fillRegPolygon(ctx, num, sx, sy, radius, rotate) {
 
 <p>这两个方法并没有对参数进行检查，会有一个连接点在x轴方向上，可以通过<code class="inline_code">rotate</code>参数调整旋转角度，单位为弧度制，可以用来绘制正多边形边框和填充正多边形</p>
 
-<h2>绘制五角星</h2>
+<h3>绘制五角星</h3>
 <p>绘制五角星不算复杂，一样的思路，一共<code class="inline_code">10</code>个断点，其中内层的<code class="inline_code">5</code>个点在一个圆上，外层的<code class="inline_code">5</code>个点在一个圆上，同时，我们希望不只是五角星，而是多角星，同样的，封装成通用方法，代码：</p>
 <pre class="line-numbers language-javascript">
 <code>/**
@@ -207,7 +207,7 @@ function fillStar(ctx, num, sx, sy, R, r, rotate) {
 <p><i>效果：</i></p>
 <iframe src='/static/canvas/2017/03/09/003.html' width='100%' height='450px' frameborder='0' ></iframe>
 
-<h2>非零环绕规则</h2>
+<h3>非零环绕规则</h3>
 <p>在实际开发的时候，构成一个图片的路径可能会很复杂，绘制的路径可能会有交叉，在调用<code class="inline_code">fill()</code>填充的时候，需要判断哪些部分是路径的内部需要填充，哪些部分是不需要填充的，使用非零环绕规则：</p>
 <p>对于路径中指定范围区域，从该区域内部画一条足够长的线段(射线)，使此线段的完全落在路径范围之外，然后，将计数器初始化为<code class="inline_code">0</code>，每当这个线段与路径上的直线或曲线相交时，就改变计数器的值，如果是与路径顺时针相交时，那么计数器就加<code class="inline_code">1</code>， 如果是与路径逆时针相交时，那么计数器就减<code class="inline_code">1</code></p>
 <p>如果计数器始终不为0，那么此区域就在路径范围里面，在调用<code class="inline_code">fill()</code>方法时，浏览器就会对其进行填充。如果最终值是0，那么此区域就不在路径范围内，浏览器就不会对其进行填充</p>
@@ -294,7 +294,7 @@ function drawStar(x, y, r, rotate) {
 
 <p>这样即绘制了一个标准的五角星图案</p>
 
-<h2>绘制国旗</h2>
+<h3>绘制国旗</h3>
 <p>这样我们就可以绘制国旗了，步骤如下：</p>
 
 <ol><li>初始化canvas宽高，宽高比为<code class="inline_code">3:2</code></li>

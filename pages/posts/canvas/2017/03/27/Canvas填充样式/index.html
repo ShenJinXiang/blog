@@ -72,7 +72,7 @@
 
 <p>实际上这两个属性的值可以是任意的css中接受的表示颜色的字符串以外，还可以是表示渐变颜色的CanvasGradient对象以及基于图片的CanvasPattern对象</p>
 
-<h2>线性渐变</h2>
+<h3>线性渐变</h3>
 <p>关于线性渐变需要引入两个方法：</p>
 
 <blockquote><p>CanvasRenderingContext2D.createLinearGradient(x0, y0, x1, y1)</p>
@@ -150,7 +150,7 @@
 
 <p>创建线性渐变<code class="inline_code">createLinearGradient()</code>方法参数的两个坐标点，与填充时的坐标点是没有任何关系的，实际开发的时候可以灵活应用</p>
 
-<h2>径向渐变</h2>
+<h3>径向渐变</h3>
 <p>有了线性渐变的基础，理解和使用径向渐变就很简单了，线性渐变是通过设置两个坐标点，在这两个坐标点之间设置不同颜色，依次渐变。径向渐变则用于绘制放射状的渐变图像，方法：</p>
 
 <blockquote><p>CanvasRenderingContext2D.createRadialGradient(x0,y0,r0,x1,y1,r1)</p>
@@ -184,7 +184,7 @@
 <p><i>效果：</i></p>
 <iframe src='/static/canvas/2017/03/27/004.html' width='100%' height='440px' frameborder='0' ></iframe>
 
-<h2>使用画布、图片或者video</h2>
+<h3>使用画布、图片或者video</h3>
 <p>线性渐变和径向渐变依然是通过设置一些颜色值，来设置填充的样式。实际上canvas中的填充样式不仅可以通过颜色设置，也可以是另外一个canvas、图片甚至是一个video</p>
 
 <p>基本流程是这样的：通过调用<code class="inline_code">createPattern()</code>方法，返回CanvasPattern对象，将样式(fillStyle或strokeStyle)的值设置成该对象，然后执行填充</p>
@@ -200,7 +200,7 @@
 <li>'repeat-y' - 只在y轴方向平铺图像</li>
 <li>'no-repeat' - 不平铺图像，图像只绘制一次</li>
 </ul>
-<h3>使用图片填充</h3>
+<h4>使用图片填充</h4>
 <p>首先当然需要一张图片，这里我使用了下面的图片：</p>
 
 <img alt=""  src="/static/canvas/2017/03/27/0001.png">
@@ -228,7 +228,7 @@
 
 <p>设置img的src属性为外部图片的路径，使用<code class="inline_code">createPattern()</code>创建CanvasPattern对象，将返回值赋值给<code class="inline_code">fillStyll</code>属性，最后填充整个canvas画布</p>
 
-<h3>使用canvas填充</h3>
+<h4>使用canvas填充</h4>
 <p>使用canvas填充很简单了，再创建一个canvas绘制一些图案，然后调用即可，代码：</p>
 
 <pre class="line-numbers language-javascript">
@@ -269,7 +269,7 @@
 
 <p>这个例子中，使用<code class="inline_code">getStarCanvas()</code>方法创建一个canva对象，宽度和高度都为100像素，在这个小canvas中绘制了一个黄底红色的五角星，最后将这个小canvas返回，大canvas中将其作为<code class="inline_code">createPattern()</code>方法的参数调用，最后填充出了上图的效果</p>
 
-<h3>使用video填充</h3>
+<h4>使用video填充</h4>
 <p>关于video的填充方法，其实很上面的两个例子是一样的，唯一的区别是需要用到video元素，指定video的src属性值为浏览器支持的视频文件地址，为了让画面动起来，可以使用<code class="inline_code">setInterval()</code>或<code class="inline_code">setTimeout()</code>方法重复调用即可，这里不做演示了 ^_^</p>
 </p>
 	</div>
@@ -291,7 +291,14 @@
 
 			<div class="pagination">
 	<ul class="clearfix">
-		
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/04/01/Canvas文字渲染/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
 		<li class="next pagbuttons">
 	<a role="navigation" href="/pages/posts/canvas/2017/03/14/绘制曲线/" class="btn">
 		<i class="baseline"></i>

@@ -8,8 +8,8 @@ description: Canvas绘图，先从最简单的开始，绘制直线，其实是�
 ------
 Canvas绘图，先从最简单的开始，绘制直线，其实是直线段。首先，编写html:
 
-## 基本模板
-### html部分
+### 基本模板
+#### html部分
 ```html
 <!doctype html>
 <html>
@@ -28,7 +28,7 @@ Canvas绘图，先从最简单的开始，绘制直线，其实是直线段。�
 ```
 body部分添加了canvas标签，设置canvas标签的id为`mycanvas`，引入外部的js文件；head部分设置canvas为块级元素、居中并设置边框为`1`个像素宽
 
-### js部分
+#### js部分
 ```javascript
 (function(){
 	let canvas = document.getElementById('mycanvas');
@@ -41,7 +41,7 @@ body部分添加了canvas标签，设置canvas标签的id为`mycanvas`，引入�
 ```
 在这里，设置canvas的宽高都为`400`像素，并获取canvas的CanvasRenderingContext2D对象context，下面我们所有的代码都是操作context来实现
 
-## 简单线段
+### 简单线段
 先绘制一条简单的线段，代码：
 ```javascript
 (function(){
@@ -83,7 +83,7 @@ body部分添加了canvas标签，设置canvas标签的id为`mycanvas`，引入�
 
 通过`lineWidth`属性设置线条宽度为10个像素，`strokeStyle`属性设置背景颜色为“#058”，同样可以看到canvas是基于状态画图，我们是通过context来设置线条宽度、颜色属性，而不是通过一个线条对象来设置的
 
-## 绘制连续线段
+### 绘制连续线段
 既然可以绘制一条线段，同样的，可以绘制连续的线段，看下面的例子：
 ```javascript
 (function(){
@@ -143,7 +143,7 @@ body部分添加了canvas标签，设置canvas标签的id为`mycanvas`，引入�
 
 这个例子中，分别调用了三次`moveTo()`方法，绘制了三条不相连的折线段，最后设置线条宽度和颜色，最后调用`stroke()`方法完成绘制
 
-## context.beginPath()方法
+### context.beginPath()方法
 上面的例子中，我们绘制了三条同样颜色的折线段，如果要设置不同的颜色呢？我们首先想到的方法是这样的：
 ```javascript
 (function() {
@@ -222,7 +222,7 @@ body部分添加了canvas标签，设置canvas标签的id为`mycanvas`，引入�
 实现效果了，需要注意的是对于`lineWidth`属性，只是在开始设置为`10`像素，绘制的3条折线段都是`10`像素宽，我们可以知道，对于`beginPath()`如果一个状态没有被重新设置，它将一只用之前设置的属性值，所以在实际应用时，一定要清楚当前路径所使用的状态。另外，上面例子中的`moveTo()`方法可以用`lineTo()`方法替换，效果是一样的，因为`beginPath()`方法，同时声明开始一段新的路径绘制。
 
 
-## context.closePath()方法
+### context.closePath()方法
 既然有开始一条路径的方法，当然也有关闭路径的方法了，那么`closePath()`方法有什么用呢？就拿上面绘制的那个箭头的图案为例，如果要封闭图案改怎么来呢？简单，最后在调用次`lineTo()`绘制到起始位置坐标，代码如下：
 
 ```javascript
@@ -277,7 +277,7 @@ body部分添加了canvas标签，设置canvas标签的id为`mycanvas`，引入�
 ```
 这样，实现了一个封闭图形的绘制，最后一个`lineTo()`省略了，因为`closePath()`会自动绘制最后一条线段。实际开发的时候`beginPath()`和`closePath()`是成对出现的。当然需要灵活应用
 
-## 填充图案
+### 填充图案
 上面的所有例子，我们是通过`stroke()`绘制路径的线条的，当然也可以填充设置的路径，也可以设置填充颜色，继续将上面的代码稍微修改：
 ```javascript
 (function(){

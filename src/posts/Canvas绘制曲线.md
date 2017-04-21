@@ -8,7 +8,7 @@ description: 在此之前我们都是使用canvas绘制线段组成一些图案�
 ------
 在此之前我们都是使用canvas绘制线段组成一些图案，今天总结Canvas绘制曲线的一些接口
 
-## arc()方法
+### arc()方法
 arc()方法用来绘制一段圆弧，调用方法：
 > context.arc(x, y, r, sAngle, eAngle, counterclockwise)
 
@@ -183,7 +183,7 @@ Canvas的CanvasRenderingContext2D对象提供了`strokeRect()`，和`fillRect()`
 
 通过扩展CanvasRenderingContext2D对象原型的方法，实现了`strokeRoundRect()`和`fillRoundRect()`方法，实现了绘制带圆角的矩形图案
 
-## arcTo()方法
+### arcTo()方法
 canvas中绘制圆弧，还可以使用`arcTo()`方法在画布上创建介于两个切线之间的圆弧，调用方式：
 
 > context.arcTo(x1, y1, x2, y2, radius)
@@ -198,7 +198,7 @@ canvas中绘制圆弧，还可以使用`arcTo()`方法在画布上创建介于�
 
 <iframe src='/static/canvas/2017/03/14/005.html' width='100%' height='640px' frameborder='0' ></iframe>
 
-## quadraticCurveTo()方法
+### quadraticCurveTo()方法
 用于绘制二次贝塞尔曲线，调用方式：
 
 > context.quadraticCurveTo(cpx, cpy, x, y)
@@ -209,7 +209,7 @@ canvas中绘制圆弧，还可以使用`arcTo()`方法在画布上创建介于�
 
 <iframe src='/static/canvas/2017/03/14/006.html' width='100%' height='540px' frameborder='0' ></iframe>
 
-## bezierCurveTo()方法
+### bezierCurveTo()方法
 这个方法用于绘制三次贝塞尔曲线，调用方式：
 
 > context.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, x, y)

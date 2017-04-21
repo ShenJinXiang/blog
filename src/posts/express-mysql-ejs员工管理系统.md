@@ -8,13 +8,13 @@ description: 之前介绍过express、ejs的使用，也介绍了nodejs操作mys
 ------
 之前介绍过express、ejs的使用，也介绍了nodejs操作mysql数据库，现在将这些整合起来，做一个简单的员工管理系统
 
-## 功能说明
+### 功能说明
 
 * 数据存储在mysql数据库中，后台用express框架
 * 包含一个登陆、注册页面和主页面
 * 主页面包括左侧的部门信息，以及右侧的员工列表，可以添加删除修改员工和部门信息
 
-## 目录结构
+### 目录结构
 创建工作目录employee
 ```
 $ mkdir employee
@@ -37,7 +37,7 @@ employee/
   |-- views/                               存放ejs文件    
 ```
 
-## 初始化环境
+### 初始化环境
 初始化包，创建package.json
 ```
 $ npm init
@@ -89,7 +89,7 @@ plugin目录中导入第三方插件:
 * ztrr - 树形控件
 * layer - 弹出框控件
 
-## 项目配置文件
+### 项目配置文件
 创建lib目录
 ```
 $ mkdir lib
@@ -124,7 +124,7 @@ mysql指明数据库配置信息
 
 noLogin 指明拦截配置信息，除了noLogin指定的路由，其他所有请求都需要session验证
 
-## 创建MD5工具模块
+### 创建MD5工具模块
 有登录、注册功能，针对密码做个简单的MD5处理，lib目录下创建utils目录
 ```
 $ mkdir lib/utils
@@ -159,7 +159,7 @@ exports.sha1 = function (content) {
 };
 ```
 
-## 创建数据库操作模块
+### 创建数据库操作模块
 utils目录下创建mysqlUtil.js
 ```
 $ touch /lib/utils/mysqlUtil.js
@@ -345,7 +345,7 @@ exports.delById = function () {
 };
 ```
 
-## 创建数据库表
+### 创建数据库表
 lib目录下创建sql目录
 ```
 $ mkdir lib/sql
@@ -404,7 +404,7 @@ mysql> use nodejs;
 mysql> source ~/Users/shenjinxiang/Documents/employee/lib/sql/mysql.sql;
 ```
 
-## 搭建express应用
+### 搭建express应用
 创建app.js文件
 ```
 $ touch app.js
@@ -450,7 +450,7 @@ app.listen(3000, function () {
 
 一个简单的应用已经好了，当然，现在没有引入任何路由，项目启动起来也没有任何意义
 
-## 添加自定义中间件
+### 添加自定义中间件
 **创建路由日志中间件**
 
 lib目录下创建middleware目录
@@ -524,7 +524,7 @@ app.use(require('./lib/middleware/routeLog'));
 app.use(require('./lib/middleware/loginFilter'));
 ```
 
-## 配置路由模块
+### 配置路由模块
 lib目录下创建routes目录
 ```
 $ mkdir lib/routes
@@ -601,7 +601,7 @@ app.listen(3000, function () {
 });
 ```
 
-## 添加页面css文件
+### 添加页面css文件
 public目录下创建css目录
 ```
 $ mkdir public/css
@@ -851,7 +851,7 @@ input[type="checkbox"]:focus {
 }
 ```
 
-## 添加页面公用js文件
+### 添加页面公用js文件
 public 目录下创建js目录
 ```
 $ mkdir public/js
@@ -946,7 +946,7 @@ function closeLayer() {
 }
 ```
 
-## 登录、注册模块
+### 登录、注册模块
 创建views目录
 ```
 $ mkdir views
@@ -1286,7 +1286,7 @@ exports.register = function (obj, callback) {
 
 这个模块中，使用了node-uuid包，用于生成数据库中主键id，至此登录、注册功能完成
 
-## 主页面开发
+### 主页面开发
 在lib/routes/index.js这个路由中配置了/main 路由，用于跳转至主页面
 ```javascript
 /**
@@ -2044,7 +2044,7 @@ exports.queryOne = function (id, callback) {
 }
 ```
 
-## 运行效果
+### 运行效果
 至此，利用express、ejs、mysql完成一个简单的员工管理模块，可以运行app.js文件，浏览器中访问应用了
 
 ![](/images/nodejs/2017/02/10/019.png{width='700px'})
