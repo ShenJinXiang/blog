@@ -87,7 +87,7 @@
 <iframe src='/static/canvas/2017/03/14/001.html' width='100%' height='540px' frameborder='0' ></iframe>
 
 <p>不论是要顺时针还是要逆时针绘图，角度是不会变的，看下面的代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	var canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -136,7 +136,7 @@
 
 <p>上图中所有圆弧的其实位置都是在<code class="inline_code">0</code>度位置，结束角度不同，可以看到如果一段不封闭的圆弧，调用<code class="inline_code">fill()</code>方法的时候，会将起点和终点连接成封闭的路径，然后填充</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	var canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -186,7 +186,7 @@
 <p>这个例子和上一个例子代码唯一的区别在于绘制圆弧的时候最后一个参数由<code class="inline_code">false</code>改成<code class="inline_code">true</code>，意味着将采用逆时针方式绘制图形，可以看到没有调用rotate的情况下，<code class="inline_code">0</code>度在3点钟位置，而<code class="inline_code">0.5 * Math.PI</code>的角度在6点钟位置</p>
 
 <p>Canvas的CanvasRenderingContext2D对象提供了<code class="inline_code">strokeRect()</code>，和<code class="inline_code">fillRect()</code>方法用于绘制矩形边框和填充矩形区域，那么我们也可以封装一个<code class="inline_code">strokeRoundRect()</code>和<code class="inline_code">fillRoundRect()</code>方法用于绘制带圆角的矩形边框的填充带圆角的矩形区域的功能</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	CanvasRenderingContext2D.prototype.strokeRoundRect = function (x, y, width, height, r) {
 		this.save();
@@ -218,12 +218,12 @@
 })();</code>
 </pre>
 <p>下面是调用的代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
-	let canvas = document.getElementById('mycanvas');
+	var canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
 	canvas.height = 400;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	context.strokeRoundRect(50, 50, 100, 100, 25);
 

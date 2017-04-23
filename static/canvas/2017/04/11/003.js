@@ -16,6 +16,6 @@
 	context.font = 'bold 150px Arial';
 	context.textAlign = 'center';
 	context.textBaseline = 'middle';
-	context.fillStyle = '048';
+	context.fillStyle = '#048';
 	context.fillText('CANVAS', canvas.width / 2, canvas.height / 2);
 })();

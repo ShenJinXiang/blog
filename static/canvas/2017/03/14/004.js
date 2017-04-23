@@ -29,10 +29,10 @@
 
 	draw();
 	function draw() {
-		let canvas = document.getElementById('mycanvas');
+		var canvas = document.getElementById('mycanvas');
 		canvas.width = 400;
 		canvas.height = 400;
-		let context = canvas.getContext('2d');
+		var context = canvas.getContext('2d');
 
 		context.strokeRoundRect(50, 50, 100, 100, 25);
 

@@ -83,7 +83,7 @@
 <p>要指定颜色，需要使用返回对象的<code class="inline_code">addColorStop()</code>方法，<code class="inline_code">addColorStop()</code>方法用于定义一个渐变中的固定颜色，参数<code class="inline_code">color</code>的值为任意css可以接收的表示颜色的字符串。参数<code class="inline_code">stop</code>是<code class="inline_code">0.0 ~ 1.0</code>之间的一个浮点数，对于渐变的起点到终点的位置，值为<code class="inline_code">0</code>表示起点，值为<code class="inline_code">1</code>表示终点</p>
 
 <p>当设置好颜色以后将这个CanvasGradient对象赋值给<code class="inline_code">fillStyle</code>或<code class="inline_code">strokeStyle</code>属性，当调用对应的<code class="inline_code">fill()</code>方法和 <code class="inline_code">stroke()</code>方法时，即实现渐变效果，代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function () {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -105,7 +105,7 @@
 
 <p>设置线性渐变颜色的<code class="inline_code">addColorStop()</code>方法可以添加很多个，代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function () {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -128,7 +128,7 @@
 
 <p>再看一个例子：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function () {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
@@ -166,7 +166,7 @@
 </ul>
 <p>通过<code class="inline_code">createRadialGradient()</code>方法创建CanvasGradient对象，然后调用<code class="inline_code">addColorStop()</code>方法来设置不同的颜色节点，代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function () {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -207,7 +207,7 @@
 
 <p>这张图片的宽高为300像素，且如果平铺的话，左右上下都可以连续起来，下面是canvas中使用该图片的代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
@@ -231,7 +231,7 @@
 <h4>使用canvas填充</h4>
 <p>使用canvas填充很简单了，再创建一个canvas绘制一些图案，然后调用即可，代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 600;

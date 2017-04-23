@@ -4,6 +4,6 @@
 	canvas.height = 600;
 	var context = canvas.getContext('2d');
 
-	context.fillStyle = '058';
+	context.fillStyle = '#058';
 	context.fillRect(50, 50, 500, 500);
 })();

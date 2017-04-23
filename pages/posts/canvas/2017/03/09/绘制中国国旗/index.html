@@ -73,7 +73,7 @@
 
 <h3>绘制正多边形</h3>
 <p>先扯点题外话，绘制正多边形，我们知道正多边形的连接点都在一个圆上，这个圆为外接圆，绘制思路是这样的：我们只绘制中心在<code class="inline_code">(0, 0)</code>点正多边形，然后通过图形变换的方式，绘制成需要的位置、大小和角度。我们希望可以封装成一个通用方法，绘制任意边数的正多边形，代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>
 /**
  * 绘制正多边形边框
@@ -112,7 +112,7 @@ function fillRegPolygon(ctx, num, sx, sy, radius, rotate) {
 
 <h3>绘制五角星</h3>
 <p>绘制五角星不算复杂，一样的思路，一共<code class="inline_code">10</code>个断点，其中内层的<code class="inline_code">5</code>个点在一个圆上，外层的<code class="inline_code">5</code>个点在一个圆上，同时，我们希望不只是五角星，而是多角星，同样的，封装成通用方法，代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>/**
  * 绘制边框
  */
@@ -154,7 +154,7 @@ function fillStar(ctx, num, sx, sy, R, r, rotate) {
 
 <p>下面是调用的代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function(){
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -179,7 +179,7 @@ function fillStar(ctx, num, sx, sy, R, r, rotate) {
 <iframe src='/static/canvas/2017/03/09/002.html' width='100%' height='450px' frameborder='0' ></iframe>
 
 <p>同样不止是可以绘制五角星，通过调整这两个方法的参数，可以得到一些变种图形，比如讲其中一个圆的半径设置成很小，可以呈现很尖锐的图形，也可以将两个远的半径设置成一样的，呈现成正多边形的图形</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function(){
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -212,7 +212,7 @@ function fillStar(ctx, num, sx, sy, R, r, rotate) {
 <p>对于路径中指定范围区域，从该区域内部画一条足够长的线段(射线)，使此线段的完全落在路径范围之外，然后，将计数器初始化为<code class="inline_code">0</code>，每当这个线段与路径上的直线或曲线相交时，就改变计数器的值，如果是与路径顺时针相交时，那么计数器就加<code class="inline_code">1</code>， 如果是与路径逆时针相交时，那么计数器就减<code class="inline_code">1</code></p>
 <p>如果计数器始终不为0，那么此区域就在路径范围里面，在调用<code class="inline_code">fill()</code>方法时，浏览器就会对其进行填充。如果最终值是0，那么此区域就不在路径范围内，浏览器就不会对其进行填充</p>
 <p>一个很简单的例子，画一个回字形的图形，可以有很多实现方式，最简单的方法是直接绘制一个矩形边框，变宽宽度设置的很宽就可以了，如果要用<code class="inline_code">fill()</code>填充的时候，代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -241,7 +241,7 @@ function fillStar(ctx, num, sx, sy, R, r, rotate) {
 <p>绘制回字形图案，外边的方形路径顺时针，里边的方形路径逆时针，对于中心区域来说，按照非零环绕规则，不属于路径内部，所以并没有填充</p>
 
 <p>接下来再看看五角星的绘制，一个标准的五角星，应该是在正五边形的基础上，对角线连接组成的图案，按照非零环绕规则，当使用<code class="inline_code">fill()</code>的时候内部都可以填充，所以绘制一个标准的五角星，只需要依次绘制正五边形的对角线即可</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// 五角星
 function drawStar(x, y, r, rotate) {
 	context.save();
@@ -261,7 +261,7 @@ function drawStar(x, y, r, rotate) {
 </pre>
 
 <p>下面是调用<code class="inline_code">drawStar()</code>的代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function(){
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -303,7 +303,7 @@ function drawStar(x, y, r, rotate) {
 <li>绘制大的五角星，然后根据大五角星和小五角星的圆心连接线的角度确定小五角星的角度，绘制小五角星</li>
 </ol>
 <p>具体实现代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function(){
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 660;

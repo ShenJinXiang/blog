@@ -69,7 +69,7 @@
 	</div>
 	<div class='post-content'>
 		<p><p>上节中，介绍了绘制线段、连续线段、折线段、封闭图形的边框以及填充等，在实际绘图中，线条可以说是基本要素，现在我主要看看线条的一些属性。同样的，需要html模板：</p>
-<pre class="line-numbers language-html">
+<pre class="language-html">
 <code>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -88,7 +88,7 @@
 
 <h3>lineWidth属性</h3>
 <p>用于设置线条的宽度，<code class="inline_code">lineWidth</code>属性之前用过的，也很好理解，属性值为数字类型，默认值为<code class="inline_code">1</code>，即<code class="inline_code">1</code>像素宽。值大于<code class="inline_code">1</code>时线条的中心在路径上，路径两边各占一半的宽度，看下面代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -136,7 +136,7 @@
 <tr><td>'square'</td><td>这个值定义线条由一个矩形的线帽，和'butt'类似，但线条的终点处会扩展出其宽度一半的距离</td></tr>
 </table>
 <p>代码示例：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function(){
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -206,7 +206,7 @@
 
 <p>lineCap属性只是定义了线条末端的样式，代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -250,7 +250,7 @@
 <tr><td>'bevel'</td><td>顶点的外边缘应该和一个填充的三角形相交</td></tr>
 </table>
 <p>代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;

@@ -7,6 +7,6 @@
 	context.rect(100, 100, 400, 400);
 	context.clip();
 
-	context.fillStyle = '058';
+	context.fillStyle = '#058';
 	context.fillRect(50, 50, 500, 500);
 })();

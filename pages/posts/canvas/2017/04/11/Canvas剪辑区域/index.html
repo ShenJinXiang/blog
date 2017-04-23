@@ -71,14 +71,14 @@
 		<p><p>Canvas中实现剪辑区域只涉及到一个方法：CanvasRenderingContext2D.clip()，<code class="inline_code">clip()</code>方法从原始画布中剪辑任意形状和尺寸的闭合区域，之后的绘图环境就在这个剪辑区域中，<code class="inline_code">clip()</code>类似于<code class="inline_code">fill()</code>和<code class="inline_code">stroke()</code>方法，不同的是，<code class="inline_code">fill()</code>和<code class="inline_code">stroke()</code>方法是将设置的路径绘制出来，而<code class="inline_code">clip()</code>方法是将之前的路径形成的闭合区域作为剪辑区域</p>
 
 <h3>简单的例子</h3>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	var canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
 	canvas.height = 600;
 	var context = canvas.getContext('2d');
 
-	context.fillStyle = '058';
+	context.fillStyle = '#058';
 	context.fillRect(50, 50, 500, 500);
 })();</code>
 </pre>
@@ -88,7 +88,7 @@
 
 <p>如果加上一个剪辑区域，看看这个代码：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	var canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
@@ -98,7 +98,7 @@
 	context.rect(100, 100, 400, 400);
 	context.clip();
 
-	context.fillStyle = '058';
+	context.fillStyle = '#058';
 	context.fillRect(50, 50, 500, 500);
 })();</code>
 </pre>
@@ -109,7 +109,7 @@
 <p>在上一个代码的基础上设置了一个宽高为<code class="inline_code">400</code>的矩形区域为剪辑区域，然后接着绘制<code class="inline_code">500</code>宽高的矩形，这个时候，只有在剪辑区域内部的部分才会渲染出来，实际上<code class="inline_code">clip()</code>的剪辑区域可以是任意形状的闭合路径，如果路径没有闭合，会自动调用一次<code class="inline_code">closePath()</code>来闭合路径，之后的绘制中，剪辑区域外部的内容将不再绘制，判断剪辑区域内部或外部同样是依据非零环绕原则。</p>
 
 <h3>剪辑区域为圆形区域</h3>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	var canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
@@ -128,7 +128,7 @@
 	context.font = 'bold 150px Arial';
 	context.textAlign = 'center';
 	context.textBaseline = 'middle';
-	context.fillStyle = '048';
+	context.fillStyle = '#048';
 	context.fillText('CANVAS', canvas.width / 2, canvas.height / 2);
 })();</code>
 </pre>
@@ -144,12 +144,12 @@
 <h4>clearRect()方法</h4>
 <p><code class="inline_code">clearRect()</code>用于清除画布中指定位置的内容，相当于是个橡皮擦，接受四个参数，分别表示清除矩形区域的左上角的<code class="inline_code">x</code>、<code class="inline_code">y</code>坐标值和矩形区域的宽高值，例如：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
-	let canvas = document.getElementById('mycanvas');
+	var canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
 	canvas.height = 600;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	context.fillStyle = '#058';
 	context.fillRect(0, 0, canvas.width, canvas.height);
@@ -173,7 +173,7 @@
 <li>每当鼠标移动时，先将整个画布清除，重新根据鼠标当前位置绘制整个画布</li>
 </ol>
 <p>代码：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	var canvas = document.getElementById('canvas');
 	canvas.width = 660;

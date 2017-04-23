@@ -158,10 +158,10 @@ Canvas的CanvasRenderingContext2D对象提供了`strokeRect()`，和`fillRect()`
 下面是调用的代码：
 ```javascript
 (function() {
-	let canvas = document.getElementById('mycanvas');
+	var canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
 	canvas.height = 400;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	context.strokeRoundRect(50, 50, 100, 100, 25);
 

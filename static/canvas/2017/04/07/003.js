@@ -17,7 +17,7 @@
 
 	context.strokeStyle = '#058';
 	context.lineWidth = 2;
-	context.shadowColor = '00f7ff';
+	context.shadowColor = '#00f7ff';
 	context.shadowOffsetX = 0;
 	context.shadowOffsetY = 0;
 	context.shadowBlur = 5;

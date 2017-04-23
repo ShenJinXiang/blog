@@ -16,7 +16,7 @@ Canvas中实现剪辑区域只涉及到一个方法：CanvasRenderingContext2D.c
 	canvas.height = 600;
 	var context = canvas.getContext('2d');
 
-	context.fillStyle = '058';
+	context.fillStyle = '#058';
 	context.fillRect(50, 50, 500, 500);
 })();
 ```
@@ -36,7 +36,7 @@ Canvas中实现剪辑区域只涉及到一个方法：CanvasRenderingContext2D.c
 	context.rect(100, 100, 400, 400);
 	context.clip();
 
-	context.fillStyle = '058';
+	context.fillStyle = '#058';
 	context.fillRect(50, 50, 500, 500);
 })();
 ```
@@ -66,7 +66,7 @@ Canvas中实现剪辑区域只涉及到一个方法：CanvasRenderingContext2D.c
 	context.font = 'bold 150px Arial';
 	context.textAlign = 'center';
 	context.textBaseline = 'middle';
-	context.fillStyle = '048';
+	context.fillStyle = '#048';
 	context.fillText('CANVAS', canvas.width / 2, canvas.height / 2);
 })();
 ```
@@ -84,10 +84,10 @@ Canvas中实现剪辑区域只涉及到一个方法：CanvasRenderingContext2D.c
 
 ```javascript
 (function() {
-	let canvas = document.getElementById('mycanvas');
+	var canvas = document.getElementById('mycanvas');
 	canvas.width = 600;
 	canvas.height = 600;
-	let context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 
 	context.fillStyle = '#058';
 	context.fillRect(0, 0, canvas.width, canvas.height);

@@ -78,11 +78,11 @@
 </ul>
 <h3>目录结构</h3>
 <p>创建工作目录employee</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir employee</code>
 </pre>
 
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>employee/
   |-- app.js                               应用启动文件    
   |-- package.json                         项目总信息文件     
@@ -101,47 +101,47 @@
 
 <h3>初始化环境</h3>
 <p>初始化包，创建package.json</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm init</code>
 </pre>
 
 <p>导入express</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm install express --save</code>
 </pre>
 
 <p>导入mysql包</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm install mysql --save</code>
 </pre>
 
 <p>导入ejs模板引擎</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm install ejs --save</code>
 </pre>
 
 <p>导入uuid，用于生成数据库主键id</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm install node-uuid --save</code>
 </pre>
 
 <p>导入body-parser包，用于解析post请求数据</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm install body-parser --save</code>
 </pre>
 
 <p>导入express-session包，用于管理session</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ npm install express-session --save</code>
 </pre>
 
 <p>创建静态文件根目录public</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir public</code>
 </pre>
 
 <p>public目录下创建plugin目录，存放前段第三方插件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir public/plugin</code>
 </pre>
 
@@ -153,17 +153,17 @@
 </ul>
 <h3>项目配置文件</h3>
 <p>创建lib目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir lib</code>
 </pre>
 
 <p>lib目录下创建config.json</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/config.json</code>
 </pre>
 
 <p>编辑config.json</p>
-<pre class="line-numbers language-json">
+<pre class="language-json">
 <code>{
 	"mysql": {
 		"user": "root",
@@ -188,17 +188,17 @@
 
 <h3>创建MD5工具模块</h3>
 <p>有登录、注册功能，针对密码做个简单的MD5处理，lib目录下创建utils目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir lib/utils</code>
 </pre>
 
 <p>utils目录下创建MD5Util.js</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/utils/MD5Util.js</code>
 </pre>
 
 <p>编辑MD5Util.js</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/utils/MD5Util.js
 const crypto = require('crypto');
 
@@ -223,12 +223,12 @@ exports.sha1 = function (content) {
 
 <h3>创建数据库操作模块</h3>
 <p>utils目录下创建mysqlUtil.js</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch /lib/utils/mysqlUtil.js</code>
 </pre>
 
 <p>编辑mysqlUtil.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/utils/mysqlUtil.js
 const mysql = require('mysql');
 const dbConfig = require('../Config').mysql;
@@ -409,17 +409,17 @@ exports.delById = function () {
 
 <h3>创建数据库表</h3>
 <p>lib目录下创建sql目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir lib/sql</code>
 </pre>
 
 <p>sql目录下创建mysql.sql文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/sql/mysql.sql</code>
 </pre>
 
 <p>由于功能简单，所以数据库表只有3个，user表，用于登录、注册；department部门表，为树形结构数据以及employee员工表，编辑mysql.sql</p>
-<pre class="line-numbers language-sql">
+<pre class="language-sql">
 <code>/**
  * // lib/sql/mysql.sql
  * 初始化数据库表
@@ -461,19 +461,19 @@ CREATE TABLE `employee` (
 </pre>
 
 <p>命令行登录mysql服务器，执行下面的命令，运行sql脚本</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>mysql&gt; use nodejs;
 mysql&gt; source ~/Users/shenjinxiang/Documents/employee/lib/sql/mysql.sql;</code>
 </pre>
 
 <h3>搭建express应用</h3>
 <p>创建app.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch app.js</code>
 </pre>
 
 <p>编辑app.js</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// app.js
 const express = require('express');
 const path = require('path');
@@ -516,17 +516,17 @@ app.listen(3000, function () {
 <p><b>创建路由日志中间件</b></p>
 
 <p>lib目录下创建middleware目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir lib/middleware</code>
 </pre>
 
 <p>middleware目录下创建routerLog.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/middleware/routerLog.js</code>
 </pre>
 
 <p>编辑routerLog.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/middleware/routeLog.js
 const url = require('url');
 const util = require('util');
@@ -550,12 +550,12 @@ module.exports = function(req, res, next) {
 <p><b>登录session验证中间件</b></p>
 
 <p>middleware目录下创建loginFilter.js</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/middleware/loginFilter.js</code>
 </pre>
 
 <p>编辑loginFilter.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/middleware/loginFilter.js
 const noLogin = require('../config').noLogin;
 const url = require('url');
@@ -574,7 +574,7 @@ module.exports = function (req, res, next) {
 </pre>
 
 <p>app.js中添加自定义中间件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>/**
  * 引入路由日志
  */
@@ -588,19 +588,19 @@ app.use(require('./lib/middleware/loginFilter'));</code>
 
 <h3>配置路由模块</h3>
 <p>lib目录下创建routes目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir lib/routes</code>
 </pre>
 
 <p>routes目录下创建index.js、department.js、employee.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/routes/index.js
 $ touch lib/routes/department.js
 $ touch lib/routes/employee.js</code>
 </pre>
 
 <p>编辑刚创建的三个文件，内容都为:</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>const express = require('express');
 
 let router = express.Router();
@@ -609,7 +609,7 @@ module.exports = router;</code>
 </pre>
 
 <p>app.js中配置这三个路由文件，app.js最终内容为:</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// app.js
 const express = require('express');
 const path = require('path');
@@ -665,17 +665,17 @@ app.listen(3000, function () {
 
 <h3>添加页面css文件</h3>
 <p>public目录下创建css目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir public/css</code>
 </pre>
 
 <p>css目录中创建common.css文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch public/css/common.css</code>
 </pre>
 
 <p>common.css内容</p>
-<pre class="line-numbers language-css">
+<pre class="language-css">
 <code>* {
 	margin: 0;
 	padding: 0;
@@ -915,17 +915,17 @@ input[type="checkbox"]:focus {
 
 <h3>添加页面公用js文件</h3>
 <p>public 目录下创建js目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir public/js</code>
 </pre>
 
 <p>js目录下创建common.js</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch public/js/common.js</code>
 </pre>
 
 <p>common.js文件内容</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// public/js/common.js
 /**
  * 获取form表单数据
@@ -1010,17 +1010,17 @@ function closeLayer() {
 
 <h3>登录、注册模块</h3>
 <p>创建views目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir views</code>
 </pre>
 
 <p>创建登录页面index.ejs</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch views/index.ejs</code>
 </pre>
 
 <p>index.ejs 文件内容</p>
-<pre class="line-numbers language-html">
+<pre class="language-html">
 <code>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -1085,12 +1085,12 @@ function closeLayer() {
 <p><b>登录、注册页面的js文件</b></p>
 
 <p>public/js 目录下创建文件 index.js</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch public/js/index.js</code>
 </pre>
 
 <p>public/js/index.js文件内容</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>$(function () {
 	bindEvent();
 });
@@ -1204,7 +1204,7 @@ function checkUsername(username) {
 </pre>
 
 <p><b>编辑lib/routes/index.js文件</b></p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/routes/index.js
 const express = require('express');
 const userService = require('../service/user');
@@ -1292,17 +1292,17 @@ module.exports = router;</code>
 <p><b>业务处理</b></p>
 
 <p>创建lib/service目录</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ mkdir lib/service</code>
 </pre>
 
 <p>创建lib/service/user.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/service/user.js</code>
 </pre>
 
 <p>lib/service/user.js文件内容</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/service/user.js
 
 const mysqlUtil = require('../utils/mysqlUtil');
@@ -1350,7 +1350,7 @@ exports.register = function (obj, callback) {
 
 <h3>主页面开发</h3>
 <p>在lib/routes/index.js这个路由中配置了/main 路由，用于跳转至主页面</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>/**
  * 主页面
  */
@@ -1363,12 +1363,12 @@ router.get('/main', function (req, res){
 <p>下面开始主页面的开发</p>
 
 <p>创建views/main.ejs文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch views/main.ejs</code>
 </pre>
 
 <p>编辑main.ejs文件</p>
-<pre class="line-numbers language-html">
+<pre class="language-html">
 <code>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -1483,12 +1483,12 @@ router.get('/main', function (req, res){
 <p><b>添加对应的页面js文件</b></p>
 
 <p>创建 public/js/main.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch public/js/main.js</code>
 </pre>
 
 <p>编辑public/js/main.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>$(function () {
 	initUI();
 	bindEvent();
@@ -1782,7 +1782,7 @@ function saveEmployee() {
 <p><b>路由文件</b></p>
 
 <p>编辑lib/routes/department.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/routes/department.js
 
 const express = require('express');
@@ -1859,7 +1859,7 @@ module.exports = router;</code>
 </pre>
 
 <p>编辑 lib/routes/employee.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/routes/employee.js
 
 const express = require('express');
@@ -1938,12 +1938,12 @@ module.exports = router;</code>
 <p><b>编辑业务处理文件</b></p>
 
 <p>创建 lib/service/department.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/service/department.js</code>
 </pre>
 
 <p>编辑 lib/service/department.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/service/department.js
 const uuid = require('node-uuid');
 const mysqlUtil = require('../utils/mysqlUtil');
@@ -2041,12 +2041,12 @@ exports.delDepartment = function (id, callback) {
 </pre>
 
 <p>创建 lib/service/employee.js文件</p>
-<pre class="line-numbers language-none">
+<pre class="language-none">
 <code>$ touch lib/service/employee.js</code>
 </pre>
 
 <p>编辑 lib/service/employee.js文件</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>// lib/service/employee.js
 
 const uuid = require('node-uuid');

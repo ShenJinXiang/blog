@@ -190,7 +190,8 @@ let ul3 = function(line) {
 let code1 = function(line) {
 	let language = stringUtil.trim(line.substring(3));
 	language = (language == '') ? 'none' : language;
-	return '<pre class="line-numbers language-' + language + '">';
+	//return '<pre class="line-numbers language-' + language + '">';
+	return '<pre class="language-' + language + '">';
 };
 
 let code2 = function(line, preLine, nextLine) {

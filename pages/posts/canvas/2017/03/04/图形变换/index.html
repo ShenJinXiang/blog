@@ -69,7 +69,7 @@
 	</div>
 	<div class='post-content'>
 		<p><p>canvas中的图形变换，主要涉及到图形的偏移、旋转、缩放功能。本文所有的代码采用的html模板均为：</p>
-<pre class="line-numbers language-html">
+<pre class="language-html">
 <code>&lt;!doctype html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -89,7 +89,7 @@
 <h3>translate()方法</h3>
 <p>CanvasRenderingContext2D的<code class="inline_code">translate()</code>方法为当前画布添加水平和垂直偏移量。默认情况下，canvas中的坐标系统是以左上角为坐标原点<code class="inline_code">(0, 0)</code>，水平向右<code class="inline_code">x</code>坐标值增加、垂直向下<code class="inline_code">y</code>坐标值增加。<code class="inline_code">translate()</code>方法接受两个Number类型参数，分别设置x轴和y轴方向的偏移量</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -110,7 +110,7 @@
 
 <h3>保存还原绘图状态</h3>
 <p>如果多次调用<code class="inline_code">translate()</code>方法会怎么样呢？看下面的例子：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -133,7 +133,7 @@
 
 <p>这个例子中画了两个矩形，第一个矩形的位置没什么问题，是在<code class="inline_code">(50, 50)</code>的位置开始画了一个蓝色的矩形，但是第二个矩形的位置有问题，不是在<code class="inline_code">translate()</code>设置的<code class="inline_code">(150, 150)</code>位置开始画的，而是在<code class="inline_code">(200, 200)</code>位置开始绘制的矩形，可以知道两次<code class="inline_code">translate()</code>方法效果累加了，这个时候我们需要在每次调用完<code class="inline_code">translate()</code>之后，将状态返回到原来的状态，采用下面的方法：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -159,7 +159,7 @@
 <p>这样第二个矩形的其实位置在<code class="inline_code">(150, 150)</code>位置。但是有个问题就是每次调用结束以后都需要再次调用<code class="inline_code">translate()</code>设置相反的参数，恢复原来状态，是一件很繁琐的事情，而且代码量大了以后，很难维护，这时需要用到<code class="inline_code">save()</code>和<code class="inline_code">restore()</code>方法</p>
 
 <p>CanvasRenderingContext2D对象的<code class="inline_code">save()</code>将复制当前绘图状态，并将这个副本压入已保存的绘图状态栈中，这样就可以临时改变绘图状态。 CanvasRenderingContext2D对象的<code class="inline_code">restore()</code>从以保存的绘图状态的栈中弹出最后一个保存状态，并根据这个状态充值CanvasRenderingContext2D的各项属性、裁剪路径以及转换矩阵。所以上面的代码可以修改为：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -186,7 +186,7 @@
 <h3>rotate()方法</h3>
 <p>改变当前转换矩阵，接下来在画布上绘制的任何对象都将旋转指定的角度，&lt;canvas&gt;元素并没有旋转，角度的单位是弧度制。角度转换为弧度的方法：乘以<code class="inline_code">Math.PI</code>，再除以<code class="inline_code">180</code>。例子：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -211,7 +211,7 @@
 <h3>scale()方法</h3>
 <p>接受两个Number类型的参数，分别表示在<code class="inline_code">x</code>和<code class="inline_code">y</code>轴方向上的缩放比例，这个方法添加一个缩放转换到画布的当前转换矩阵中，缩放在水平方向与垂直方向上是相互独立的，如果参数为负数，则为反向，这意味着可以随意的放大和缩小图形，也可以绘制图形的相对于<code class="inline_code">x</code>、<code class="inline_code">y</code>轴的对称图形和相对于坐标原点的点对称图形，这里说到的坐标轴是指的当前状态的坐标，而不是系统默认坐标</p>
 <p>例子：</p>
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
@@ -243,7 +243,7 @@
 
 <p>绘制了三个矩形边框，初始的宽高都是<code class="inline_code">100</code>，线条宽度是<code class="inline_code">2</code>，分别缩放了<code class="inline_code">1</code>、<code class="inline_code">2</code>、<code class="inline_code">3</code>倍，从结果可以看到，左上角的位置也经过了缩放，设置的起始点在<code class="inline_code">(50, 50)</code>，缩放以后的起始点分别为<code class="inline_code">(50, 50)</code>、<code class="inline_code">(100, 100)</code>和<code class="inline_code">(150, 150)</code>，另外线条宽度也进行过缩放，宽度分别为5、10、15像素，再看一个例子：</p>
 
-<pre class="line-numbers language-javascript">
+<pre class="language-javascript">
 <code>(function() {
 	let canvas = document.getElementById('mycanvas');
 	canvas.width = 400;
