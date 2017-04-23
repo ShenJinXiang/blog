@@ -790,7 +790,12 @@ blockquote p {
 	}
 
 	.post .post-footer {
+		/*
 		display: none;
+		*/
+	}
+	.post .post-footer .meta .info{
+		font-size:10px;
 	}
 	.post .post-footer .meta .delimiter {
 		padding: 0 5px;
@@ -802,4 +807,5 @@ blockquote p {
 	.page-top .nav li a .baseline{
 		display: none;
 	}
+	pre code{font-size:12px;}
 }
