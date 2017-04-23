@@ -38,7 +38,7 @@
 	function drawGQ() {
 
 		var gWidth = canvas.width / 30;
-		var [maxX, maxY] = [5, 5];		// 大五角星的坐标
+		var maxX = 5, maxY = 5;		// 大五角星的坐标
 		var minX = [10, 12, 12, 10];	// 小五角星的x坐标值
 		var minY = [2, 4, 7, 9];		// 小五角星的y坐标值
 
