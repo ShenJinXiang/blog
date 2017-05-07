@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2017/05/01/工厂方法模式/'>工厂方法模式</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>前面的简单工厂模式中，有个问题，工厂角色的任务很重，负责创建对象的所有事情，会很臃肿；如果要添加新的产品角色，工厂角色中的代码需要重新修改，违背了“开闭原则”；虽然可以通过配置文件的方式，不需要修改工厂角色了，但是有一个更大的问题：没法在创建对象的时候针对不同对象做一些细节性处理，工厂方法模式解决了这个问题。</p>
+
+<p>工厂方法模式中，不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构</p>
+
+<h3>定义</h3>
+<p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类</p>
+
+<h3>角色信息</h3>
+<img src='/images/java/2017/05/01/0001.png' width='800px' style='display:block; margin:0px auto;'>
+<ul><li>抽象产品（Product）：定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。</li>
+<li>具体产品（ConcreteProduct）：实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。</li>
+<li>抽象工厂（Factory）：在抽象工厂类中，声明了工厂方法(Factory Method)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。</li>
+<li>具体工厂（ConcreteFactory）：是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。</li>
+</ul>
+<h3>代码实现</h3>
+
+<p>抽象产品类：</p>
+<pre class="language-java">
+<code>public interface Product {
+
+	void display();
+}</code>
+</pre>
+
+<p>具体产品类<code class="inline_code">ConcreteProductA</code>实现了抽象产品类<code class="inline_code">Product</code>:</p>
+<pre class="language-java">
+<code>public class ConcreteProductA implements Product {
+
+	public ConcreteProductA() {
+		System.out.println("创建ConcreteProductA实例对象");
+	}
+
+	@Override
+	public void display() {
+		System.out.println("ConcreteProductA实例对象");
+	}
+}</code>
+</pre>
+
+<p>具体产品类<code class="inline_code">ConcreteProductB</code>实现了抽象产品类<code class="inline_code">Product</code>:</p>
+<pre class="language-java">
+<code>public class ConcreteProductB implements Product {
+
+	public ConcreteProductB() {
+		System.out.println("创建ConcreteProductB实例对象");
+	}
+
+	@Override
+	public void display() {
+		System.out.println("ConcreteProductB实例对象");
+	}
+}</code>
+</pre>
+
+<p>抽象工厂类：</p>
+<pre class="language-java">
+<code>public interface Factory {
+
+	Product createProduct();
+}</code>
+</pre>
+
+<p>具体工厂类<code class="inline_code">FactoryA</code>实现了抽象工厂类<code class="inline_code">Factory</code>，用于创建具体产品<code class="inline_code">ConcreteProductA</code>的对象：</p>
+<pre class="language-java">
+<code>public class FactoryA implements Factory {
+
+	@Override
+	public Product createProduct() {
+		Product product = null;
+		System.out.println("创建ConcreteProductA之前的一些准备工作");
+		product = new ConcreteProductA();
+		return product;
+	}
+}</code>
+</pre>
+
+<p>具体工厂类<code class="inline_code">FactoryB</code>实现了抽象工厂类<code class="inline_code">Factory</code>，用于创建具体产品<code class="inline_code">ConcreteProductB</code>的对象：</p>
+<pre class="language-java">
+<code>public class FactoryB implements Factory {
+
+	@Override
+	public Product createProduct() {
+		Product product = null;
+		System.out.println("创建ConcreteProductB之前的一些准备工作");
+		product = new ConcreteProductB();
+		return product;
+	}
+}</code>
+</pre>
+
+<p>测试代码：</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	Factory factory = new FactoryA();
+	Product product = factory.createProduct();
+	product.display();
+}</code>
+</pre>
+
+<p><i>运行结果：</i></p>
+<pre class="language-none">
+<code>创建ConcreteProductA之前的一些准备工作
+创建ConcreteProductA实例对象
+ConcreteProductA实例对象</code>
+</pre>
+
+<p>如果需要创建<code class="inline_code">ConcreteProductB</code>类的对象，只需要将<code class="inline_code">Factory factory = new FactoryA();</code>改为<code class="inline_code">Factory factory = new FactoryB();</code>即可</p>
+
+<p>如果需要添加新产品，只需要添加新的产品类以及对应的工厂类即可，不会影响到其他的工厂方法，符合开闭原则。在实际使用时，具体工厂类在实现工厂方法时除了创建具体产品对象之外，还可以负责产品对象的初始化工作以及一些资源和环境配置工作</p>
+
+<h3>使用配置文件</h3>
+<p>类似于简单工厂模式中提到的，客户端在调用的时候，可以通过配置文件的方式来配置需要生成的具体产品，对于工厂方法模式来说，客户端可以通过配置文件来配置需要用到的具体工厂类，如具体工厂类的类名字符串</p>
+
+<p>使用<code class="inline_code">config.properties</code>文件，内容：</p>
+<pre class="language-none">
+<code>product_factory = com.shenjinxiang.factory_method.server.factory.FactoryA</code>
+</pre>
+
+<p>修改测试代码：</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	Factory factory = null;
+	Product product = null;
+	try {
+		Class factoryClazz = Class.forName(ConfigReader.getInstance().get("product_factory"));
+		factory = (Factory) factoryClazz.newInstance();
+		product = factory.createProduct();
+		product.display();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
+}</code>
+</pre>
+
+<p><i>运行结果：</i></p>
+<pre class="language-none">
+<code>创建ConcreteProductA之前的一些准备工作
+创建ConcreteProductA实例对象
+ConcreteProductA实例对象</code>
+</pre>
+
+<p>如果要生成<code class="inline_code">ConcreteProductB</code>类的对象，只需修改配置文件中的内容：</p>
+
+<pre class="language-none">
+<code>product_factory = com.shenjinxiang.factory_method.server.factory.FactoryB</code>
+</pre>
+
+<p><i>运行结果：</i></p>
+<pre class="language-none">
+<code>创建ConcreteProductB之前的一些准备工作
+创建ConcreteProductB实例对象
+ConcreteProductB实例对象</code>
+</pre>
+
+<p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-05-01</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a> <a href='/pages/archives/tags/设计模式'>设计模式</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2017/04/26/简单工厂模式/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			<!-- 多说评论框 start -->
+<div class='pinglun-box'>
+	<div class="ds-thread" data-thread-key="45" data-title="工厂方法模式" data-url="http://www.shenjinxiang.com/pages/posts/java/2017/05/01/工厂方法模式/"></div>
+</div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"shenjinxiang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
