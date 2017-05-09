@@ -3,7 +3,7 @@
 	"description": "申锦祥的个人博客",
 	"pageSize": 10,
 	"src": "/src/posts",
-	"pinglun": true,
+	"pinglun": false,
 	"domain": "http://www.shenjinxiang.com",
 	"url": {
 		"index": "/",
