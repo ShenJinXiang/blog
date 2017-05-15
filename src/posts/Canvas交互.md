@@ -2,7 +2,7 @@ id: 42
 title: Canvas交互
 date: 2017-04-18
 category: canvas
-tags: javascript, nodejs
+tags: javascript, canvas
 description: 有些时候，canvas画布的内容需要与用户交互，js中有各种绑定事件，同样适用于canvas。当然canvas中也提供了一个用于与用户交互的方法
 
 ------
