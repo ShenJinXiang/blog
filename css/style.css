@@ -19,8 +19,9 @@ body{
 	margin:0 auto 30px;
 	overflow-x: hidden;
 }
-ol li {
+ol li, ul li{
 	line-height: 30px;
+	font-size: 14px;
 }
 p{
 	line-height:1.9em;
