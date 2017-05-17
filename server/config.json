@@ -49,6 +49,11 @@
 	},
 	"demo" : [
 		{
+			"title": "video",
+			"url": "/static/canvas/2017/05/15/video.html",
+			"date": "2017-05-15"
+		},
+		{
 			"title": "放大镜",
 			"url": "/static/canvas/2017/03/02/magnifier/index.html",
 			"date": "2017-03-02"
