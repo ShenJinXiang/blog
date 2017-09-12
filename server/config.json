@@ -49,6 +49,11 @@
 	},
 	"demo" : [
 		{
+			"title": "橡皮擦",
+			"url": "/static/canvas/2017/09/12/index.html",
+			"date": "2017-05-15"
+		},
+		{
 			"title": "video",
 			"url": "/static/canvas/2017/05/15/video.html",
 			"date": "2017-05-15"
