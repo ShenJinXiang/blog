@@ -110,31 +110,50 @@
 		var cnt = 0;
 		var time = 10;
 		var step = 0.5 * ball.r / time;
+		var rStep = 0.3 * ball.r / time;
 		
 		var timer = setInterval(function() {
+			debugger
 			context.clearRect(ball.x - ball.r, ball.y - ball.r, 2 * ball.r, 2 * ball.r);
 			cnt++;
 
 			context.beginPath();	
 			context.fillStyle = colorStr(b1);
-			context.arc(ball.x - cnt * step, ball.y - cnt * step, ball.r - cnt * step, 0, 2 * Math.PI, false);
+			if ( cnt == time) {
+				context.arc(ball.x - ball.r / 2, ball.y - ball.r / 2, ball.r / 2 - 0.1, 0, 2 * Math.PI, false);
+			} else {
+				context.arc(ball.x - cnt * step, ball.y - cnt * step, 0.8 * ball.r - cnt * rStep, 0, 2 * Math.PI, false);
+			}
 			context.closePath();
 			context.fill();
 
 			context.beginPath();	
 			context.fillStyle = colorStr(b1);
-			context.arc(ball.x - cnt * step, ball.y + cnt * step, ball.r - cnt * step, 0, 2 * Math.PI, false);
+			if ( cnt == time) {
+				context.arc(ball.x - ball.r / 2, ball.y + ball.r / 2, ball.r / 2 - 0.1, 0, 2 * Math.PI, false);
+			} else {
+				context.arc(ball.x - cnt * step, ball.y + cnt * step, 0.8 * ball.r - cnt * rStep, 0, 2 * Math.PI, false);
+			}
 			context.closePath();
 			context.fill();
 
 			context.beginPath();	
 			context.fillStyle = colorStr(b1);
-			context.arc(ball.x + cnt * step, ball.y - cnt * step, ball.r - cnt * step, 0, 2 * Math.PI, false);
+			if (cnt == time) {
+				context.arc(ball.x + ball.r / 2, ball.y - ball.r / 2, ball.r / 2 - 0.1, 0, 2 * Math.PI, false);
+			} else {
+				context.arc(ball.x + cnt * step, ball.y - cnt * step, 0.8 * ball.r - cnt * rStep, 0, 2 * Math.PI, false);
+			}
 			context.closePath();
 			context.fill();
+
 			context.beginPath();	
 			context.fillStyle = colorStr(b1);
-			context.arc(ball.x + cnt * step, ball.y + cnt * step, ball.r - cnt * step, 0, 2 * Math.PI, false);
+			if (cnt == time) {
+				context.arc(ball.x + ball.r / 2, ball.y + ball.r / 2, ball.r / 2 - 0.1, 0, 2 * Math.PI, false);
+			} else {
+				context.arc(ball.x + cnt * step, ball.y + cnt * step, 0.8 * ball.r - cnt * rStep, 0, 2 * Math.PI, false);
+			}
 			context.closePath();
 			context.fill();
 
