@@ -1,6 +1,6 @@
 (function() {
 	var config = {
-		srcs: ['./img/01.jpg', './img/02.jpeg'],
+		srcs: ['./img/01.jpg', './img/02.jpeg', './img/03.jpg'],
 		srcIndex: -1,
 		canvasWidth: window.innerHeight - 100
 	};
