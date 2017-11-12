@@ -49,6 +49,11 @@
 	},
 	"demo" : [
 		{
+			"title": "背景",
+			"url": "/static/canvas/2017/11/11/index.html",
+			"date": "2017-11-11"
+		},
+		{
 			"title": "橡皮擦",
 			"url": "/static/canvas/2017/09/12/index.html",
 			"date": "2017-05-15"
