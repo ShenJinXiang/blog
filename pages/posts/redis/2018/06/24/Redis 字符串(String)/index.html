@@ -228,7 +228,6 @@ OK
 <h3>GETRANGE key start end</h3>
 
 <p>返回<code class="inline_code">key</code>中字符串值的子字符</p>
-
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; GETRANGE name 0 3
 "shen"
@@ -236,6 +235,111 @@ OK
 "jin"
 127.0.0.1:6379&gt; GETRANGE name 7 -1
 "xiang"</code>
+</pre>
+
+<h3>SETRANGE key offset value</h3>
+<p>用<code class="inline_code">value</code>参数覆写给定<code class="inline_code">key</code>所储存的字符串值，从偏移量<code class="inline_code">offset</code>开始。返回改变后的值的长度。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get letter
+"abcdefg"
+127.0.0.1:6379&gt; setrange letter 3 DEF
+(integer) 7
+127.0.0.1:6379&gt; get letter
+"abcDEFg"
+127.0.0.1:6379&gt; setrange letter 4 xxyyzz
+(integer) 10
+127.0.0.1:6379&gt; get letter
+"abcDxxyyzz"</code>
+</pre>
+
+<h3>INCR key</h3>
+<p>将<code class="inline_code">key</code>中储存的数字值增一，返回增加以后的值</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; set num1 10
+OK
+127.0.0.1:6379&gt; incr num1
+(integer) 11
+127.0.0.1:6379&gt; get num1
+"11"</code>
+</pre>
+<p>如果<code class="inline_code">key</code>不存在：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get num2
+(nil)
+127.0.0.1:6379&gt; incr num2
+(integer) 1
+127.0.0.1:6379&gt; get num2
+"1"</code>
+</pre>
+
+<h3>DECR key</h3>
+<p>将<code class="inline_code">key</code>中储存的数字值减一，如果<code class="inline_code">key</code>不存在，则作为<code class="inline_code">0</code>处理，即返回<code class="inline_code">-1</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get num1
+"11"
+127.0.0.1:6379&gt; decr num1
+(integer) 10
+127.0.0.1:6379&gt; get num1
+"10"
+127.0.0.1:6379&gt; get num2
+"1"
+127.0.0.1:6379&gt; decr num2
+(integer) 0
+127.0.0.1:6379&gt; decr num2
+(integer) -1
+127.0.0.1:6379&gt; get num2
+"-1"
+127.0.0.1:6379&gt; get num3
+(nil)
+127.0.0.1:6379&gt; decr num3
+(integer) -1
+127.0.0.1:6379&gt; get num3
+"-1"</code>
+</pre>
+
+<h3>INCRBY key increment</h3>
+<p>将<code class="inline_code">key</code>所储存的值加上给定的增量值（<code class="inline_code">increment</code>） 。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get num1
+"10"
+127.0.0.1:6379&gt; incrby num1 12
+(integer) 22
+127.0.0.1:6379&gt; get num1
+"22"
+127.0.0.1:6379&gt; incrby num1 -1
+(integer) 21
+127.0.0.1:6379&gt; get num1
+"21"</code>
+</pre>
+
+<h3>DECRBY key decrement</h3>
+<p><code class="inline_code">key</code>所储存的值减去给定的减量值（<code class="inline_code">decrement</code>） 。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get num1
+"21"
+127.0.0.1:6379&gt; decrby num1 10
+(integer) 11
+127.0.0.1:6379&gt; get num1
+"11"
+127.0.0.1:6379&gt; decrby num1 -9
+(integer) 20
+127.0.0.1:6379&gt; get num1
+"20"</code>
+</pre>
+
+<h3>INCRBYFLOAT key increment</h3>
+<p>将<code class="inline_code">key</code>所储存的值加上给定的浮点增量值（<code class="inline_code">increment</code>） 。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get num1
+"20"
+127.0.0.1:6379&gt; incrbyfloat num1 6.5
+"26.5"
+127.0.0.1:6379&gt; get num1
+"26.5"
+127.0.0.1:6379&gt; incrbyfloat num1 -2.4
+"24.1"
+127.0.0.1:6379&gt; get num1
+"24.1"</code>
 </pre>
 </p>
 	</div>
