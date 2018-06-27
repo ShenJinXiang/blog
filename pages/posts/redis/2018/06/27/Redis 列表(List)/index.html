@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/redis/2018/06/27/Redis 列表(List)/'>Redis 列表(List)</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>Redis 列表是简单的<b>字符串</b>列表，按照插入顺序排序，可以执行从列表的头部或者尾部插入或删除元素等操作。</p>
+
+<h3>RPUSH key value1 [value2]</h3>
+<p>用于将一个或多个值插入到列表的尾部(最右边)。如果列表不存在，一个空列表会被创建并执行<code class="inline_code">RPUSH</code>操作。 当列表存在但不是列表类型时，返回一个错误。</p>
+<p>返回添加元素后列表的长度。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; RPUSH cities BeiJing ShangHai
+(integer) 2
+127.0.0.1:6379&gt; RPUSH cities TianJin DaLian
+(integer) 4</code>
+</pre>
+
+<h3>LRANGE key start stop</h3>
+<p>获取列表中指定区间内的元素，区间以偏移量<code class="inline_code">START</code>和<code class="inline_code">END</code>指定。 其中<code class="inline_code">0</code>表示列表的第一个元素， <code class="inline_code">1</code>表示列表的第二个元素，以此类推。也可以使用负数下标，以<code class="inline_code">-1</code>表示列表的最后一个元素，<code class="inline_code">-2</code>表示列表的倒数第二个元素，以此类推</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "BeiJing"
+2) "ShangHai"
+3) "TianJin"
+4) "DaLian"
+127.0.0.1:6379&gt; LRANGE cities 1 -2
+1) "ShangHai"
+2) "TianJin"
+127.0.0.1:6379&gt; LRANGE cities 1 3
+1) "ShangHai"
+2) "TianJin"
+3) "DaLian"</code>
+</pre>
+
+<h3>LLEN key</h3>
+<p>返回列表的长度。如果列表<code class="inline_code">key</code>不存在，则<code class="inline_code">key</code>被解释为一个空列表，返回<code class="inline_code">0</code> 。 如果<code class="inline_code">key</code>不是列表类型，返回一个错误。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LLEN cities
+(integer) 4
+127.0.0.1:6379&gt; RPUSH cities HangZhou
+(integer) 5
+127.0.0.1:6379&gt; LLEN cities
+(integer) 5</code>
+</pre>
+
+<h3>LPUSH key value1 [value2]</h3>
+<p>将一个或多个值插入到列表头部。如果<code class="inline_code">key</code>不存在，一个空列表会被创建并执行<code class="inline_code">LPUSH</code>操作。 当<code class="inline_code">key</code>存在但不是列表类型时，返回一个错误。</p>
+<p>返回执行<code class="inline_code">LPUSH</code>命令后，列表的长度。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "BeiJing"
+2) "ShangHai"
+3) "TianJin"
+4) "DaLian"
+5) "HangZhou"
+127.0.0.1:6379&gt; LPUSH cities TaiYuan 
+(integer) 6
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "TaiYuan"
+2) "BeiJing"
+3) "ShangHai"
+4) "TianJin"
+5) "DaLian"
+6) "HangZhou"
+127.0.0.1:6379&gt; LPUSH cities XiAn KunMing
+(integer) 8
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "KunMing"
+2) "XiAn"
+3) "TaiYuan"
+4) "BeiJing"
+5) "ShangHai"
+6) "TianJin"
+7) "DaLian"
+8) "HangZhou"</code>
+</pre>
+
+<h3>RPOP key</h3>
+<p>移除并获取列表最右边的元素，即最后一个元素。当<code class="inline_code">key</code>不存在时，返回<code class="inline_code">nil</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; RPOP cities
+"HangZhou"
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "KunMing"
+2) "XiAn"
+3) "TaiYuan"
+4) "BeiJing"
+5) "ShangHai"
+6) "TianJin"
+7) "DaLian"
+127.0.0.1:6379&gt; RPOP cities
+"DaLian"
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "KunMing"
+2) "XiAn"
+3) "TaiYuan"
+4) "BeiJing"
+5) "ShangHai"
+6) "TianJin"</code>
+</pre>
+
+<h3>LPOP key</h3>
+<p>移出并获取列表的第一个元素。当<code class="inline_code">key</code>不存在时，返回<code class="inline_code">nil</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LPOP cities 
+"KunMing"
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "XiAn"
+2) "TaiYuan"
+3) "BeiJing"
+4) "ShangHai"
+5) "TianJin"
+127.0.0.1:6379&gt; LPOP cities 
+"XiAn"
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "TaiYuan"
+2) "BeiJing"
+3) "ShangHai"
+4) "TianJin"</code>
+</pre>
+
+<h3>LINDEX key index</h3>
+<p>用于通过索引获取列表中的元素。也可以使用负数下标，以<code class="inline_code">-1</code>表示列表的最后一个元素，<code class="inline_code">-2</code>表示列表的倒数第二个元素，以此类推。</p>
+<p>返回列表中下标为指定索引值的元素。如果指定索引值不在列表的区间范围内，返回<code class="inline_code">nil</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LINDEX cities 0
+"TaiYuan"
+127.0.0.1:6379&gt; LINDEX cities 1
+"BeiJing"
+127.0.0.1:6379&gt; LINDEX cities -1
+"TianJin"</code>
+</pre>
+
+<h3>LSET key index value</h3>
+<p>通过索引设置列表元素的值，当索引参数超出范围，或对一个空列表进行<code class="inline_code">LSET</code>时，返回一个错误。操作成功返回<code class="inline_code">ok</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "TaiYuan"
+2) "BeiJing"
+3) "ShangHai"
+4) "TianJin"
+127.0.0.1:6379&gt; LSET cities 1 ChengDu
+OK
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "TaiYuan"
+2) "ChengDu"
+3) "ShangHai"
+4) "TianJin"
+127.0.0.1:6379&gt; LSET cities 5 JiNan
+(error) ERR index out of range</code>
+</pre>
+
+<h3>RPUSHX key value</h3>
+<p>为已存在的列表添加值，类似<code class="inline_code">RPUSH</code>命令，但是<code class="inline_code">key</code>必须存在。命令执行完成后返回列表长度。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; RPUSHX cities BeiJing
+(integer) 5
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "TaiYuan"
+2) "ChengDu"
+3) "ShangHai"
+4) "TianJin"
+5) "BeiJing"
+127.0.0.1:6379&gt; type cities1
+none
+127.0.0.1:6379&gt; RPUSHX cities1 BeiJing
+(integer) 0
+127.0.0.1:6379&gt; LRANGE cities1 0 -1
+(empty list or set)</code>
+</pre>
+
+<h3>LPUSHX key value</h3>
+<p>将一个或多个值插入到已存在的列表头部，类似<code class="inline_code">LPUSH</code>，但是<code class="inline_code">key</code>必须存在。命令执行完成后返回列表长度。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "TaiYuan"
+2) "ChengDu"
+3) "ShangHai"
+4) "TianJin"
+5) "BeiJing"
+127.0.0.1:6379&gt; LPUSHX cities ChangChun
+(integer) 6
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "ChangChun"
+2) "TaiYuan"
+3) "ChengDu"
+4) "ShangHai"
+5) "TianJin"
+6) "BeiJing"</code>
+</pre>
+
+<h3>LINSERT key BEFORE|AFTER pivot value</h3>
+<p>用于在列表的元素前或者后插入元素。当指定元素不存在于列表中时，不执行任何操作。当列表不存在时，被视为空列表，不执行任何操作。</p>
+<p>如果命令执行成功，返回插入操作完成之后，列表的长度。如果没有找到指定元素，返回<code class="inline_code">-1</code>。 如果 key 不存在或为空列表，返回<code class="inline_code">0</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; LINSERT cities BEFORE ShangHai ShiJiaZhuang
+(integer) 7
+127.0.0.1:6379&gt; LRANGE cities 0 -1
+1) "ChangChun"
+2) "TaiYuan"
+3) "ChengDu"
+4) "ShiJiaZhuang"
+5) "ShangHai"
+6) "TianJin"
+7) "BeiJing"</code>
+</pre>
+
+<h3>BLPOP key1 [key2 ] timeout</h3>
+<p>移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</p>
+
+<h3>BRPOP key1 [key2 ] timeout</h3>
+<p>移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</p>
+
+<h3>BRPOPLPUSH source destination timeout</h3>
+<p>从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</p>
+
+<h3>LREM key count value</h3>
+<p>移除列表元素</p>
+
+<h3>LTRIM key start stop</h3>
+<p>对一个列表进行修剪(<code class="inline_code">trim</code>)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。</p>
+
+<h3>RPOPLPUSH source destination</h3>
+<p>移除列表的最后一个元素，并将该元素添加到另一个列表并返回</p>
+
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-06-27</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/redis'>redis</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/redis'>redis</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/06/26/Redis 哈希(Hash)/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
