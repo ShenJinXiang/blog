@@ -301,11 +301,11 @@ OK
 	</tr>
 	<tr>
 		<td>MSET key value [key value ...] </td>
-		<td><i>O</i> (k) k 是键的个数</td>
+		<td><i>O</i> (k)，k 是键的个数</td>
 	</tr>
 	<tr>
 		<td>MGET key1 [key2 ...]</td>
-		<td><i>O</i> (k) k 是键的个数</td>
+		<td><i>O</i> (k)，k 是键的个数</td>
 	</tr>
 	<tr>
 		<td>INCR key </td>
@@ -341,6 +341,6 @@ OK
 	</tr>
 	<tr>
 		<td>GETRANGE key start end </td>
-		<td><i>O</i> (n) n 是字符串长度，由于获取字符串非常快，所以如果字符串不是很长，可以是同为<i>O</i> (1)</td>
+		<td><i>O</i> (n)，n 是字符串长度，由于获取字符串非常快，所以如果字符串不是很长，可以是同为<i>O</i> (1)</td>
 	</tr>
 </table>

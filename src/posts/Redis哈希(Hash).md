@@ -158,7 +158,7 @@ OK
 	</tr>
 	<tr>
 		<td>HDEL key field2 [field2 ...] </td>
-		<td><i>O</i> (k) k 是 field 的个数</td>
+		<td><i>O</i> (k)，k 是 field 的个数</td>
 	</tr>
 	<tr>
 		<td>HLEN key </td>
@@ -166,11 +166,11 @@ OK
 	</tr>
 	<tr>
 		<td>HGETALL key </td>
-		<td><i>O</i> (n) n 是 field 的个数</td>
+		<td><i>O</i> (n)，n 是 field 的个数</td>
 	</tr>
 	<tr>
 		<td>HMGET key field1 [field2 ...]</td>
-		<td><i>O</i> (k) k 是 field 的个数</td>
+		<td><i>O</i> (k)，k 是 field 的个数</td>
 	</tr>
 	<tr>
 		<td>HEXISTS key field </td>
@@ -178,11 +178,11 @@ OK
 	</tr>
 	<tr>
 		<td>HKEYS key </td>
-		<td><i>O</i> (n) n 是 field 的个数</td>
+		<td><i>O</i> (n)，n 是 field 的个数</td>
 	</tr>
 	<tr>
 		<td>HVALS key </td>
-		<td><i>O</i> (n) n 是 field 的个数</td>
+		<td><i>O</i> (n)，n 是 field 的个数</td>
 	</tr>
 	<tr>
 		<td>HSETNX key field value </td>
