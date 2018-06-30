@@ -104,7 +104,7 @@ OK
 "xiaoming@126.com"</code>
 </pre>
 
-<h3>HMGET key field1 [field2]</h3>
+<h3>HMGET key field1 [field2 ...]</h3>
 <p>获取所有给定字段的值</p>
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; HMGET student1 name age email
@@ -159,7 +159,7 @@ OK
 (integer) 0</code>
 </pre>
 
-<h3>HDEL key field2 [field2]</h3>
+<h3>HDEL key field2 [field2 ...]</h3>
 <p>删除一个或多个哈希表字段</p>
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; HDEL student1 age email
@@ -212,6 +212,62 @@ OK
 127.0.0.1:6379&gt; HGET student1 age
 "21.2"</code>
 </pre>
+
+<h3>哈希类型命令时间复杂度</h3>
+<table>
+	<tr>
+		<th width='45%'>命令</th>
+		<th witdh='55%'>复杂度</th>
+	</tr>
+	<tr>
+		<td>HSET key field value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HGET key field </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HDEL key field2 [field2 ...] </td>
+		<td><i>O</i> (k) k 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HLEN key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HGETALL key </td>
+		<td><i>O</i> (n) n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HMGET key field1 [field2 ...]</td>
+		<td><i>O</i> (k) k 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HEXISTS key field </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HKEYS key </td>
+		<td><i>O</i> (n) n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HVALS key </td>
+		<td><i>O</i> (n) n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HSETNX key field value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HINCRBY key field increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HINCRBYFLOAT key field increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+<table>
 </p>
 	</div>
 	<div class='post-footer'>

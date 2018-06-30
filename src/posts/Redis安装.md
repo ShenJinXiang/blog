@@ -1,9 +1,9 @@
 id: 60
-title: Redis安装
+title: Redis 安装
 date: 2018-06-20
 category: redis
 tags: redis
-description: Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库。这里开始对redis进行一些总结。
+description: Redis 是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库。这里开始对redis进行一些总结。
 
 ------
 

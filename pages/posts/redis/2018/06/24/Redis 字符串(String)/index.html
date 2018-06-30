@@ -85,7 +85,7 @@ var _hmt = _hmt || [];
 
 <h3>SET key value</h3>
 
-<p>设置指定<code class="inline_code">key</code>的值为<code class="inline_code">value</code>，设置成功返回<code class="inline_code">ok</code>。</p>
+<p>设置指定<code class="inline_code">key</code>的值为<code class="inline_code">value</code>，如果<code class="inline_code">key</code>已设置其他值， 则覆盖旧值，不管是其数据类型，设置成功返回<code class="inline_code">ok</code>。</p>
 
 <p>设置<code class="inline_code">name</code>的值为<code class="inline_code">shenjinxiang</code>:</p>
 <pre class="language-none">
@@ -95,7 +95,7 @@ OK</code>
 
 <h3>GET key</h3>
 
-<p>获取指定<code class="inline_code">key</code>的值</p>
+<p>获取指定<code class="inline_code">key</code>的值，如果<code class="inline_code">key</code>不存在，返回<code class="inline_code">nil</code>。如果<code class="inline_code">key</code>储存的值不是字符串类型，返回一个错误。</p>
 
 <p>获取<code class="inline_code">name</code>的值：</p>
 <pre class="language-none">
@@ -106,7 +106,9 @@ OK</code>
 <h3>GETSET key value</h3>
 
 <p>将给定<code class="inline_code">key</code>的值设为<code class="inline_code">value</code> ，并返回<code class="inline_code">key</code>的旧值(<code class="inline_code">old value</code>)。</p>
-
+<ul><li>当<code class="inline_code">key</code>没有旧值时，即<code class="inline_code">key</code>不存在时，返回<code class="inline_code">nil</code> 。</li>
+<li>当<code class="inline_code">key</code>存在但不是字符串类型时，返回一个错误</li>
+</ul>
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; GETSET name ShenJinXiang
 "shenjinxiang"
@@ -134,7 +136,7 @@ OK
 "o"</code>
 </pre>
 
-<h3>MGET key1 [key2..]</h3>
+<h3>MGET key1 [key2 ...]</h3>
 
 <p>获取所有(一个或多个)给定<code class="inline_code">key</code>的值。</p>
 <pre class="language-none">
@@ -143,6 +145,14 @@ OK
 2) "sjx-sword@163.com"
 3) "TaiYuan"
 4) "o"</code>
+</pre>
+<p><code class="inline_code">MGET</code>可以提高一定效率，如果不用此命令，要执行<code class="inline_code">n</code>次<code class="inline_code">get</code>命令，执行时间为</p>
+<pre class="language-none">
+<code>n次get时间 = n次网络时间 + n次命令时间</code>
+</pre>
+<p>使用<code class="inline_code">MGET</code>以后执行时间为：</p>
+<pre class="language-none">
+<code>n次get时间 = 1次网络时间 + n次命令时间</code>
 </pre>
 
 <h3>SETNX key value</h3>
@@ -254,6 +264,10 @@ OK
 
 <h3>INCR key</h3>
 <p>将<code class="inline_code">key</code>中储存的数字值增一，返回增加以后的值</p>
+<ul><li>值不是整数，返回错误</li>
+<li>值是整数，返回自增1后的结果</li>
+<li>key不存在，按照值为0自增，返回1</li>
+</ul>
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; set num1 10
 OK
@@ -341,6 +355,66 @@ OK
 127.0.0.1:6379&gt; get num1
 "24.1"</code>
 </pre>
+
+<h3>字符串命令时间复杂度</h3>
+<table>
+	<tr>
+		<th width='45%'>命令</th>
+		<th witdh='55%'>复杂度</th>
+	</tr>
+	<tr>
+		<td>SET key value</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>GET key</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>MSET key value [key value ...] </td>
+		<td><i>O</i> (k) k 是键的个数</td>
+	</tr>
+	<tr>
+		<td>MGET key1 [key2 ...]</td>
+		<td><i>O</i> (k) k 是键的个数</td>
+	</tr>
+	<tr>
+		<td>INCR key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>DECR key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>INCRBY key increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>DECRBY key decrement </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>INCRBYFLOAT key increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>APPEND key value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>STRLEN key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>SETRANGE key offset value</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>GETRANGE key start end </td>
+		<td><i>O</i> (n) n 是字符串长度，由于获取字符串非常快，所以如果字符串不是很长，可以是同为<i>O</i> (1)</td>
+	</tr>
+</table>
 </p>
 	</div>
 	<div class='post-footer'>
@@ -370,7 +444,7 @@ OK
 
 
 		<li class="next pagbuttons">
-	<a role="navigation" href="/pages/posts/redis/2018/06/21/Redis配置/" class="btn">
+	<a role="navigation" href="/pages/posts/redis/2018/06/22/Redis 命令/" class="btn">
 		<i class="baseline"></i>
 		下一篇
 	</a>

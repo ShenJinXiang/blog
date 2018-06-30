@@ -1,4 +1,4 @@
-id: 63
+id: 64
 title: Redis 哈希(Hash)
 date: 2018-06-26
 category: redis
@@ -33,7 +33,7 @@ OK
 "xiaoming@126.com"
 ```
 
-### HMGET key field1 [field2]
+### HMGET key field1 [field2 ...]
 获取所有给定字段的值
 ```
 127.0.0.1:6379> HMGET student1 name age email
@@ -88,7 +88,7 @@ OK
 (integer) 0
 ```
 
-### HDEL key field2 [field2] 
+### HDEL key field2 [field2 ...] 
 删除一个或多个哈希表字段
 ```
 127.0.0.1:6379> HDEL student1 age email
@@ -141,3 +141,59 @@ OK
 127.0.0.1:6379> HGET student1 age
 "21.2"
 ```
+
+### 哈希类型命令时间复杂度
+<table>
+	<tr>
+		<th width='45%'>命令</th>
+		<th witdh='55%'>复杂度</th>
+	</tr>
+	<tr>
+		<td>HSET key field value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HGET key field </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HDEL key field2 [field2 ...] </td>
+		<td><i>O</i> (k) k 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HLEN key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HGETALL key </td>
+		<td><i>O</i> (n) n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HMGET key field1 [field2 ...]</td>
+		<td><i>O</i> (k) k 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HEXISTS key field </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HKEYS key </td>
+		<td><i>O</i> (n) n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HVALS key </td>
+		<td><i>O</i> (n) n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HSETNX key field value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HINCRBY key field increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HINCRBYFLOAT key field increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+<table>

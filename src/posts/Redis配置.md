@@ -1,5 +1,5 @@
 id: 61
-title: Redis配置
+title: Redis 配置
 date: 2018-06-21
 category: redis
 tags: redis

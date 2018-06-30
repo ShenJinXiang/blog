@@ -1,4 +1,4 @@
-id: 62
+id: 63
 title: Redis 字符串(String)
 date: 2018-06-24
 category: redis
@@ -14,7 +14,7 @@ description: String是 Redis 的最基本的数据类型，一个key对应一个
 
 ### SET key value 
 
-设置指定`key`的值为`value`，设置成功返回`ok`。
+设置指定`key`的值为`value`，如果`key`已设置其他值， 则覆盖旧值，不管是其数据类型，设置成功返回`ok`。
 
 设置`name`的值为`shenjinxiang`:
 ```
@@ -24,7 +24,7 @@ OK
 
 ### GET key
 
-获取指定`key`的值
+获取指定`key`的值，如果`key`不存在，返回`nil`。如果`key`储存的值不是字符串类型，返回一个错误。
 
 获取`name`的值：
 ```
@@ -35,6 +35,8 @@ OK
 ### GETSET key value 
 
 将给定`key`的值设为`value` ，并返回`key`的旧值(`old value`)。
+* 当`key`没有旧值时，即`key`不存在时，返回`nil` 。
+* 当`key`存在但不是字符串类型时，返回一个错误
 
 ```
 127.0.0.1:6379> GETSET name ShenJinXiang
@@ -63,7 +65,7 @@ OK
 "o"
 ```
 
-### MGET key1 [key2..] 
+### MGET key1 [key2 ...] 
 
 获取所有(一个或多个)给定`key`的值。
 ```
@@ -72,6 +74,14 @@ OK
 2) "sjx-sword@163.com"
 3) "TaiYuan"
 4) "o"
+```
+`MGET`可以提高一定效率，如果不用此命令，要执行`n`次`get`命令，执行时间为
+```
+n次get时间 = n次网络时间 + n次命令时间
+```
+使用`MGET`以后执行时间为：
+```
+n次get时间 = 1次网络时间 + n次命令时间
 ```
 
 ### SETNX key value 
@@ -183,6 +193,10 @@ OK
 
 ### INCR key 
 将`key`中储存的数字值增一，返回增加以后的值
+* 值不是整数，返回错误
+* 值是整数，返回自增1后的结果
+* key不存在，按照值为0自增，返回1
+
 ```
 127.0.0.1:6379> set num1 10
 OK
@@ -270,3 +284,63 @@ OK
 127.0.0.1:6379> get num1
 "24.1"
 ```
+
+### 字符串命令时间复杂度
+<table>
+	<tr>
+		<th width='45%'>命令</th>
+		<th witdh='55%'>复杂度</th>
+	</tr>
+	<tr>
+		<td>SET key value</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>GET key</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>MSET key value [key value ...] </td>
+		<td><i>O</i> (k) k 是键的个数</td>
+	</tr>
+	<tr>
+		<td>MGET key1 [key2 ...]</td>
+		<td><i>O</i> (k) k 是键的个数</td>
+	</tr>
+	<tr>
+		<td>INCR key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>DECR key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>INCRBY key increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>DECRBY key decrement </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>INCRBYFLOAT key increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>APPEND key value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>STRLEN key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>SETRANGE key offset value</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>GETRANGE key start end </td>
+		<td><i>O</i> (n) n 是字符串长度，由于获取字符串非常快，所以如果字符串不是很长，可以是同为<i>O</i> (1)</td>
+	</tr>
+</table>

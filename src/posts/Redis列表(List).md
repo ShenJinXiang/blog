@@ -1,4 +1,4 @@
-id: 64
+id: 65
 title: Redis 列表(List)
 date: 2018-06-27
 category: redis
