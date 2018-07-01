@@ -1,0 +1,369 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/redis/2018/07/01/Redis 有序集合(sorted Set)/'>Redis 有序集合(sorted Set)</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>有序集合(sorted Set)和集合一样也是字符串类型元素的集合，且不允许重复元素。不同的是每个元素都会关联一个<code class="inline_code">double</code>类型的分数。Redis 正是通过分数来为集合中的成员进行从小到大的排序。有序集合的元素是唯一的,但分数(<code class="inline_code">score</code>)却可以重复。集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是<code class="inline_code">O(1)</code>。</p>
+
+<h3>列表、集合、有序集合的特点：</h3>
+<table>
+	<tr>
+		<th>数据结构</th>
+		<th>是否允许重复元素</th>
+		<th>是否有序</th>
+		<th>有序实现方式</th>
+		<th>应用场景</th>
+	</tr>
+	<tr>
+		<td>列表</td>
+		<td style='text-align: center;'>是</td>
+		<td style='text-align: center;'>是</td>
+		<td style='text-align: center;'>索引</td>
+		<td>时间轴、消息队列等</td>
+	</tr>
+	<tr>
+		<td>集合</td>
+		<td style='text-align: center;'>否</td>
+		<td style='text-align: center;'>是</td>
+		<td style='text-align: center;'>无</td>
+		<td>标签、社交等</td>
+	</tr>
+	<tr>
+		<td>有序集合</td>
+		<td style='text-align: center;'>否</td>
+		<td style='text-align: center;'>是</td>
+		<td style='text-align: center;'>分值</td>
+		<td>排行榜系统、社交等</td>
+	</tr>
+</table>
+
+<h3>ZADD KEY_NAME score member [score member ...]</h3>
+<p>将一个或多个成员元素及其分数值加入到有序集当中。</p>
+<ul><li>如果某个成员已经是有序集的成员，那么更新这个成员的分数值，并通过重新插入这个成员元素，来保证该成员在正确的位置上。</li>
+<li>分数值可以是整数值或双精度浮点数。</li>
+<li>如果有序集合<code class="inline_code">KEY_NAME</code>不存在，则创建一个空的有序集并执行<code class="inline_code">ZADD</code>操作。</li>
+<li>当<code class="inline_code">KEY_NAME</code>存在但不是有序集类型时，返回一个错误。</li>
+</ul>
+<p>返回被成功添加的新成员的数量，不包括那些被更新的、已经存在的成员。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZADD zset1 1 beijing 24 tianjin 35 shanghai
+(integer) 3
+127.0.0.1:6379&gt; ZADD zset1 45 chongqing
+(integer) 1</code>
+</pre>
+
+<h3>ZCARD KEY_NAME</h3>
+<p>获取集合中元素的数量，当键不存在时返回<code class="inline_code">0</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZCARD zset1
+(integer) 4
+127.0.0.1:6379&gt; ZADD zset1 56 kunming
+(integer) 1
+127.0.0.1:6379&gt; ZCARD zset1
+(integer) 5</code>
+</pre>
+
+<h3>ZSCORE KEY_NAME member</h3>
+<p>返回有序集中成员<code class="inline_code">member</code>的分数值。如果成员元素不是有序集，或键不存在，返回<code class="inline_code">nil</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZSCORE zset1 beijing
+"1"
+127.0.0.1:6379&gt; ZSCORE zset1 tianjin
+"24"
+127.0.0.1:6379&gt; ZSCORE zset1 shanghai
+"35"
+127.0.0.1:6379&gt; ZSCORE zset1 chongqing
+"45"
+127.0.0.1:6379&gt; ZSCORE zset1 kunming
+"56"
+127.0.0.1:6379&gt; ZSCORE zset1 changchun
+(nil)</code>
+</pre>
+
+<h3>ZRANK KEY_NAME member</h3>
+<p>返回<code class="inline_code">member</code>元素在有序集合中按分值从小到大的排名，排名从<code class="inline_code">0</code>开始计算。如果<code class="inline_code">member</code>不是有序集合中的成员，返回<code class="inline_code">nil</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANK zset1 beijing
+(integer) 0
+127.0.0.1:6379&gt; ZRANK zset1 tianjin
+(integer) 1
+127.0.0.1:6379&gt; ZRANK zset1 shanghai
+(integer) 2
+127.0.0.1:6379&gt; ZRANK zset1 chongqing
+(integer) 3
+127.0.0.1:6379&gt; ZRANK zset1 kunming
+(integer) 4
+127.0.0.1:6379&gt; ZRANK zset1 changchun
+(nil)</code>
+</pre>
+
+<h3>ZREVRANK KEY_NAME member</h3>
+<p><code class="inline_code">ZRANK</code>是按分值从小到大排名，<code class="inline_code">ZREVRANK</code>则相反：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZREVRANK zset1 beijing
+(integer) 4
+127.0.0.1:6379&gt; ZREVRANK zset1 tianjin
+(integer) 3
+127.0.0.1:6379&gt; ZREVRANK zset1 shanghai
+(integer) 2
+127.0.0.1:6379&gt; ZREVRANK zset1 chongqing
+(integer) 1
+127.0.0.1:6379&gt; ZREVRANK zset1 kunming
+(integer) 0
+127.0.0.1:6379&gt; ZREVRANK zset1 changchun
+(nil)</code>
+</pre>
+
+<h3>ZRANGE KEY_NAME start stop</h3>
+<p>返回指定排名范围内的成员，对于排名值，从<code class="inline_code">0</code>开始计数，类似列表中的索引，同样可以用<code class="inline_code">-1</code>表示排名最后的成员。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1
+1) "beijing"
+2) "tianjin"
+3) "shanghai"
+4) "chongqing"
+5) "kunming"
+127.0.0.1:6379&gt; ZRANGE zset1 0 -2
+1) "beijing"
+2) "tianjin"
+3) "shanghai"
+4) "chongqing"</code>
+</pre>
+<p>可以添加<code class="inline_code">withscore</code>参数，同时获取到每个成员的分值信息：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1 WITHSCORES
+ 1) "beijing"
+ 2) "1"
+ 3) "tianjin"
+ 4) "24"
+ 5) "shanghai"
+ 6) "35"
+ 7) "chongqing"
+ 8) "45"
+ 9) "kunming"
+10) "56"</code>
+</pre>
+
+<h3>ZREVRANGE KEY_NAME start stop</h3>
+<p>类似<code class="inline_code">ZRANK</code>与<code class="inline_code">ZREVRANK</code>的关系，<code class="inline_code">ZREVRANGE</code>对于<code class="inline_code">ZRANGE</code>是也这样的，<code class="inline_code">ZRANGE</code>是按分值从小到大排名，确定位置。<code class="inline_code">ZREVRANGE</code>是按分值从大到小排名。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1
+1) "beijing"
+2) "tianjin"
+3) "shanghai"
+4) "chongqing"
+5) "kunming"
+127.0.0.1:6379&gt; ZREVRANGE zset1 0 -1
+1) "kunming"
+2) "chongqing"
+3) "shanghai"
+4) "tianjin"
+5) "beijing"
+127.0.0.1:6379&gt; ZRANGE zset1 0 -1 WITHSCORES
+ 1) "beijing"
+ 2) "1"
+ 3) "tianjin"
+ 4) "24"
+ 5) "shanghai"
+ 6) "35"
+ 7) "chongqing"
+ 8) "45"
+ 9) "kunming"
+10) "56"
+127.0.0.1:6379&gt; ZREVRANGE zset1 0 -1 WITHSCORES
+ 1) "kunming"
+ 2) "56"
+ 3) "chongqing"
+ 4) "45"
+ 5) "shanghai"
+ 6) "35"
+ 7) "tianjin"
+ 8) "24"
+ 9) "beijing"
+10) "1"</code>
+</pre>
+
+<h3>ZREM KEY_NAME member [member ...]</h3>
+<p>移除有序集合中的一个或多个成员，返回被移除成员的数量，不包括被忽略的成员。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1
+1) "beijing"
+2) "tianjin"
+3) "shanghai"
+4) "chongqing"
+5) "kunming"
+127.0.0.1:6379&gt; ZREM zset1 chongqing
+(integer) 1
+127.0.0.1:6379&gt; ZREM zset1 changchun
+(integer) 0
+127.0.0.1:6379&gt; ZRANGE zset1 0 -1 withscores
+1) "beijing"
+2) "1"
+3) "tianjin"
+4) "24"
+5) "shanghai"
+6) "35"
+7) "kunming"
+8) "56"</code>
+</pre>
+
+<h3>ZINCRBY KEY_NAME increment memeber</h3>
+<p>对有序集合中指定成员的分值加上增量<code class="inline_code">increment</code></p>
+<ul><li>可以通过传递一个负数值<code class="inline_code">increment</code>，让分数减去相应的值，比如<code class="inline_code">ZINCRBY key -5 member</code>，就是让<code class="inline_code">member</code>的<code class="inline_code">score</code>值减去<code class="inline_code">5</code>。</li>
+<li>当键不存在，或不是有序集合的成员时， <code class="inline_code">ZINCRBY key increment member</code>等同于<code class="inline_code">ZADD key increment member</code>。</li>
+<li>当键不是有序集类型时，返回一个错误。</li>
+<li>分数值可以是整数值或双精度浮点数。</li>
+</ul>
+<p>返回<code class="inline_code">member</code>成员的新分数值，以字符串形式表示</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1 withscores
+1) "beijing"
+2) "1"
+3) "tianjin"
+4) "24"
+5) "shanghai"
+6) "35"
+7) "kunming"
+8) "56"
+127.0.0.1:6379&gt; ZINCRBY zset1 8 kunming
+"64"
+127.0.0.1:6379&gt; ZRANGE zset1 0 -1 withscores
+1) "beijing"
+2) "1"
+3) "tianjin"
+4) "24"
+5) "shanghai"
+6) "35"
+7) "kunming"
+8) "64"
+127.0.0.1:6379&gt; ZINCRBY zset1 -4 shanghai
+"31"
+127.0.0.1:6379&gt; ZRANGE zset1 0 -1 withscores
+1) "beijing"
+2) "1"
+3) "tianjin"
+4) "24"
+5) "shanghai"
+6) "31"
+7) "kunming"
+8) "64"</code>
+</pre>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-07-01</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/redis'>redis</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/redis'>redis</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/06/29/Redis 集合(Set)/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
