@@ -188,7 +188,7 @@ var _hmt = _hmt || [];
 (nil)</code>
 </pre>
 
-<h3>ZRANGE KEY_NAME start stop</h3>
+<h3>ZRANGE KEY_NAME start stop [WITHSCORES]</h3>
 <p>返回指定排名范围内的成员，对于排名值，从<code class="inline_code">0</code>开始计数，类似列表中的索引，同样可以用<code class="inline_code">-1</code>表示排名最后的成员。</p>
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
 10) "56"</code>
 </pre>
 
-<h3>ZREVRANGE KEY_NAME start stop</h3>
+<h3>ZREVRANGE KEY_NAME start stop [WITHSCORES]</h3>
 <p>类似<code class="inline_code">ZRANK</code>与<code class="inline_code">ZREVRANK</code>的关系，<code class="inline_code">ZREVRANGE</code>对于<code class="inline_code">ZRANGE</code>是也这样的，<code class="inline_code">ZRANGE</code>是按分值从小到大排名，确定位置。<code class="inline_code">ZREVRANGE</code>是按分值从大到小排名。</p>
 <pre class="language-none">
 <code>127.0.0.1:6379&gt; ZRANGE zset1 0 -1
@@ -321,6 +321,289 @@ var _hmt = _hmt || [];
 6) "31"
 7) "kunming"
 8) "64"</code>
+</pre>
+
+<h3>ZRANGEBYSCORE KEY_NAME min max [WITHSCORES] [limit offset count]</h3>
+<p>获取有序集合中指定分数区间的成员列表。有序集成员按分数值从小到大次序排列。具有相同分数值的成员按字典序来排列。</p>
+
+<p>先准备一些数据：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZADD zset2 1  xia 2 shang 3 zhou 11 qi 12 chu 13 yan 14 han 15 zhao 16 wei 17 qin 21 tang 25 song 28 yuan 29 ming 31 qing 51 lu 52 zheng 53 shu 55 jin 
+(integer) 19
+127.0.0.1:6379&gt; ZRANGE zset2 0 -1 WITHSCORES
+ 1) "xia"
+ 2) "1"
+ 3) "shang"
+ 4) "2"
+ 5) "zhou"
+ 6) "3"
+ 7) "qi"
+ 8) "11"
+ 9) "chu"
+10) "12"
+11) "yan"
+12) "13"
+13) "han"
+14) "14"
+15) "zhao"
+16) "15"
+17) "wei"
+18) "16"
+19) "qin"
+20) "17"
+21) "tang"
+22) "21"
+23) "song"
+24) "25"
+25) "yuan"
+26) "28"
+27) "ming"
+28) "29"
+29) "qing"
+30) "31"
+31) "lu"
+32) "51"
+33) "zheng"
+34) "52"
+35) "shu"
+36) "53"
+37) "jin"
+38) "55"</code>
+</pre>
+
+<p><b>关于 min 和 max：</b></p>
+
+<p>默认情况下，区间的取值使用闭区间 (小于等于或大于等于)，也可以通过给参数前增加 <code class="inline_code">(</code> 符号来使用可选的开区间 <code class="inline_code">(</code>小于或大于<code class="inline_code">)</code></p>
+<p><i>获取大于等于<code class="inline_code">11</code>且小于等于<code class="inline_code">28</code>的元素：</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 11 28 
+ 1) "qi"
+ 2) "chu"
+ 3) "yan"
+ 4) "han"
+ 5) "zhao"
+ 6) "wei"
+ 7) "qin"
+ 8) "tang"
+ 9) "song"
+10) "yuan"
+127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 11 28 WITHSCORES
+ 1) "qi"
+ 2) "11"
+ 3) "chu"
+ 4) "12"
+ 5) "yan"
+ 6) "13"
+ 7) "han"
+ 8) "14"
+ 9) "zhao"
+10) "15"
+11) "wei"
+12) "16"
+13) "qin"
+14) "17"
+15) "tang"
+16) "21"
+17) "song"
+18) "25"
+19) "yuan"
+20) "28"</code>
+</pre>
+
+<p><i>获取大于<code class="inline_code">15</code>且小于等于<code class="inline_code">25</code>的元素：</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 (15 25 WITHSCORES
+1) "wei"
+2) "16"
+3) "qin"
+4) "17"
+5) "tang"
+6) "21"
+7) "song"
+8) "25"</code>
+</pre>
+
+<p><i>获取大于等于<code class="inline_code">15</code>且小于<code class="inline_code">25</code>的元素：</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 15 (25 WITHSCORES
+1) "zhao"
+2) "15"
+3) "wei"
+4) "16"
+5) "qin"
+6) "17"
+7) "tang"
+8) "21"</code>
+</pre>
+
+<p>对于参数<code class="inline_code">min</code>和<code class="inline_code">max</code>，可以用<code class="inline_code">-inf</code>和<code class="inline_code">+inf</code>分别表示无限小和无限大</p>
+<p><i>获取小于<code class="inline_code">15</code>的所有元素</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 -inf (15 WITHSCORES
+ 1) "xia"
+ 2) "1"
+ 3) "shang"
+ 4) "2"
+ 5) "zhou"
+ 6) "3"
+ 7) "qi"
+ 8) "11"
+ 9) "chu"
+10) "12"
+11) "yan"
+12) "13"
+13) "han"
+14) "14"</code>
+</pre>
+
+<p><i>获取大于等于<code class="inline_code">31</code>的所有元素：</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 31 +inf WITHSCORES
+ 1) "qing"
+ 2) "31"
+ 3) "lu"
+ 4) "51"
+ 5) "zheng"
+ 6) "52"
+ 7) "shu"
+ 8) "53"
+ 9) "jin"
+10) "55"</code>
+</pre>
+
+<p><i>获取有序集合中的所有元素：</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 -inf +inf
+ 1) "xia"
+ 2) "shang"
+ 3) "zhou"
+ 4) "qi"
+ 5) "chu"
+ 6) "yan"
+ 7) "han"
+ 8) "zhao"
+ 9) "wei"
+10) "qin"
+11) "tang"
+12) "song"
+13) "yuan"
+14) "ming"
+15) "qing"
+16) "lu"
+17) "zheng"
+18) "shu"
+19) "jin"</code>
+</pre>
+
+<p><b>关于LIMIT：</b></p>
+<p>用于指定返回结果的数量和区间，类似MySql 分页查询时的<code class="inline_code">LIMIT</code></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 -inf +inf limit 0 5
+1) "xia"
+2) "shang"
+3) "zhou"
+4) "qi"
+5) "chu"
+127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 -inf +inf limit 5 5
+1) "yan"
+2) "han"
+3) "zhao"
+4) "wei"
+5) "qin"</code>
+</pre>
+
+<h3>ZREVRANGEBYSCORE KEY_NAME max min [WITHSCORES] [limit offset count]</h3>
+<p>类似<code class="inline_code">ZRANGEBYSCORE</code>，不过顺序是按分值从大到小排序。</p>
+
+<h3>ZCOUNT KEY_NAME min max</h3>
+<p>获取有序集合中指定分数区间的成员数量。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGEBYSCORE zset2 11 15 WITHSCORES
+ 1) "qi"
+ 2) "11"
+ 3) "chu"
+ 4) "12"
+ 5) "yan"
+ 6) "13"
+ 7) "han"
+ 8) "14"
+ 9) "zhao"
+10) "15"
+127.0.0.1:6379&gt; ZCOUNT zset2 11 15
+(integer) 5
+127.0.0.1:6379&gt; ZCOUNT zset2 11 (15
+(integer) 4
+127.0.0.1:6379&gt; ZCOUNT zset2 -inf +inf
+(integer) 19</code>
+</pre>
+
+<h3>ZREMRANGEBYRANK KEY_NAME start stop</h3>
+<p>用于移除有序集中，指定排名(rank)区间内的所有成员，也就是删除通过<code class="inline_code">ZRANGE KEY_NAME start stop</code>命令获取的元素列表。返回删除的元素数量。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZRANGE zset2 0 -1 
+ 1) "xia"
+ 2) "shang"
+ 3) "zhou"
+ 4) "qi"
+ 5) "chu"
+ 6) "yan"
+ 7) "han"
+ 8) "zhao"
+ 9) "wei"
+10) "qin"
+11) "tang"
+12) "song"
+13) "yuan"
+14) "ming"
+15) "qing"
+16) "lu"
+17) "zheng"
+18) "shu"
+19) "jin"
+127.0.0.1:6379&gt; ZREMRANGEBYRANK zset2 10 15
+(integer) 6
+127.0.0.1:6379&gt; ZRANGE zset2 0 -1 
+ 1) "xia"
+ 2) "shang"
+ 3) "zhou"
+ 4) "qi"
+ 5) "chu"
+ 6) "yan"
+ 7) "han"
+ 8) "zhao"
+ 9) "wei"
+10) "qin"
+11) "zheng"
+12) "shu"
+13) "jin"</code>
+</pre>
+
+<h3>ZREMRANGEBYSCORE KEY_NAME min max</h3>
+<p>移除有序集中，指定分数（score）区间内的所有成员，返回删除的元素成员。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZREMRANGEBYSCORE zset2 35 +inf
+(integer) 3
+127.0.0.1:6379&gt; ZRANGE zset2 0 -1 WITHSCORES
+ 1) "xia"
+ 2) "1"
+ 3) "shang"
+ 4) "2"
+ 5) "zhou"
+ 6) "3"
+ 7) "qi"
+ 8) "11"
+ 9) "chu"
+10) "12"
+11) "yan"
+12) "13"
+13) "han"
+14) "14"
+15) "zhao"
+16) "15"
+17) "wei"
+18) "16"
+19) "qin"
+20) "17"</code>
 </pre>
 </p>
 	</div>
