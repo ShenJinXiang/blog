@@ -605,6 +605,245 @@ var _hmt = _hmt || [];
 19) "qin"
 20) "17"</code>
 </pre>
+
+<h3>ZINTERSTORE 命令</h3>
+<p><code class="inline_code">ZINTERSTORE</code>命令用于计算指定的一个或多个有序集合的交集。</p>
+
+<blockquote><p>ZINTERSTORE destination numkeys KEY_NAME [KEY_NAME ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]</p>
+</blockquote>
+<p><b>参数说明</b></p>
+
+<ul><li>destination - 交集计算结果保存在这个键中</li>
+<li>numkeys - 需要做交集计算的集合数量</li>
+<li>KEY_NAME [KEY_NAME ...] - 需要做交集计算的集合的键列表</li>
+<li>WEIGHTS weight [weight ...] - 每个键的权重，做交集计算时，每个键中的成员都会用自己的分值乘以对应的权重值，默认是<code class="inline_code">1</code></li>
+<li>AGGREGATE SUM|MIN|MAX - 每个成员交集后，分别按照SUM(和)、MIN(最小值)、MAX(最大值)做汇总，默认是<code class="inline_code">SUM</code></li>
+</ul>
+<p><i>准备测试数据</i></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZADD zset1 10 liubei 20 guanyu 30 zhangfei 40 zhaoyun
+(integer) 4
+127.0.0.1:6379&gt; ZADD zset2 12 liubang 22 liuxiu 32 liubei 42 zhaoyun
+(integer) 4
+127.0.0.1:6379&gt; ZRANGE zset1 0 -1 WITHSCORES
+1) "liubei"
+2) "10"
+3) "guanyu"
+4) "20"
+5) "zhangfei"
+6) "30"
+7) "zhaoyun"
+8) "40"
+127.0.0.1:6379&gt; ZRANGE zset2 0 -1 WITHSCORES
+1) "liubang"
+2) "12"
+3) "liuxiu"
+4) "22"
+5) "liubei"
+6) "32"
+7) "zhaoyun"
+8) "42"</code>
+</pre>
+
+<p><b>例1</b></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZINTERSTORE zinter1 2 zset1 zset2 
+(integer) 2
+127.0.0.1:6379&gt; ZRANGE zinter1 0 -1 WITHSCORES
+1) "liubei"
+2) "42"
+3) "zhaoyun"
+4) "82"</code>
+</pre>
+<p>交集计算后成员有两个<code class="inline_code">liubei</code>、 <code class="inline_code">zhaoyun</code>，默认的权重都是<code class="inline_code">1</code>，采用的计算方式是<code class="inline_code">SUM</code>，保存到<code class="inline_code">zinter1</code>键中</p>
+<p><i>成员<code class="inline_code">liubei</code>的分值是<code class="inline_code">10 <i>1 + 32</i> 1</code>等于<code class="inline_code">32</code></i></p>
+<p><i>成员<code class="inline_code">zhaoyun</code>的分值是<code class="inline_code">40 <i>1 + 42</i> 1</code>等于<code class="inline_code">82</code></i></p>
+
+<p><b>例2</b></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZINTERSTORE zinter2 2 zset1 zset2 WEIGHTS 2 5
+(integer) 2
+127.0.0.1:6379&gt; ZRANGE zinter2 0 -1 WITHSCORES
+1) "liubei"
+2) "180"
+3) "zhaoyun"
+4) "290"</code>
+</pre>
+<p>设置了需要计算交集的每个键的权重值，计算方式还是采用默认的<code class="inline_code">SUM</code></p>
+<p><i>成员<code class="inline_code">liubei</code>的分值是<code class="inline_code">10 <i>2 + 32</i> 5</code>等于<code class="inline_code">180</code></i></p>
+<p><i>成员<code class="inline_code">zhaoyun</code>的分值是<code class="inline_code">40 <i>2 + 42</i> 5</code>等于<code class="inline_code">290</code></i></p>
+
+<p><b>例3</b></p>
+<p>每个参与计算的有序集合权重采用默认值<code class="inline_code">1</code>，分别按最小值(<code class="inline_code">MIN</code>)、最大值(<code class="inline_code">MAX</code>)计算</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZINTERSTORE zinter3 2 zset1 zset2 AGGREGATE MIN
+(integer) 2
+127.0.0.1:6379&gt; ZRANGE zinter3 0 -1 WITHSCORES
+1) "liubei"
+2) "10"
+3) "zhaoyun"
+4) "40"
+127.0.0.1:6379&gt; ZINTERSTORE zinter4 2 zset1 zset2 AGGREGATE MAX
+(integer) 2
+127.0.0.1:6379&gt; ZRANGE zinter4 0 -1 WITHSCORES
+1) "liubei"
+2) "32"
+3) "zhaoyun"
+4) "42"</code>
+</pre>
+
+<p><b>例4</b></p>
+<p>设置了权重值，分别按最大值、最小值计算</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZINTERSTORE zinter5 2 zset1 zset2 WEIGHTS 2 5 AGGREGATE MIN
+(integer) 2
+127.0.0.1:6379&gt; ZRANGE zinter5 0 -1 WITHSCORES
+1) "liubei"
+2) "20"
+3) "zhaoyun"
+4) "80"
+127.0.0.1:6379&gt; ZINTERSTORE zinter6 2 zset1 zset2 WEIGHTS 2 5 AGGREGATE MAX
+(integer) 2
+127.0.0.1:6379&gt; ZRANGE zinter6 0 -1 WITHSCORES
+1) "liubei"
+2) "160"
+3) "zhaoyun"
+4) "210"</code>
+</pre>
+<p><i>成员<code class="inline_code">liubei</code>按权重计算以后分值分别为<code class="inline_code">10 <i>2</code>和<code class="inline_code">32</i> 5</code>，即<code class="inline_code">20</code>和<code class="inline_code">160</code>，按<code class="inline_code">MIN</code>计算取最小值<code class="inline_code">20</code>，按<code class="inline_code">MAX</code>计算取最大值<code class="inline_code">160</code></i></p>
+<p><i>成员<code class="inline_code">zhaoyun</code>按权重计算以后分值分别为<code class="inline_code">40 <i>2</code>和<code class="inline_code">42</i> 5</code>，即<code class="inline_code">80</code>和<code class="inline_code">210</code>，按<code class="inline_code">MIN</code>计算取最小值<code class="inline_code">80</code>，按<code class="inline_code">MAX</code>计算取最大值<code class="inline_code">210</code></i></p>
+
+<h3>ZUNIONSTORE 命令</h3>
+<p><code class="inline_code">ZUNIONSTORE</code>命令参数与<code class="inline_code">ZINTERSTORE</code>命令是一致，区别在于计算指定的一个或多个有序集合的并集。</p>
+
+<blockquote><p>ZUNIONSTORE destination numkeys KEY_NAME [KEY_NAME ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]</p>
+</blockquote>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ZUNIONSTORE zunion1 2 zset1 zset2 WEIGHTS 4 1
+(integer) 6
+127.0.0.1:6379&gt; ZRANGE zunion1 0 -1 WITHSCORES
+ 1) "liubang"
+ 2) "12"
+ 3) "liuxiu"
+ 4) "22"
+ 5) "liubei"
+ 6) "72"
+ 7) "guanyu"
+ 8) "80"
+ 9) "zhangfei"
+10) "120"
+11) "zhaoyun"
+12) "202"
+127.0.0.1:6379&gt; ZUNIONSTORE zunion2 2 zset1 zset2 WEIGHTS 4 1 AGGREGATE MIN
+(integer) 6
+127.0.0.1:6379&gt; ZRANGE zunion2 0 -1 WITHSCORES
+ 1) "liubang"
+ 2) "12"
+ 3) "liuxiu"
+ 4) "22"
+ 5) "liubei"
+ 6) "32"
+ 7) "zhaoyun"
+ 8) "42"
+ 9) "guanyu"
+10) "80"
+11) "zhangfei"
+12) "120"
+127.0.0.1:6379&gt; ZUNIONSTORE zunion3 2 zset1 zset2 WEIGHTS 4 1 AGGREGATE MAX
+(integer) 6
+127.0.0.1:6379&gt; ZRANGE zunion3 0 -1 WITHSCORES
+ 1) "liubang"
+ 2) "12"
+ 3) "liuxiu"
+ 4) "22"
+ 5) "liubei"
+ 6) "40"
+ 7) "guanyu"
+ 8) "80"
+ 9) "zhangfei"
+10) "120"
+11) "zhaoyun"
+12) "160"</code>
+</pre>
+
+<p><i>计算表：</i></p>
+<table>
+	<tr>
+		<th rowspan='2'>集合成员</th>
+		<th colspan='2'>集合</th>
+		<th colspan='2'>权重</th>
+		<th colspan='3'>结果</th>
+	</tr>
+	<tr>
+		<th>zset1</th>
+		<th>zset2</th>
+		<th>zset1(权重 4)</th>
+		<th>zset2(权重 1)</th>
+		<th>zunion1(SUM)</th>
+		<th>zunion2(MIN)</th>
+		<th>zunion3(MAX)</th>
+	</tr>
+	<tr>
+		<td>liubang</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>12</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>12</td>
+		<td style='text-align: center'>12</td>
+		<td style='text-align: center'>12</td>
+		<td style='text-align: center'>12</td>
+	</tr>
+	<tr>
+		<td>liuxiu</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>22</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>22</td>
+		<td style='text-align: center'>22</td>
+		<td style='text-align: center'>22</td>
+		<td style='text-align: center'>22</td>
+	</tr>
+	<tr>
+		<td>liubei</td>
+		<td style='text-align: center'>10</td>
+		<td style='text-align: center'>32</td>
+		<td style='text-align: center'>40</td>
+		<td style='text-align: center'>32</td>
+		<td style='text-align: center'>72</td>
+		<td style='text-align: center'>32</td>
+		<td style='text-align: center'>40</td>
+	</tr>
+	<tr>
+		<td>guanyu</td>
+		<td style='text-align: center'>20</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>80</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>80</td>
+		<td style='text-align: center'>80</td>
+		<td style='text-align: center'>80</td>
+	</tr>
+	<tr>
+		<td>zhangfei</td>
+		<td style='text-align: center'>30</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>120</td>
+		<td style='text-align: center'>无</td>
+		<td style='text-align: center'>120</td>
+		<td style='text-align: center'>120</td>
+		<td style='text-align: center'>120</td>
+	</tr>
+	<tr>
+		<td>zhaoyun</td>
+		<td style='text-align: center'>40</td>
+		<td style='text-align: center'>42</td>
+		<td style='text-align: center'>160</td>
+		<td style='text-align: center'>42</td>
+		<td style='text-align: center'>202</td>
+		<td style='text-align: center'>42</td>
+		<td style='text-align: center'>160</td>
+	</tr>
+</table>
 </p>
 	</div>
 	<div class='post-footer'>
