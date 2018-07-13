@@ -177,7 +177,7 @@ public class JFinalFilter implements Filter {
 
 ### JFinal类
 `com.jfinal.core.JFinal`类分为两部分： JFinal 初始化、jetty 服务器启动和关闭，这里只关注初始化部分
-```
+```java
 public final class JFinal {
 	
 	private Constants constants;
@@ -209,7 +209,7 @@ public final class JFinal {
 这里涉及到`Config.configJFinal()`，所以同时看看`Config`的代码
 
 ## Config类
-```
+```java
 class Config {
 	
 	private static final Constants constants = new Constants();

@@ -248,7 +248,7 @@ public Boolean getPropertyToBoolean(String key, Boolean defaultValue) {
 </ol>
 <h3>JFinal类</h3>
 <p><code class="inline_code">com.jfinal.core.JFinal</code>类分为两部分： JFinal 初始化、jetty 服务器启动和关闭，这里只关注初始化部分</p>
-<pre class="language-none">
+<pre class="language-java">
 <code>public final class JFinal {
 	
 	private Constants constants;
@@ -280,7 +280,7 @@ public Boolean getPropertyToBoolean(String key, Boolean defaultValue) {
 <p>这里涉及到<code class="inline_code">Config.configJFinal()</code>，所以同时看看<code class="inline_code">Config</code>的代码</p>
 
 <h2>Config类</h2>
-<pre class="language-none">
+<pre class="language-java">
 <code>class Config {
 	
 	private static final Constants constants = new Constants();
