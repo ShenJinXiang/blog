@@ -77,10 +77,9 @@ var _hmt = _hmt || [];
 		</h2>
 	</div>
 	<div class='post-content'>
-		<p><h1>JFinal 源码阅读(三)</h1>
-<p>从之前阅读的代码可以知道，JFinal 启动以后首先加载的就是项目中常量的设置。主要涉及到两个类：<code class="inline_code">com.jfinal.core.Const</code>和<code class="inline_code">com.jfinal.config.Constants</code></p>
+		<p><p>从之前阅读的代码可以知道，JFinal 启动以后首先加载的就是项目中常量的设置。主要涉及到两个类：<code class="inline_code">com.jfinal.core.Const</code>和<code class="inline_code">com.jfinal.config.Constants</code></p>
 
-<h2>常量默认值</h2>
+<h3>常量默认值</h3>
 <p>Const中定义了项目中常量的默认值：</p>
 <pre class="language-java">
 <code>public interface Const {
@@ -119,7 +118,7 @@ var _hmt = _hmt || [];
 }</code>
 </pre>
 
-<h2>设置常量</h2>
+<h3>设置常量</h3>
 <p>在<code class="inline_code">com.jfinal.core.Config</code>中有如下代码：</p>
 <pre class="language-java">
 <code>private static final Constants constants = new Constants();

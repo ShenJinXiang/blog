@@ -6,10 +6,9 @@ tags: java, jfinal
 description: 从之前阅读的代码可以知道，JFinal 启动以后首先加载的就是项目中常量的设置。主要涉及到两个类：com.jfinal.core.Const和com.jfinal.config.Constants
 
 ------
-# JFinal 源码阅读(三)
 从之前阅读的代码可以知道，JFinal 启动以后首先加载的就是项目中常量的设置。主要涉及到两个类：`com.jfinal.core.Const`和`com.jfinal.config.Constants`
 
-## 常量默认值
+### 常量默认值
 Const中定义了项目中常量的默认值：
 ```java
 public interface Const {
@@ -48,7 +47,7 @@ public interface Const {
 }
 ```
 
-## 设置常量
+### 设置常量
 在`com.jfinal.core.Config`中有如下代码：
 ```java
 private static final Constants constants = new Constants();
