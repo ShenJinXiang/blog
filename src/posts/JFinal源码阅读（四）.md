@@ -19,7 +19,7 @@ private static void initLogFactory() {
 }
 ```
 
-## 整个结构
+### 整个结构
 <img src='/images/java/2018/07/18/01.png' width='800px' style='display:block; margin:0px auto;'>
 
 可以看到整个Log系统是一个工厂方法模式：
@@ -31,7 +31,7 @@ private static void initLogFactory() {
 除了上述几个类以外，JFinal提供了`com.jfinal.log.LogManager`来管理Log的初始化和设置工作，另外提供了`com.jfinal.kit.LogKit`工具类方便开发的时候调用。
 
 下面是涉及到工厂模式的一些代码：
-## ILogFactory
+### ILogFactory
 ```java
 package com.jfinal.log;
 
@@ -42,7 +42,7 @@ public interface ILogFactory {
 }
 ```
 
-## JdkLogFactory
+### JdkLogFactory
 ```java
 public class JdkLogFactory implements ILogFactory {
 	
@@ -56,7 +56,7 @@ public class JdkLogFactory implements ILogFactory {
 }
 ```
 
-## Log4jLogFactory
+### Log4jLogFactory
 ```java
 public class Log4jLogFactory implements ILogFactory {
 	
@@ -70,7 +70,7 @@ public class Log4jLogFactory implements ILogFactory {
 }
 ```
 
-## Log
+### Log
 ```java
 public abstract class Log {
 	
@@ -107,7 +107,7 @@ public abstract class Log {
 ```
 抽象产品类，声明了Log产品的各种行为。还有部分代码没贴上，下面会说到。
 
-## JdkLog
+### JdkLog
 ```java
 public class JdkLog extends Log {
 
@@ -200,7 +200,7 @@ public class JdkLog extends Log {
 }
 ```
 
-## Log4jLog
+### Log4jLog
 ```java
 public class Log4jLog extends Log {
 	
@@ -411,7 +411,7 @@ public class LogTest {
 ```
 Log中设置了一个`defaultLogFactory`作为默认日志工厂，以及相应的初始化和setter方法。需要注意的是`setDefaultLogFactory`的访问权限，外部是没法直接调用的，为什么要这样做呢？因为`LogKit`。
 
-## LogKit
+### LogKit
 ```java
 public class LogKit {
 	
@@ -530,7 +530,7 @@ LogKitTest -> shenjinxiang!
 
 在`LogKit`中还有一个特殊方法`synchronizeLog()`，用来进行同步操作，为什么要这样呢？比如我们开始的时候用`LogKit`做了一些打印工作了，此时的`Holder.log`是通过`Log`中的`defaultLogFactory`创建的。在后续的程序运行中，如果有人使用了`Log.setDefaultLogFacotyr()`将`defaultLogFactory`设置成其他的`ILogFactory`，这样就与`LogKit`不统一了，为了保证与系统整体保持一直，就需要进行同步操作。由此，我们需要一个管理器，同时管理Log中的默认日志工厂和`LogKit`中的`Holder.log`。
 
-## LogManager
+### LogManager
 ```java
 package com.jfinal.log;
 

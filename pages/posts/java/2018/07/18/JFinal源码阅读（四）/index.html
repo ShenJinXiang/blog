@@ -90,7 +90,7 @@ private static void initLogFactory() {
 }</code>
 </pre>
 
-<h2>整个结构</h2>
+<h3>整个结构</h3>
 <img src='/images/java/2018/07/18/01.png' width='800px' style='display:block; margin:0px auto;'>
 
 <p>可以看到整个Log系统是一个工厂方法模式：</p>
@@ -102,7 +102,7 @@ private static void initLogFactory() {
 <p>除了上述几个类以外，JFinal提供了<code class="inline_code">com.jfinal.log.LogManager</code>来管理Log的初始化和设置工作，另外提供了<code class="inline_code">com.jfinal.kit.LogKit</code>工具类方便开发的时候调用。</p>
 
 <p>下面是涉及到工厂模式的一些代码：</p>
-<h2>ILogFactory</h2>
+<h3>ILogFactory</h3>
 <pre class="language-java">
 <code>package com.jfinal.log;
 
@@ -113,7 +113,7 @@ public interface ILogFactory {
 }</code>
 </pre>
 
-<h2>JdkLogFactory</h2>
+<h3>JdkLogFactory</h3>
 <pre class="language-java">
 <code>public class JdkLogFactory implements ILogFactory {
 	
@@ -127,7 +127,7 @@ public interface ILogFactory {
 }</code>
 </pre>
 
-<h2>Log4jLogFactory</h2>
+<h3>Log4jLogFactory</h3>
 <pre class="language-java">
 <code>public class Log4jLogFactory implements ILogFactory {
 	
@@ -141,7 +141,7 @@ public interface ILogFactory {
 }</code>
 </pre>
 
-<h2>Log</h2>
+<h3>Log</h3>
 <pre class="language-java">
 <code>public abstract class Log {
 	
@@ -178,7 +178,7 @@ public interface ILogFactory {
 </pre>
 <p>抽象产品类，声明了Log产品的各种行为。还有部分代码没贴上，下面会说到。</p>
 
-<h2>JdkLog</h2>
+<h3>JdkLog</h3>
 <pre class="language-java">
 <code>public class JdkLog extends Log {
 
@@ -271,7 +271,7 @@ public interface ILogFactory {
 }</code>
 </pre>
 
-<h2>Log4jLog</h2>
+<h3>Log4jLog</h3>
 <pre class="language-java">
 <code>public class Log4jLog extends Log {
 	
@@ -482,7 +482,7 @@ public static Log getLog(String name) {
 </pre>
 <p>Log中设置了一个<code class="inline_code">defaultLogFactory</code>作为默认日志工厂，以及相应的初始化和setter方法。需要注意的是<code class="inline_code">setDefaultLogFactory</code>的访问权限，外部是没法直接调用的，为什么要这样做呢？因为<code class="inline_code">LogKit</code>。</p>
 
-<h2>LogKit</h2>
+<h3>LogKit</h3>
 <pre class="language-java">
 <code>public class LogKit {
 	
@@ -601,7 +601,7 @@ LogKitTest -&gt; shenjinxiang!</code>
 
 <p>在<code class="inline_code">LogKit</code>中还有一个特殊方法<code class="inline_code">synchronizeLog()</code>，用来进行同步操作，为什么要这样呢？比如我们开始的时候用<code class="inline_code">LogKit</code>做了一些打印工作了，此时的<code class="inline_code">Holder.log</code>是通过<code class="inline_code">Log</code>中的<code class="inline_code">defaultLogFactory</code>创建的。在后续的程序运行中，如果有人使用了<code class="inline_code">Log.setDefaultLogFacotyr()</code>将<code class="inline_code">defaultLogFactory</code>设置成其他的<code class="inline_code">ILogFactory</code>，这样就与<code class="inline_code">LogKit</code>不统一了，为了保证与系统整体保持一直，就需要进行同步操作。由此，我们需要一个管理器，同时管理Log中的默认日志工厂和<code class="inline_code">LogKit</code>中的<code class="inline_code">Holder.log</code>。</p>
 
-<h2>LogManager</h2>
+<h3>LogManager</h3>
 <pre class="language-java">
 <code>package com.jfinal.log;
 
