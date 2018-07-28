@@ -413,4 +413,4 @@ public class ActionHandler extends Handler {
 ```
 `ActionHandler`作为最后一个处理器，对`isHandled`进行设置`isHandled[0] = true`，然后对`target`进行解析，找到对应的路由，进行拦截器上的工作、最后视图渲染返回给客户。这里对于静态资源的判断简单粗暴啊，判断`target`是否包含`.`，如果包含，即表示是一个静态资源，退出处理器链，在`JFinalFilter`中进行下一步操作，因为此时`isHandled[0]`的值是`false`，所以会执行`doFilter()`方法。所以在JFinal中，如果在项目根目录(一般是WebRoot)下的资源，如果文件没有后缀名，那就找不到了。
 
-另外，就是`isHandled`的类型，是一个`boolean`的数组，因为在Java中方法参数是按引用传递的，如果使用基本数据类型`boolean`，就没法通过最后一个处理器中处理该值了，当然还有一个办法在`Handler`方法中将`handle`方法的返回值申明为`boolean`类型，但是没有意义就没那么明确了。
+另外，就是`isHandled`的类型，是一个`boolean`的数组，因为在Java中方法参数是按引用传递的，如果使用基本数据类型`boolean`，就没法通过最后一个处理器中处理该值了。当然还有一个办法,在`Handler`方法中将`handle`方法的返回值申明为`boolean`类型，但这种方式表示的意义就没那么明确了。

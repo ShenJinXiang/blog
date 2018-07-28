@@ -484,7 +484,7 @@ public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 </pre>
 <p><code class="inline_code">ActionHandler</code>作为最后一个处理器，对<code class="inline_code">isHandled</code>进行设置<code class="inline_code">isHandled[0] = true</code>，然后对<code class="inline_code">target</code>进行解析，找到对应的路由，进行拦截器上的工作、最后视图渲染返回给客户。这里对于静态资源的判断简单粗暴啊，判断<code class="inline_code">target</code>是否包含<code class="inline_code">.</code>，如果包含，即表示是一个静态资源，退出处理器链，在<code class="inline_code">JFinalFilter</code>中进行下一步操作，因为此时<code class="inline_code">isHandled[0]</code>的值是<code class="inline_code">false</code>，所以会执行<code class="inline_code">doFilter()</code>方法。所以在JFinal中，如果在项目根目录(一般是WebRoot)下的资源，如果文件没有后缀名，那就找不到了。</p>
 
-<p>另外，就是<code class="inline_code">isHandled</code>的类型，是一个<code class="inline_code">boolean</code>的数组，因为在Java中方法参数是按引用传递的，如果使用基本数据类型<code class="inline_code">boolean</code>，就没法通过最后一个处理器中处理该值了，当然还有一个办法在<code class="inline_code">Handler</code>方法中将<code class="inline_code">handle</code>方法的返回值申明为<code class="inline_code">boolean</code>类型，但是没有意义就没那么明确了。</p>
+<p>另外，就是<code class="inline_code">isHandled</code>的类型，是一个<code class="inline_code">boolean</code>的数组，因为在Java中方法参数是按引用传递的，如果使用基本数据类型<code class="inline_code">boolean</code>，就没法通过最后一个处理器中处理该值了。当然还有一个办法,在<code class="inline_code">Handler</code>方法中将<code class="inline_code">handle</code>方法的返回值申明为<code class="inline_code">boolean</code>类型，但这种方式表示的意义就没那么明确了。</p>
 </p>
 	</div>
 	<div class='post-footer'>
