@@ -251,3 +251,20 @@ public Interceptor[] getInterceptors() {
 			InterceptorManager.NULL_INTERS;
 }
 ```
+
+### 获取配置的所有路由信息
+很显然，要获取所有的Route，先获取所有的Routes，代码大概是这样的：
+```java
+Routes routes = Config.getRoutes(); 
+List<Routes> routesList = Routes.getRoutesList();
+List<Routes> rts = new ArrayList<Routes>(routesList.size() + 1);
+rts.add(routes);
+rts.addAll(routesList);
+
+
+for(Routes rs : rts) {
+	for(Route r : rs.getRouteItemList) {
+		// ...
+	}
+}
+```

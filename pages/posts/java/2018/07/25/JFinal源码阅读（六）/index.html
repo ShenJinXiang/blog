@@ -322,6 +322,23 @@ public Interceptor[] getInterceptors() {
 			InterceptorManager.NULL_INTERS;
 }</code>
 </pre>
+
+<h3>获取配置的所有路由信息</h3>
+<p>很显然，要获取所有的Route，先获取所有的Routes，代码大概是这样的：</p>
+<pre class="language-java">
+<code>Routes routes = Config.getRoutes(); 
+List&lt;Routes&gt; routesList = Routes.getRoutesList();
+List&lt;Routes&gt; rts = new ArrayList&lt;Routes&gt;(routesList.size() + 1);
+rts.add(routes);
+rts.addAll(routesList);
+
+
+for(Routes rs : rts) {
+	for(Route r : rs.getRouteItemList) {
+		// ...
+	}
+}</code>
+</pre>
 </p>
 	</div>
 	<div class='post-footer'>
