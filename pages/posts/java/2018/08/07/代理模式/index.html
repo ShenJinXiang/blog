@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>LikeStar</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+		<span>ShenJinXiang</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2018/08/07/代理模式/'>代理模式</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>按照JFinal代码阅读顺序，应该开始拦截器部分了，不过在此之前需要对java代理模式有一定了解，在这里针对代理模式做个总结。</p>
+
+<p>先看看代理模式的定义：</p>
+<blockquote><p>给某一个对象提供了一个代理或占位符，并由代理对象来控制原对象的访问。</p>
+</blockquote>
+<p>也就是说，不直接操作目标对象，而是通过代理对象来控制愿对象。对于调用者来说，就好像是在操作目标对象一样的。这样做是有很多好处的，比如可以通过代理对象增强目标对象的功能，可以控制目标对象的调用时机，对目标对象的调用加以约束等。</p>
+
+<h3>静态代理</h3>
+<img src='/images/java/2018/08/07/01.png' width='800px' style='display:block; margin:0px auto;'>
+
+<p>静态代理结构比较简单，角色信息有：</p>
+<ul><li>抽象主题角色（Subject）: 声明了真实主题和代理主题的共同接口，这样一来在任何使用真实主题的地方都可以使用代理主题，客户端通常需要针对抽象主题角色进行编程。</li>
+<li>代理主题角色（Proxy）： 包含了真实主题的引用，从而可以在任何时候操作真实主题对象；在代理主题角色中提供了一个与真实主题角色相同的接口，以便在任何时候都可以替代真实主题；代理主题角色还可以控制真实主题的使用，复制在需要的时候创建和删除真实主题对象，并对真实主题对象的使用加以约束。通常在代理主题角色中，客户端在调用所引用的真实主题操作之前或之后还需要执行其他操作，而不仅仅是单纯地调用真实主题对象中的操作。</li>
+<li>真实主题角色（RealSubject）： 定义了代理角色所代表的真实对象，在真实主题角色中实现了真实的业务操作，客户端可以通过代理主题角色间接调用真实主题角色中定义的操作。</li>
+</ul>
+<h4>代码示例</h4>
+<p>抽象主题角色Subject</p>
+<pre class="language-java">
+<code>public interface Subject {
+
+    void request(String name);
+}</code>
+</pre>
+
+<p>真实主题角色RealSubject：</p>
+<pre class="language-java">
+<code>public class RealSubject implements Subject {
+
+    @Override
+    public void request(String name) {
+        System.out.println("ReadSubject 正在处理请求：" + name);
+    }
+}</code>
+</pre>
+
+<p>代理主题角色Proxy：</p>
+<pre class="language-java">
+<code>public class Proxy implements Subject {
+
+    private Subject subject;
+
+    public Proxy(Subject subject) {
+        this.subject = subject;
+    }
+
+    private void preRequest() {
+        System.out.println("Proxy: 请求处理之前");
+    }
+
+    private void postRequest() {
+        System.out.println("Proxy: 请求处理之后");
+    }
+
+    @Override
+    public void request(String name) {
+        preRequest();
+        this.subject.request(name);
+        postRequest();
+    }
+}</code>
+</pre>
+
+<p>客户端调用代码：</p>
+<pre class="language-java">
+<code>public class Client {
+
+    public static void main(String[] args) {
+        Subject proxy = new Proxy(new RealSubject());
+        proxy.request("请假");
+    }
+}</code>
+</pre>
+<p><i>运行结果：</i></p>
+<pre class="language-none">
+<code>Proxy: 请求处理之前
+ReadSubject 正在处理请求：请假
+Proxy: 请求处理之后</code>
+</pre>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-08-07</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2018/07/28/JFinal源码阅读（七）/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
