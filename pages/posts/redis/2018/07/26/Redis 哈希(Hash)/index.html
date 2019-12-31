@@ -1,0 +1,322 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 晋ICP备19013438号</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/redis/2018/07/26/Redis 哈希(Hash)/'>Redis 哈希(Hash)</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p><code class="inline_code">hash</code> 是一个<code class="inline_code">String</code>类型的字段(<code class="inline_code">field</code>)和值(<code class="inline_code">value</code>)的映射表，类似于JavaScript中的对象，<code class="inline_code">hash</code>特别适合用于存储对象。命令也非常简单：</p>
+
+<h3>HSET key field value</h3>
+<p>将哈希表<code class="inline_code">key</code>中的字段<code class="inline_code">field</code>的值设为<code class="inline_code">value</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HSET student1 name xiaoming
+(integer) 1</code>
+</pre>
+
+<h3>HGET key field</h3>
+<p>获取存储在哈希表中指定字段的值</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HGET student1 name
+"xiaoming"</code>
+</pre>
+
+<h3>HMSET key field1 value1 [field2 value2 ]</h3>
+<p>同时将多个<code class="inline_code">field-value</code>(域-值)对设置到哈希表<code class="inline_code">key</code>中</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HMSET student1 age 18 email xiaoming@126.com 
+OK
+127.0.0.1:6379&gt; HGET student1 age
+"18"
+127.0.0.1:6379&gt; HGET student1 email
+"xiaoming@126.com"</code>
+</pre>
+
+<h3>HMGET key field1 [field2 ...]</h3>
+<p>获取所有给定字段的值</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HMGET student1 name age email
+1) "xiaoming"
+2) "18"
+3) "xiaoming@126.com"</code>
+</pre>
+
+<h3>HGETALL key</h3>
+<p>获取在哈希表中指定<code class="inline_code">key</code>的所有字段和值</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HGETALL student1
+1) "name"
+2) "xiaoming"
+3) "email"
+4) "xiaoming@126.com"
+5) "age"
+6) "18"</code>
+</pre>
+
+<h3>HLEN key</h3>
+<p>获取哈希表中字段的数量</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HLEN student1
+(integer) 3</code>
+</pre>
+
+<h3>HKEYS key</h3>
+<p>获取所有哈希表中的字段</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HKEYS student1
+1) "name"
+2) "email"
+3) "age"</code>
+</pre>
+
+<h3>HVALS key</h3>
+<p>获取哈希表中所有值</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HVALS student1
+1) "xiaoming"
+2) "18"
+3) "xiaoming@126.com"</code>
+</pre>
+
+<h3>HEXISTS key field</h3>
+<p>查看哈希表<code class="inline_code">key</code>中，指定的字段是否存在。存在返回<code class="inline_code">1</code>，不存在则返回<code class="inline_code">0</code></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HEXISTS student1 name
+(integer) 1
+127.0.0.1:6379&gt; HEXISTS student1 boold_type
+(integer) 0</code>
+</pre>
+
+<h3>HDEL key field2 [field2 ...]</h3>
+<p>删除一个或多个哈希表字段</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HDEL student1 age email
+(integer) 2
+127.0.0.1:6379&gt; HGETALL student1
+1) "name"
+2) "xiaoming"</code>
+</pre>
+
+<h3>HSETNX key field value</h3>
+<p>只有在字段<code class="inline_code">field</code>不存在时，设置哈希表字段的值。设置成功返回<code class="inline_code">1</code>，设置失败返回<code class="inline_code">0</code></p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HSETNX student1 name xiaohong
+(integer) 0
+127.0.0.1:6379&gt; HSETNX student1 age 18
+(integer) 1
+127.0.0.1:6379&gt; HGETALL student1
+1) "name"
+2) "xiaoming"
+3) "age"
+4) "18"</code>
+</pre>
+
+<h3>HINCRBY key field increment</h3>
+<p>为哈希表<code class="inline_code">key</code>中的指定字段的整数值加上增量<code class="inline_code">increment</code> 。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HINCRBY student1 age 3
+(integer) 21
+127.0.0.1:6379&gt; HGET student1 age
+"21"
+127.0.0.1:6379&gt; HINCRBY student1 age -1
+(integer) 20
+127.0.0.1:6379&gt; HGET student1 age
+"20"</code>
+</pre>
+
+<h3>HINCRBYFLOAT key field increment</h3>
+<p>为哈希表<code class="inline_code">key</code>中的指定字段的浮点数值加上增量<code class="inline_code">increment</code> 。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; HINCRBYFLOAT student1 age 1.5
+"21.5"
+127.0.0.1:6379&gt; HGET student1 age
+"21.5"
+127.0.0.1:6379&gt; HINCRBYFLOAT student1 age -0.3
+"21.2"
+127.0.0.1:6379&gt; HGET student1 age
+"21.2"
+127.0.0.1:6379&gt; HINCRBY student1 age 4
+(error) ERR hash value is not an integer
+127.0.0.1:6379&gt; HGET student1 age
+"21.2"</code>
+</pre>
+
+<h3>哈希类型命令时间复杂度</h3>
+<table>
+	<tr>
+		<th width='45%'>命令</th>
+		<th witdh='55%'>复杂度</th>
+	</tr>
+	<tr>
+		<td>HSET key field value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HGET key field </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HDEL key field2 [field2 ...] </td>
+		<td><i>O</i> (k)，k 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HLEN key </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HGETALL key </td>
+		<td><i>O</i> (n)，n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HMGET key field1 [field2 ...]</td>
+		<td><i>O</i> (k)，k 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HEXISTS key field </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HKEYS key </td>
+		<td><i>O</i> (n)，n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HVALS key </td>
+		<td><i>O</i> (n)，n 是 field 的个数</td>
+	</tr>
+	<tr>
+		<td>HSETNX key field value </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HINCRBY key field increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>HINCRBYFLOAT key field increment </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+<table>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-07-26</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/redis'>redis</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/redis'>redis</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/07/27/Redis 列表(List)/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/07/24/Redis 字符串(String)/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

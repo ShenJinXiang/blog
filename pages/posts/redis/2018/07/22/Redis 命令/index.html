@@ -1,0 +1,428 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 晋ICP备19013438号</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/redis/2018/07/22/Redis 命令/'>Redis 命令</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>Redis 提供了<code class="inline_code">5</code>中数据结构：字符串(<code class="inline_code">String</code>)、哈希(<code class="inline_code">Hash</code>)、列表(<code class="inline_code">List</code>)、集合(<code class="inline_code">Set</code>) 和有序集合(<code class="inline_code">sorted Set</code>)，详细了解这些数据类型之前，大致了解一些全局性的命令。</p>
+<p><b>注意：Redis的命令不区分大小写，但是键<code class="inline_code">key</code>严格区分大小写！！！</b></p>
+
+<h3>PING</h3>
+<p>通过客户端向 Redis 服务器发送一个<code class="inline_code">PING</code>，如果服务器运作正常的话，会返回一个<code class="inline_code">PONG</code>。通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; PING
+PONG</code>
+</pre>
+
+<h3>ECHO message</h3>
+<p>用于打印给定的字符串，返回字符串本身。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; ECHO Hello
+"Hello"
+127.0.0.1:6379&gt; ECHO ShenJinXiang
+"ShenJinXiang"</code>
+</pre>
+
+<h3>AUTH PASSWORD</h3>
+<p>用于检测给定的密码和配置文件中的密码是否相符，如果检测成功返回<code class="inline_code">OK</code>，否则返回错误。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; AUTH password
+(error) ERR Client sent AUTH, but no password is set
+127.0.0.1:6379&gt; CONFIG set requirepass mypassword
+OK
+127.0.0.1:6379&gt; AUTH mypassword
+OK</code>
+</pre>
+<p>这里开始用<code class="inline_code">password</code>这个字符串来验证密码是否正确，返回错误信息，因为默认的配置中没有设置密码的。然后通过<code class="inline_code">CONFIG</code>命令设置密码为<code class="inline_code">mypassword</code>，再次验证返回<code class="inline_code">OK</code>。</p>
+
+<h3>SELECT index</h3>
+<p>Redis中有若干个数据库，数据库的数量在配置文件<code class="inline_code">redis.conf</code>中通过<code class="inline_code">databases</code>设置数据库数量，每个数据库都有索引，从<code class="inline_code">0</code>开始至<code class="inline_code">databases - 1</code>，默认使用的是索引为<code class="inline_code">0</code>的数据库，可以通过<code class="inline_code">SELECT</code>切换数据库，参数<code class="inline_code">index</code>为数据库的索引。如果切换成功返回<code class="inline_code">OK</code>，如果输入的索引<code class="inline_code">index</code>不在范围内，则无法切换，返回错误信息。</p>
+
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get name
+"ShenJinXiang"
+127.0.0.1:6379&gt; select 1
+OK
+127.0.0.1:6379[1]&gt; get name
+(nil)
+127.0.0.1:6379[1]&gt; set name ShenJinXiang1
+OK
+127.0.0.1:6379[1]&gt; get name
+"ShenJinXiang1"
+127.0.0.1:6379[1]&gt; select 3
+OK
+127.0.0.1:6379[3]&gt; get name
+(nil)
+127.0.0.1:6379[3]&gt; select 16
+(error) ERR DB index is out of range
+127.0.0.1:6379[3]&gt; select 0
+OK
+127.0.0.1:6379&gt; get name
+"ShenJinXiang"</code>
+</pre>
+<p>可以看到，切换数据库以后，再次获取<code class="inline_code">name</code>的值，返回<code class="inline_code">nil</code>，表示当前库中没有<code class="inline_code">name</code>这个键。同时切换成功以后提示符也会有变化。</p>
+
+<h3>QUIT</h3>
+<p>关闭当前客户端与 Redis 服务的连接，总是返回<code class="inline_code">OK</code></p>
+
+<h3>KEYS pattern</h3>
+<p>查找所有符合给定模式<code class="inline_code">pattern</code>的键<code class="inline_code">key</code>。</p>
+
+<p>先设置一些数据：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; set name1 LiuBei
+OK
+127.0.0.1:6379&gt; set name2 ZhouYu
+OK
+127.0.0.1:6379&gt; set name3 LiShiMin
+OK
+127.0.0.1:6379&gt; set age1 12
+OK
+127.0.0.1:6379&gt; set age2 22
+OK
+127.0.0.1:6379&gt; set age3 33
+OK
+127.0.0.1:6379&gt; set name ShenJinXiang
+OK
+127.0.0.1:6379&gt; set yourname ZhangSan
+OK</code>
+</pre>
+
+<p>获取以<code class="inline_code">name</code>开头的键：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys name*
+1) "name1"
+2) "name3"
+3) "name"
+4) "name2"</code>
+</pre>
+
+<p>获取以<code class="inline_code">age</code>开头的键：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys age*
+1) "age2"
+2) "age3"
+3) "age1"</code>
+</pre>
+
+<p>获取包含<code class="inline_code">name</code>的键：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *name*
+1) "name1"
+2) "name3"
+3) "name"
+4) "yourname"
+5) "name2"</code>
+</pre>
+
+<p>获取Redis中所有的键：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *
+1) "name1"
+2) "name3"
+3) "name"
+4) "age2"
+5) "age3"
+6) "age1"
+7) "yourname"
+8) "name2"</code>
+</pre>
+
+<h3>DEL KEY_NAME</h3>
+<p>用于删除已存在的键。不存在的 key 会被忽略，返回被删除的键的数量。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *
+1) "age1"
+2) "age2"
+3) "yourname"
+4) "name1"
+5) "name2"
+6) "age3"
+7) "name3"
+8) "name"
+127.0.0.1:6379&gt; del name
+(integer) 1
+127.0.0.1:6379&gt; keys *
+1) "age1"
+2) "age2"
+3) "yourname"
+4) "name1"
+5) "name2"
+6) "age3"
+7) "name3"
+127.0.0.1:6379&gt; del age1 age2 age3
+(integer) 3
+127.0.0.1:6379&gt; keys *
+1) "yourname"
+2) "name1"
+3) "name2"
+4) "name3"</code>
+</pre>
+
+<h3>DBSIZE</h3>
+<p><code class="inline_code">DBSIZE</code> 命令没有参数，返回当前数据库中键的总数量。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; dbsize
+(integer) 4
+127.0.0.1:6379&gt; del abc
+(integer) 0
+127.0.0.1:6379&gt; dbsize
+(integer) 4
+127.0.0.1:6379&gt; del yourname
+(integer) 1
+127.0.0.1:6379&gt; dbsize
+(integer) 3</code>
+</pre>
+<p><code class="inline_code">dbsize</code>命令在计算键总数时不会遍历所有键，而是直接获取 Redis 内置的键总数变量。所以<code class="inline_code">dbsize</code>命令的时间复杂度是<code class="inline_code">O (1)</code>。而<code class="inline_code">keys</code> 命令会遍历所有键，它的时间复杂度是<code class="inline_code">O (n)</code>，当 Redis 保存了大量键时，线上环境禁止使用。</p>
+
+<h3>EXISTS KEY_NAME</h3>
+<p>检查给定的键（<code class="inline_code">KEY_NAME</code>）是否存在，存在返回<code class="inline_code">1</code>，不存在返回<code class="inline_code">0</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *
+1) "name1"
+2) "name2"
+3) "name3"
+127.0.0.1:6379&gt; exists name
+(integer) 0
+127.0.0.1:6379&gt; exists name1
+(integer) 1
+127.0.0.1:6379&gt; exists name1 name2 
+(integer) 2
+127.0.0.1:6379&gt; exists name name1 name2
+(integer) 2</code>
+</pre>
+<p>可以看到，检测一个键是否存在的时候，存在返回<code class="inline_code">1</code>，不存在返回<code class="inline_code">0</code>。也可以检测多个键是否存在，返回存在的键的数量。</p>
+
+<h3>RENAME OLD_KEY_NAME NEW_KEY_NAME</h3>
+<p>重命名键名称，成功返回<code class="inline_code">OK</code>，失败返回错误信息。</p>
+
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *
+1) "name1"
+2) "name2"
+3) "name3"
+127.0.0.1:6379&gt; get name1
+"LiuBei"
+127.0.0.1:6379&gt; rename name1 name4
+OK
+127.0.0.1:6379&gt; keys *
+1) "name2"
+2) "name3"
+3) "name4"
+127.0.0.1:6379&gt; get name4
+"LiuBei"</code>
+</pre>
+<p>当<code class="inline_code">OLD_KEY_NAME</code>不存在时，返回一个错误信息。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; rename name1 name4
+(error) ERR no such key</code>
+</pre>
+<p>当<code class="inline_code">NEW_KEY_NAME</code>存在，则会覆盖旧值。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get name2
+"ZhouYu"
+127.0.0.1:6379&gt; get name3
+"LiShiMin"
+127.0.0.1:6379&gt; rename name2 name3
+OK
+127.0.0.1:6379&gt; keys *
+1) "name3"
+2) "name4"
+127.0.0.1:6379&gt; get name3
+"ZhouYu"</code>
+</pre>
+
+<h3>RENAMENX OLD_KEY_NAME NEW_KEY_NAME</h3>
+<p>类似于<code class="inline_code">RENAME</code>命令，区别在于如果<code class="inline_code">NEW_KEY_NAME</code>已存在，修改不成功，返回<code class="inline_code">0</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *
+1) "name3"
+2) "name4"
+127.0.0.1:6379&gt; EXISTS name1
+(integer) 0
+127.0.0.1:6379&gt; renamenx name3 name1
+(integer) 1
+127.0.0.1:6379&gt; keys *
+1) "name1"
+2) "name4"</code>
+</pre>
+<p>如果<code class="inline_code">NEW_KEY_NAME</code>已经存在：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; get name1
+"ZhouYu"
+127.0.0.1:6379&gt; get name4
+"LiuBei"
+127.0.0.1:6379&gt; renamenx name1 name4
+(integer) 0
+127.0.0.1:6379&gt; get name1
+"ZhouYu"
+127.0.0.1:6379&gt; get name4
+"LiuBei"</code>
+</pre>
+
+<h3>MOVE KEY_NAME DESTINATION_DATABASE</h3>
+<p>将当前数据库的<code class="inline_code">key</code>移动到给定的数据库<code class="inline_code">db</code>当中</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; keys *
+1) "name1"
+2) "name4"
+127.0.0.1:6379&gt; select 1
+OK
+127.0.0.1:6379[1]&gt; keys *
+1) "name"
+127.0.0.1:6379[1]&gt; move name 0
+(integer) 1
+127.0.0.1:6379[1]&gt; keys *
+(empty list or set)
+127.0.0.1:6379[1]&gt; select 0
+OK
+127.0.0.1:6379&gt; keys *
+1) "name1"
+2) "name"
+3) "name4"
+127.0.0.1:6379&gt; get name
+"ShenJinXiang1"</code>
+</pre>
+
+<h3>TYPE KEY_NAME</h3>
+<p>查询键(<code class="inline_code">KEY_NAME</code>)所存储的值的数据类型，数据类型有：</p>
+<ul><li>none (key不存在)</li>
+<li>string (字符串)</li>
+<li>list (列表)</li>
+<li>set (集合)</li>
+<li>zset (有序集)</li>
+<li>hash (哈希表)</li>
+</ul>
+<h3>键过期时间相关</h3>
+<ul><li>EXPIRE - 设置键的剩余过期时间，单位为秒</li>
+<li>EXPIREAT - 以 UNIX 时间戳(unix timestamp)格式设置键的过期时间。过期后将不再可用</li>
+<li>PEXPIREAT - 设置键的剩余过期时间，单位为毫秒</li>
+<li>PERSIST - 移除给定键的过期时间，使得键永不过期</li>
+<li>PTTL - 查询键剩余的过期时间，单位为毫秒</li>
+<li>TTL - 查询键剩余的过期时间，单位为秒</li>
+</ul>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-07-22</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/redis'>redis</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/redis'>redis</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/07/24/Redis 字符串(String)/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/07/21/Redis 配置/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

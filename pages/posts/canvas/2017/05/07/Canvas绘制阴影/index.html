@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 晋ICP备19013438号</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/canvas/2017/05/07/Canvas绘制阴影/'>Canvas绘制阴影</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>canvas中同样可以绘制阴影，绘制阴影的时候，并不需要像绘制线条和填充一样调用专门的方法去绘制，而是设置阴影相关的一些属性，当调用<code class="inline_code">fill()</code>或者<code class="inline_code">stroke()</code>方法绘制图形的时候，阴影就可以绘制，阴影相关的属性有：</p>
+
+<h3>shadowColor属性</h3>
+<p>CanvasRenderingContext2D对象的<code class="inline_code">shadowColor</code>属性指定了阴影的颜色，属性值可以是任意的css中可接受的颜色值，甚至可以是有一定透明度的颜色，默认值为<code class="inline_code">#000000</code></p>
+
+<h3>shadowOffsetX属性和shadowOffsetY属性</h3>
+<p>CanvasRenderingContext2D对象的<code class="inline_code">shadowOffsetX</code>和<code class="inline_code">shadowOffsetY</code>属性指定了阴影在<code class="inline_code">x</code>和<code class="inline_code">y</code>轴方向的偏移量，默认为<code class="inline_code">0</code>，即没有偏移量，当<code class="inline_code">shadowOffsetX</code>的值设置为正数，阴影会向右（x轴正方向）便宜设置的像素。如果为负数，则像相反的方向便宜，对于<code class="inline_code">shadowOffsetY</code>属性也是类似的，值为正数表示向下偏移，负数表示向上偏移</p>
+
+<h3>shadowBlur属性</h3>
+<p>CanvasRenderingContext2D对象的<code class="inline_code">shadowBlur</code>属性用于设置阴影的模糊等级，默认为<code class="inline_code">0</code>，即不模糊</p>
+
+<h3>一些例子</h3>
+<pre class="language-javascript">
+<code>(function() {
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 600;
+	var context = canvas.getContext('2d');
+
+	context.shadowColor = 'gray';
+	context.shadowOffsetX = 10;
+	context.shadowOffsetY = 10;
+	context.shadowBlur = 5;
+
+	context.fillStyle = '#058';
+	context.fillRect(100, 100, 400, 400);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/07/001.html' width='100%' height='640px' frameborder='0' ></iframe>
+
+<p>这里简单绘制了一个矩形图案，在绘制之前设置了阴影的颜色、<code class="inline_code">x</code>轴、<code class="inline_code">y</code>轴方向的偏移量，以及模糊程度</p>
+
+<p>关于偏移量，可以设置为负值，即相反方向偏移；关于模糊程度，可以设置为<code class="inline_code">0</code>即很清晰的图案，看下面的例子</p>
+
+<pre class="language-javascript">
+<code>(function() {
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 600;
+	var context = canvas.getContext('2d');
+
+	context.shadowColor = 'green';
+	context.shadowOffsetX = -300;
+	context.shadowOffsetY = -300;
+	context.shadowBlur = 0;
+
+	context.fillStyle = '#058';
+	context.fillRect(300, 300, 300, 300);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/07/002.html' width='100%' height='640px' frameborder='0' ></iframe>
+
+<p>这个例子中，我们绘制了一个蓝色的矩形图案，设置阴影为相反方向偏移的绿色的图案，模糊等级为<code class="inline_code">0</code></p>
+
+<pre class="language-javascript">
+<code>(function() {
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 240;
+	var context = canvas.getContext('2d');
+
+	context.fillStyle = '#058';
+	context.font = "bold 50px Arial";
+	context.textAlign = 'center';
+	context.textBaseline = 'middle';
+
+	context.shadowColor = '#aaa';
+	context.shadowOffsetX = 5;
+	context.shadowOffsetY = 5;
+	context.shadowBlur = 2;
+	context.fillText('申锦祥', 300, 80);
+
+	context.strokeStyle = '#058';
+	context.lineWidth = 2;
+	context.shadowColor = '00f7ff';
+	context.shadowOffsetX = 0;
+	context.shadowOffsetY = 0;
+	context.shadowBlur = 5;
+	context.strokeText('www.shenjinxiang.com', 300, 160);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/07/003.html' width='100%' height='280px' frameborder='0' ></iframe>
+
+<p>这个例子中先使用<code class="inline_code">fillText()</code>方法绘制了一段文字，同时添加阴影。然后会<code class="inline_code">strokeText()</code>方法绘制了另外一段文字，同样添加阴影，这里的阴影设置<code class="inline_code">x</code>、<code class="inline_code">y</code>轴方向的偏移量为<code class="inline_code">0</code>，展示出图上的效果</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-05-07</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/05/11/Canvas剪辑区域/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/05/01/Canvas文字渲染/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

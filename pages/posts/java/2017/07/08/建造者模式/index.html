@@ -1,0 +1,397 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span>.BLOG</span></a>
+			</h1>
+			<div class="description">
+				<p>申锦祥的个人博客</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 晋ICP备19013438号</span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2017/07/08/建造者模式/'>建造者模式</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>建造者模式又称为生成器模式，是一种较为复杂、使用频率相对较低的创建信模式。建造者模式用于创建又多个部件组成的复杂产品</p>
+
+<h2>定义</h2>
+<p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式</p>
+
+<h2>角色信息</h2>
+<img src='/images/java/2017/06/08/0001.png' width='800px' style='display:block; margin:0px auto;'>
+<ul><li>抽象建造者（Builder）：为创建一个产品<code class="inline_code">Product</code>对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是<code class="inline_code">buildPartX()</code>，它们用于创建复杂对象的各个部件；另一类方法是<code class="inline_code">getResult()</code>，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口</li>
+<li>具体建造者（ConcreteBuilder）：实现了<code class="inline_code">Builder</code>接口，实现各个部件的具体构造和装配方法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。</li>
+<li>产品角色（Product）：被构建的复杂对象，包含多个组成部件，具体建造者创建该产品的内部表示并定义它的装配过程。</li>
+<li>指挥者（Director）：指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其<code class="inline_code">construct()</code>建造方法中调用建造者对象的部件构造与装配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建造者的类型，并实例化具体建造者对象（也可以通过配置文件和反射机制），然后通过指挥者类的构造函数或者Setter方法将该对象传入指挥者类中</li>
+</ul>
+<h2>代码实现</h2>
+<p>首先是复杂产品类，包含了多个部件：</p>
+<pre class="language-java">
+<code>public class Product {
+
+	// 部件可以是任意类型：值类型或引用类型
+    private String partA;
+
+    private String partB;
+
+    private String partC;
+
+    public String getPartA() {
+        return partA;
+    }
+
+    public void setPartA(String partA) {
+        this.partA = partA;
+    }
+
+    public String getPartB() {
+        return partB;
+    }
+
+    public void setPartB(String partB) {
+        this.partB = partB;
+    }
+
+    public String getPartC() {
+        return partC;
+    }
+
+    public void setPartC(String partC) {
+        this.partC = partC;
+    }
+
+    @Override
+    public String toString() {
+        return "部件A: " + this.partA + "\t部件B: " + this.partB + "\t部件C: " + this.partC;
+    }
+}</code>
+</pre>
+
+<p>抽象建造者类，这里是接口：</p>
+<pre class="language-java">
+<code>public interface Builder {
+
+    void buildPartA();
+
+    void buildPartB();
+
+    void buildPartC();
+
+    Product getResult();
+}</code>
+</pre>
+
+<p>指挥者类：</p>
+<pre class="language-java">
+<code>public class Director {
+
+    private Builder builder;
+    
+    public Director(Builder builder) {
+        this.builder = builder;
+    }
+
+    public void setBuilder(Builder builder) {
+        this.builder = builder;
+    }
+
+	// 构建和组装产品
+    public Product construct() {
+        builder.buildPartA();
+        builder.buildPartB();
+        builder.buildPartC();
+        return builder.getResult();
+    }
+}</code>
+</pre>
+
+<p>具体建造者1，实现了抽象建造者接口：</p>
+<pre class="language-java">
+<code>public class ConcreteBuilder1 implements Builder {
+
+    private Product product = new Product();
+
+    @Override
+    public void buildPartA() {
+        product.setPartA("a1");
+    }
+
+    @Override
+    public void buildPartB() {
+        product.setPartB("b1");
+    }
+
+    @Override
+    public void buildPartC() {
+        product.setPartC("c1");
+    }
+
+    @Override
+    public Product getResult() {
+        return product;
+    }
+}</code>
+</pre>
+
+<p>具体建造者2，实现了抽象建造者接口：</p>
+<pre class="language-java">
+<code>public class ConcreteBuilder2 implements Builder {
+
+    private Product product = new Product();
+
+    @Override
+    public void buildPartA() {
+        product.setPartA("a2");
+    }
+
+    @Override
+    public void buildPartB() {
+        product.setPartB("b2");
+    }
+
+    @Override
+    public void buildPartC() {
+        product.setPartC("c2");
+    }
+
+    @Override
+    public Product getResult() {
+        return product;
+    }
+}</code>
+</pre>
+
+<p>客户端调用代码：</p>
+<pre class="language-java">
+<code>public class Client {
+
+    public static void main(String[] args) {
+        Builder builder = new ConcreteBuilder1();
+        Director director = new Director(builder);
+        Product product = director.construct();
+        System.out.println(product);
+    }
+}</code>
+</pre>
+
+<p>运行客户端代码：</p>
+<pre class="language-none">
+<code>部件A: a2 ，部件B: b2 ，部件C: c2</code>
+</pre>
+
+<p>如果要更改创建产品的方式，采用第二种方式创建，只需要在客户端调用的时候，将build初始化为ConcreteBuilder2即可：</p>
+<pre class="language-java">
+<code>public class Client {
+
+    public static void main(String[] args) {
+        Builder builder = new ConcreteBuilder2();
+        Director director = new Director(builder);
+        Product product = director.construct();
+        System.out.println(product);
+    }
+}</code>
+</pre>
+
+<p>运行代码：</p>
+<pre class="language-none">
+<code>部件A: a2 ，部件B: b2 ，部件C: c2</code>
+</pre>
+
+<p>可以使用配置文件（xml文件或者properties文件）的方式配置具体建造者类型</p>
+
+<h2>省略Director的方式</h2>
+<p>有些时候，为了简化结构，可以将指挥者Director和抽象建造者Builder合并，第一种方式使用static修饰符</p>
+
+<p>修改抽象建造者的代码：</p>
+<pre class="language-java">
+<code>public interface Builder {
+
+    void buildPartA();
+
+    void buildPartB();
+
+    void buildPartC();
+
+    Product getResult();
+
+    static Product construct(Builder builder) {
+        builder.buildPartA();
+        builder.buildPartB();
+        builder.buildPartC();
+        return builder.getResult();
+    }
+}</code>
+</pre>
+
+<p>客户端调用代码：</p>
+<pre class="language-java">
+<code>public class Client {
+
+    public static void main(String[] args) {
+        Builder builder = new ConcreteBuilder1();
+        Product product = Builder.construct(builder);
+        System.out.println(product);
+    }
+}</code>
+</pre>
+
+<p>第二种方式，与模版方法很类似，将抽象建造者设计为抽象类，修改后的抽象建造者代码：</p>
+<pre class="language-java">
+<code>public abstract class Builder {
+
+    public abstract void buildPartA();
+
+    public abstract void buildPartB();
+
+    public abstract void buildPartC();
+
+    public abstract Product getResult();
+
+    public Product construct() {
+        this.buildPartA();
+        this.buildPartB();
+        this.buildPartC();
+        return this.getResult();
+    }
+}</code>
+</pre>
+
+<p>客户端调用代码：</p>
+<pre class="language-java">
+<code>public class Client {
+
+    public static void main(String[] args) {
+        Builder builder = new ConcreteBuilder2();
+        Product product = builder.construct();
+        System.out.println(product);
+    }
+}</code>
+</pre>
+
+<h2>主要优点</h2>
+<ol><li>在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象</li>
+<li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则”</li>
+<li>可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程</li>
+</ol>
+<h2>适用场景</h2>
+<ol><li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性</li>
+<li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序</li>
+<li>对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指挥者类中，而不在建造者类和客户类中</li>
+<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品</li>
+</ol></p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-07-08</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a> <a href='/pages/archives/tags/设计模式'>设计模式</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2017/12/14/java 命令行构建/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2017/07/01/策略模式/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
