@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2017/02/02/java可变参数/'>java可变参数</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>可变参数是java1.5增加的新特性，提供了可以用可变的参数数量调用的方法，<b>适用于参数个数不确定，类型确定的情况</b>，java把可变参数当做数组处理</p>
+
+<h3>简单例子</h3>
+<p>先看一个简单的例子</p>
+<pre class="language-java">
+<code>public class VarargusTest {
+	
+	public static void printArgs(int... is) {
+		for(int i : is) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		printArgs();
+		printArgs(1, 2);
+		printArgs(11, 22, 33, 44, 55);
+	}
+}</code>
+</pre>
+
+<p><i>运行结果:</i></p>
+<pre class="language-none">
+<code>
+1 2 
+11 22 33 44 55</code>
+</pre>
+
+<p><code class="inline_code">printArgs</code>方法中的省略号<code class="inline_code">...</code> 是java代码的一部分，表明这个方法可以接收任意数量的int类型的参数，可以是0个也可以是多个数量。可变参数可以当成是一维数组来处理，比如例子中可以用for循环来循环is</p>
+
+<h3>与数组参数的关系</h3>
+<p>将程序再改一下，添加一个方法来重载可变参数，看看是否可行</p>
+<pre class="language-java">
+<code>public class VarargusTest {
+	
+	public static void printArgs(int... is) {
+		for(int i : is) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+	}
+	
+	public static void printArgs(int[] is) {
+		for(int i : is) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		printArgs();
+		printArgs(1, 2);
+		printArgs(new int[]{11, 22, 33, 44, 55});
+	}
+}</code>
+</pre>
+<p>可以知道，这段代码是没法通过编译的，没法重载，再来一个例子:</p>
+
+<pre class="language-java">
+<code>public class VarargusTest {
+	
+	public static void printArgs(int... is) {
+		for(int i : is) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		printArgs(new int[]{11, 22, 33, 44, 55});
+	}
+}</code>
+</pre>
+<p><i>运行结果:</i></p>
+<pre class="language-none">
+<code>11 22 33 44 55 </code>
+</pre>
+
+<p>再看另外一个例子:</p>
+<pre class="language-java">
+<code>public class VarargusTest {
+	
+	public static void printArgs(int[] is) {
+		for(int i : is) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		printArgs(1, 2); // 编译错误
+	}
+}</code>
+</pre>
+<p>直接编译错误了，可以看出来，可变参数是兼容数组类参数的，但是数组类参数却无法兼容可变参数</p>
+
+<h3>可变参数的位置</h3>
+<p>当方法有多个参数的时候，可变参数需要放在最后位置上</p>
+<pre class="language-java">
+<code>public static void printArgs(int value, int... is) {
+		// 代码
+}
+	
+public static void printArgs(int... is, int... is) { // 编辑错误
+	// 代码
+}</code>
+</pre>
+<p>同样的道理，一个方法只能申明一个可变参数，如果有两个或两个以上的可变参数，必然有一个不能在最后一个位置，同样会编译错误</p>
+
+<h3>优先级</h3>
+<p>我们再看下面这段代码:</p>
+<pre class="language-java">
+<code>public class VarargusTest {
+	
+	public static void printArgs(int... is) {
+		System.out.println("printArgs(int...)");
+	}
+	
+	public static void printArgs(int a, int b) {
+		System.out.println("printArgs(int, int)");
+	}
+
+	public static void main(String[] args) {
+		printArgs();
+		printArgs(1, 2);
+		printArgs(11, 22, 33);
+	}
+}</code>
+</pre>
+<p><i>运行结果:</i></p>
+<pre class="language-none">
+<code>printArgs(int...)
+printArgs(int, int)
+printArgs(int...)</code>
+</pre>
+
+<h3>总结</h3>
+
+<ul><li>可变参数只能出现在参数列表的最后</li>
+<li>一个方法最多有一个可变参数</li>
+<li>声明可变参数时候的省略号... 位于变量类型和变量名之间，前后有无空格都可以</li>
+<li>调用可变参数方法时，可变参数隐含创建一个数组，在方法体中一维数组的形式访问可变参数</li>
+<li>可变参数可以传递任意数量的参数个数，也可以是一个数组</li>
+<li>如果有能匹配定长的方法，那么优先匹配该方法，还有不定参数的那个重载方法是最后被选中的</li>
+</ul>
+<p>我们知道java中的main方法的声明是这样的：</p>
+<pre class="language-java">
+<code>public class VarargusTest {
+
+	public static void main(String[] args) {
+		System.out.println("hello world");
+	}
+}</code>
+</pre>
+
+<p>我们也可以写成这样的：</p>
+<pre class="language-java">
+<code>public class VarargusTest {
+
+	public static void main(String... args) {
+		System.out.println("hello world");
+	}
+}</code>
+</pre>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-02</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2017/02/10/express-mysql-ejs员工管理系统/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2017/01/17/ejs模版引擎/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

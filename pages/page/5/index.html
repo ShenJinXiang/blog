@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/" class="current">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/canvas/2017/03/14/绘制曲线/'>绘制曲线</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>在此之前我们都是使用canvas绘制线段组成一些图案，今天总结Canvas绘制曲线的一些接口</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-03-14</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/canvas/2017/03/09/绘制中国国旗/'>绘制中国国旗</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>对于前面几节了解以后，可以尝试做一些简单的图形了，比如咱们的国旗</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-03-09</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/canvas/2017/03/04/图形变换/'>图形变换</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>canvas中的图形变换，主要涉及到图形的偏移、旋转、缩放功能</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-03-04</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/canvas/2017/02/26/线条的属性/'>线条的属性</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>上节中，介绍了绘制线段、连续线段、折线段、封闭图形的边框以及填充等，在实际绘图中，线条可以说是基本要素，现在我主要看看线条的一些属性</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-26</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/canvas/2017/02/17/Canvas绘制直线/'>Canvas绘制直线</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>Canvas绘图，先从最简单的开始，绘制直线，其实是直线段</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-17</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/canvas/2017/02/16/Canvas介绍/'>Canvas介绍</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>这里说的Canvas是HTML5中新增的一个标签元素，提供了一套接口，我们可以通过JavaScript脚本来调用这些接口，绘制图像，制作各种有意思的应用</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-16</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/nodejs/2017/02/10/express-mysql-ejs员工管理系统/'>express-mysql-ejs员工管理系统</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>之前介绍过express、ejs的使用，也介绍了nodejs操作mysql数据库，现在将这些整合起来，做一个简单的员工管理系统</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-10</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/nodejs'>nodejs</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/nodejs'>nodejs</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/java/2017/02/02/java可变参数/'>java可变参数</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>可变参数是java1.5增加的新特性，提供了可以用可变的参数数量调用的方法，适用于参数个数不确定，类型确定的情况，java把可变参数当做数组处理</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-02-02</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/nodejs/2017/01/17/ejs模版引擎/'>ejs模版引擎</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>express使用到现在的阶段，有一个很重要的问题还没解决，那就是mvc模式中的view层，之前我们只是简单的给浏览器发送一个字符串，或者拼接html字符串，对于简单的页面来说还可以实现，但是实际开发的时候显然是不合适的...</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-01-17</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/nodejs'>nodejs</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/nodejs'>nodejs</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h3>
+			<a href='/pages/posts/nodejs/2017/01/12/Nodejs总结：Express中间件/'>Nodejs总结：Express中间件</a>
+		</h3>
+	</div>
+	<div class='post-content'>
+		<p>在express中，中间件很重要，完全是由路由和中间件构成的一个web开发框架，本质上来说，一个express应用就是在调用各种中间件</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-01-12</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/nodejs'>nodejs</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/nodejs'>nodejs</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/page/4" class="btn">
+		<i class="baseline"></i>
+		上一页
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/page/6" class="btn">
+		<i class="baseline"></i>
+		下一页
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/redis/2018/06/20/Redis 安装/'>Redis 安装</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p>
+<p>Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库。这里开始对redis进行一些总结。</p>
+
+<h3>优势</h3>
+<ul><li>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s</li>
+<li>丰富的数据类型 – Redis支持二进制案例的 <code class="inline_code">Strings</code>, <code class="inline_code">Lists</code>, <code class="inline_code">Hashes</code>, <code class="inline_code">Sets</code> 及 <code class="inline_code">Ordered Sets</code> 数据类型操作</li>
+<li>原子 – Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行</li>
+<li>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性</li>
+</ul>
+<h3>安装</h3>
+<p>访问Redis官网，下载最新版安装包，目前是<code class="inline_code">redis-4.0.9.tar.gz</code>，解压文件</p>
+<pre class="language-none">
+<code>$ tar -zxf redis-4.0.9.tar.gz</code>
+</pre>
+
+<p>编译安装</p>
+<pre class="language-none">
+<code>$ cd redis-4.0.9
+$ make </code>
+</pre>
+<p>编译完成之后，还需要输入<code class="inline_code">make install</code>进行构建，会生成Redis的5个二进制文件，指定生成的文件位置：</p>
+<pre class="language-none">
+<code>$ make PREFIX=/usr/local/redis install
+$ cd /usr/local/redis/bin
+$ ls
+redis-benchmark redis-check-rdb redis-sentinel
+redis-check-aof redis-cli       redis-server</code>
+</pre>
+
+<p>文件说明：</p>
+<ul><li>redis-server: Redis服务器</li>
+<li>redis-cli: Redis命令行客户端</li>
+<li>redis-benchmark: Redis性能测试工具</li>
+<li>redis-check-aof: AOF文件修复工具</li>
+<li>redis-check-rdb: RDB文件检查工具</li>
+</ul>
+<h3>启动</h3>
+<p>在Redis的安装目录中有<code class="inline_code">redis.conf</code>配置文件，将其复制到<code class="inline_code">/etc/redis</code>目录下。通过<code class="inline_code">redis-server</code>启动服务</p>
+<pre class="language-none">
+<code>$ /usr/local/redis/bin/redis-server /etc/redis/redis.conf
+2800:C 21 Jun 22:53:09.560 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+2800:C 21 Jun 22:53:09.560 # Redis version=4.0.9, bits=64, commit=00000000, modified=0, pid=2800, just started
+2800:C 21 Jun 22:53:09.560 # Configuration loaded
+2800:M 21 Jun 22:53:09.562 * Increased maximum number of open files to 10032 (it was originally set to 256).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 4.0.9 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 2800
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+2800:M 21 Jun 22:53:09.563 # Server initialized
+2800:M 21 Jun 22:53:09.563 * DB loaded from disk: 0.000 seconds
+2800:M 21 Jun 22:53:09.563 * Ready to accept connections</code>
+</pre>
+<p>此时，rendis已经启动了，但当我们关闭命令窗口时，<code class="inline_code">redis-server</code>程序也结束了，可以将Redis设置为守护进程的方式进行启动</p>
+
+<p>在<code class="inline_code">redis.conf</code>文件中，找到<code class="inline_code">daemonize</code>，将<code class="inline_code">no</code>改成<code class="inline_code">yes</code></p>
+<pre class="language-none">
+<code>################################# GENERAL #####################################
+
+# By default Redis does not run as a daemon. Use 'yes' if you need it.
+# Note that Redis will write a pid file in /var/run/redis.pid when daemonized.
+daemonize yes</code>
+</pre>
+
+<p>启动以后通过如下命令查看Redis服务是否启动：</p>
+<pre class="language-none">
+<code>$ ps -ef | grep redis</code>
+</pre>
+
+<p>通过客户端工具<code class="inline_code">redis-cli</code>进入客户端连接Redis</p>
+<pre class="language-none">
+<code>$ redis-cli 
+127.0.0.1:6379&gt; ping
+PONG
+127.0.0.1:6379&gt; </code>
+</pre>
+
+<h3>关闭</h3>
+<ul><li>redis-cli shutdown：安全关闭，但是只适用于没有配置密码的场景</li>
+<li>kill -9 pid：强制关闭，可能会造成Redis内存数据丢失</li>
+</ul></p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-06-20</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/redis'>redis</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/redis'>redis</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/06/21/Redis 配置/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2018/05/06/Java定时任务Timer/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

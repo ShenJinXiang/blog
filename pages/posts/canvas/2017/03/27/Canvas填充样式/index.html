@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/canvas/2017/03/27/Canvas填充样式/'>Canvas填充样式</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>这一节主要说两个属性，<code class="inline_code">fillStyle</code>和<code class="inline_code">strokeStyle</code>，在此之前，设置这两个属性的值，都是一个表示颜色的字符串，但是这两属性的值不仅仅可以是个颜色，如果只可以设置颜色的话，属性名称就应该叫<code class="inline_code">fillColor</code>和<code class="inline_code">strokeColor</code></p>
+
+<p>实际上这两个属性的值可以是任意的css中接受的表示颜色的字符串以外，还可以是表示渐变颜色的CanvasGradient对象以及基于图片的CanvasPattern对象</p>
+
+<h3>线性渐变</h3>
+<p>关于线性渐变需要引入两个方法：</p>
+
+<blockquote><p>CanvasRenderingContext2D.createLinearGradient(x0, y0, x1, y1)</p>
+<p>CanvasGradient.addColorStop(stop, color)</p>
+</blockquote>
+<p>CanvasRenderingContext2D的<code class="inline_code">createLinearGradient()</code>生成并返回一个新的CanvasGradient对象，表示颜色重起点<code class="inline_code">(x0, y0)</code>到终点<code class="inline_code">(x1, y1)</code>之间的线性渐变，这个方法并没有指定渐变的颜色</p>
+
+<p>要指定颜色，需要使用返回对象的<code class="inline_code">addColorStop()</code>方法，<code class="inline_code">addColorStop()</code>方法用于定义一个渐变中的固定颜色，参数<code class="inline_code">color</code>的值为任意css可以接收的表示颜色的字符串。参数<code class="inline_code">stop</code>是<code class="inline_code">0.0 ~ 1.0</code>之间的一个浮点数，对于渐变的起点到终点的位置，值为<code class="inline_code">0</code>表示起点，值为<code class="inline_code">1</code>表示终点</p>
+
+<p>当设置好颜色以后将这个CanvasGradient对象赋值给<code class="inline_code">fillStyle</code>或<code class="inline_code">strokeStyle</code>属性，当调用对应的<code class="inline_code">fill()</code>方法和 <code class="inline_code">stroke()</code>方法时，即实现渐变效果，代码：</p>
+<pre class="language-javascript">
+<code>(function () {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	let linearGrad = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+	linearGrad.addColorStop(0, '#fff');
+	linearGrad.addColorStop(1, '#000');
+	context.fillStyle = linearGrad;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/27/001.html' width='100%' height='440px' frameborder='0' ></iframe>
+
+<p>这个例子中通过<code class="inline_code">createLinearGradient()</code>创建一个线性渐变对象，从<code class="inline_code">(0, 0)</code>点白色渐变到<code class="inline_code">(400, 400)</code>黑色，最后填充一个矩形区域（整个canvas区域）</p>
+
+<p>设置线性渐变颜色的<code class="inline_code">addColorStop()</code>方法可以添加很多个，代码：</p>
+
+<pre class="language-javascript">
+<code>(function () {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	let linearGrad = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+	linearGrad.addColorStop(0, 'white');
+	linearGrad.addColorStop(0.25, 'yellow');
+	linearGrad.addColorStop(0.5, 'green');
+	linearGrad.addColorStop(0.75, 'blue');
+	linearGrad.addColorStop(1, 'black');
+	context.fillStyle = linearGrad;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/27/002.html' width='100%' height='440px' frameborder='0' ></iframe>
+
+<p>再看一个例子：</p>
+
+<pre class="language-javascript">
+<code>(function () {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 300;
+	let context = canvas.getContext('2d');
+
+	let linearGrad = context.createLinearGradient(0, 0, canvas.width, 0);
+	linearGrad.addColorStop(0, 'red');
+	linearGrad.addColorStop(0.5, 'red');
+	linearGrad.addColorStop(0.5 + Number.MIN_VALUE, 'blue');
+	linearGrad.addColorStop(1, 'blue');
+	context.fillStyle = linearGrad;
+	context.fillRect(100, 110, 400, 80);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/27/003.html' width='100%' height='340px' frameborder='0' ></iframe>
+
+<p>创建线性渐变<code class="inline_code">createLinearGradient()</code>方法参数的两个坐标点，与填充时的坐标点是没有任何关系的，实际开发的时候可以灵活应用</p>
+
+<h3>径向渐变</h3>
+<p>有了线性渐变的基础，理解和使用径向渐变就很简单了，线性渐变是通过设置两个坐标点，在这两个坐标点之间设置不同颜色，依次渐变。径向渐变则用于绘制放射状的渐变图像，方法：</p>
+
+<blockquote><p>CanvasRenderingContext2D.createRadialGradient(x0,y0,r0,x1,y1,r1)</p>
+</blockquote>
+<p><b>参数说明</b></p>
+
+<ul><li>x0 - 渐变开始圆的的圆心x坐标值</li>
+<li>y0 - 渐变开始圆的圆心的y坐标值</li>
+<li>r0 - 渐变开始圆的半径值</li>
+<li>x1 - 渐变结束圆的的圆心<code class="inline_code">x</code>坐标值</li>
+<li>y1 - 渐变结束圆的圆心的<code class="inline_code">y</code>坐标值</li>
+<li>r1 - 渐变结束圆的半径值</li>
+</ul>
+<p>通过<code class="inline_code">createRadialGradient()</code>方法创建CanvasGradient对象，然后调用<code class="inline_code">addColorStop()</code>方法来设置不同的颜色节点，代码：</p>
+
+<pre class="language-javascript">
+<code>(function () {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 400;
+	canvas.height = 400;
+	let context = canvas.getContext('2d');
+
+	let canvasGradient = context.createRadialGradient(200, 200, 25, 200, 200, 150);
+	canvasGradient.addColorStop(0, 'red');
+	canvasGradient.addColorStop(1, 'white');
+	context.fillStyle = canvasGradient;
+	context.fillRect(100, 100, 200, 200);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/27/004.html' width='100%' height='440px' frameborder='0' ></iframe>
+
+<h3>使用画布、图片或者video</h3>
+<p>线性渐变和径向渐变依然是通过设置一些颜色值，来设置填充的样式。实际上canvas中的填充样式不仅可以通过颜色设置，也可以是另外一个canvas、图片甚至是一个video</p>
+
+<p>基本流程是这样的：通过调用<code class="inline_code">createPattern()</code>方法，返回CanvasPattern对象，将样式(fillStyle或strokeStyle)的值设置成该对象，然后执行填充</p>
+
+<blockquote><p>CanvasRenderingContext2D.createPattern(Element image, string repetition)</p>
+</blockquote>
+<p>其中参数image可以是一个image、canvas或video对象，参数repetition定义图片如何平铺</p>
+
+<p><b>repetition的值:</b></p>
+
+<ul><li>'repeat' - 默认值，在x轴方向和y轴方向都平铺图像</li>
+<li>'repeat-x' - 只在x轴方向平铺图像</li>
+<li>'repeat-y' - 只在y轴方向平铺图像</li>
+<li>'no-repeat' - 不平铺图像，图像只绘制一次</li>
+</ul>
+<h4>使用图片填充</h4>
+<p>首先当然需要一张图片，这里我使用了下面的图片：</p>
+
+<img alt=""  src="/static/canvas/2017/03/27/0001.png">
+
+<p>这张图片的宽高为300像素，且如果平铺的话，左右上下都可以连续起来，下面是canvas中使用该图片的代码：</p>
+
+<pre class="language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 600;
+	let context = canvas.getContext('2d');
+
+	let img = new Image();
+	img.src = './0001.png';
+	img.onload = function () {
+		context.fillStyle = context.createPattern(img, 'repeat');
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	};
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/27/005.html' width='100%' height='640px' frameborder='0' ></iframe>
+
+<p>设置img的src属性为外部图片的路径，使用<code class="inline_code">createPattern()</code>创建CanvasPattern对象，将返回值赋值给<code class="inline_code">fillStyll</code>属性，最后填充整个canvas画布</p>
+
+<h4>使用canvas填充</h4>
+<p>使用canvas填充很简单了，再创建一个canvas绘制一些图案，然后调用即可，代码：</p>
+
+<pre class="language-javascript">
+<code>(function() {
+	let canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 600;
+	let context = canvas.getContext('2d');
+	context.fillStyle = context.createPattern(getStarCanvas(), 'repeat');
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	
+	function getStarCanvas() {
+		let starCanvas = document.createElement('canvas');
+		starCanvas.width = 50;
+		starCanvas.height = 50;
+		let ctx = starCanvas.getContext('2d');
+
+		ctx.fillStyle = 'yellow';
+		ctx.fillRect(0, 0, starCanvas.width, starCanvas.height);
+		let r = 20;
+		ctx.beginPath();
+		ctx.fillStyle = 'red';
+		ctx.translate(starCanvas.width / 2, starCanvas.height / 2);
+		ctx.rotate(-Math.PI / 2);
+		for(let i = 0; i &lt; 5; i++) {
+			ctx.lineTo(Math.cos(4 * Math.PI / 5 * i) * r, Math.sin(4 * Math.PI / 5 * i) * r);
+		}
+		ctx.closePath();
+		ctx.restore();
+		ctx.fill();
+		return starCanvas;
+	}
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/03/27/006.html' width='100%' height='640px' frameborder='0' ></iframe>
+
+<p>这个例子中，使用<code class="inline_code">getStarCanvas()</code>方法创建一个canva对象，宽度和高度都为100像素，在这个小canvas中绘制了一个黄底红色的五角星，最后将这个小canvas返回，大canvas中将其作为<code class="inline_code">createPattern()</code>方法的参数调用，最后填充出了上图的效果</p>
+
+<h4>使用video填充</h4>
+<p>关于video的填充方法，其实很上面的两个例子是一样的，唯一的区别是需要用到video元素，指定video的src属性值为浏览器支持的视频文件地址，为了让画面动起来，可以使用<code class="inline_code">setInterval()</code>或<code class="inline_code">setTimeout()</code>方法重复调用即可，这里不做演示了 ^_^</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-03-27</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/04/01/Canvas文字渲染/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/03/14/绘制曲线/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

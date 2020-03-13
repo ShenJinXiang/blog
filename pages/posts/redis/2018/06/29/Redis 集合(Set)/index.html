@@ -1,0 +1,623 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/redis/2018/06/29/Redis 集合(Set)/'>Redis 集合(Set)</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>Redis 集合也是用来保存多个字符串元素的数据类型。和列表类型不一样，集合中不允许有重复元素，并且集合中的元素是无序的，不能通过索引下标获取元素。集合是通过哈希表实现的，所以添加、删除、查找的复杂度都是<code class="inline_code">O(1)</code>。</p>
+
+<h3>SADD KEY_NAME member [member ...]</h3>
+<p>将一个或多个成员元素加入到集合中，已经存在于集合的成员元素将被忽略。假如<code class="inline_code">KEY_NAME</code>不存在，则创建一个只包含添加的元素作成员的集合。</p>
+<p>返回被添加到集合中的新元素的数量，不包括被忽略的元素。当<code class="inline_code">KEY_NAME</code>不是集合类型时，返回一个错误。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SADD set1 a b c d
+(integer) 4
+127.0.0.1:6379&gt; SADD set1 a e
+(integer) 1</code>
+</pre>
+
+<h3>SMEMBERS KEY</h3>
+<p>获取集合中的所有元素</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "c"
+2) "b"
+3) "d"
+4) "a"
+5) "e"
+127.0.0.1:6379&gt; SADD set1 f
+(integer) 1
+127.0.0.1:6379&gt; SMEMBERS set1
+1) "b"
+2) "d"
+3) "a"
+4) "c"
+5) "e"
+6) "f"</code>
+</pre>
+
+<h3>SCARD KEY_NAME</h3>
+<p>获取集合中元素的个数，不会遍历每个元素，而是直接用Redis内部的变量。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SCARD set1
+(integer) 6
+127.0.0.1:6379&gt; SADD set1 g
+(integer) 1
+127.0.0.1:6379&gt; SCARD set1
+(integer) 7
+127.0.0.1:6379&gt; SADD set1 a
+(integer) 0
+127.0.0.1:6379&gt; SCARD set1
+(integer) 7</code>
+</pre>
+
+<h3>SISMEMBER KEY_NAME member</h3>
+<p>判断<code class="inline_code">member</code>元素是否是集合的成员，如果是集合中的成员返回<code class="inline_code">1</code>，如果不是集合中的成员，或者键不存在，返回<code class="inline_code">0</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "g"
+2) "b"
+3) "a"
+4) "c"
+5) "e"
+6) "f"
+7) "d"
+127.0.0.1:6379&gt; SISMEMBER set1 d
+(integer) 1
+127.0.0.1:6379&gt; SISMEMBER set1 x
+(integer) 0</code>
+</pre>
+
+<h3>SREM KEY_NAME member [member ...]</h3>
+<p>用于移除集合中的一个或多个成员元素，不存在的成员元素会被忽略。返回被成功移除的元素的数量，不存在的元素被忽略。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "g"
+2) "b"
+3) "a"
+4) "c"
+5) "e"
+6) "f"
+7) "d"
+127.0.0.1:6379&gt; SREM a x b y
+(integer) 0
+127.0.0.1:6379&gt; SREM set1 a b x y
+(integer) 2
+127.0.0.1:6379&gt; SMEMBERS set1
+1) "g"
+2) "c"
+3) "e"
+4) "f"
+5) "d"</code>
+</pre>
+
+<h3>SPOP KEY_NAME count</h3>
+<p>移除并返回集合中的<code class="inline_code">count</code>个随机元素。返回被移除的元素，当集合不存在或是空集时，返回<code class="inline_code">nil</code>。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "g"
+5) "c"
+127.0.0.1:6379&gt; SPOP set1 2
+1) "c"
+2) "e"
+127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "g"</code>
+</pre>
+
+<h3>SRANDMEMBER KEY_NAME count</h3>
+<p>随机从集合中返回<code class="inline_code">count</code>个元素。</p>
+<ul><li>如果<code class="inline_code">count</code>没写，默认为<code class="inline_code">1</code>。</li>
+<li>如果<code class="inline_code">count</code>为正数，且小于集合的元素个数，那么返回包含<code class="inline_code">count</code>个元素的数组，元素各不相同。</li>
+<li>如果<code class="inline_code">count</code>为正数，且大于等于集合的元素个数，那么返回整个集合。</li>
+<li>如果<code class="inline_code">count</code>为负数，且绝对值小于集合元素的个数，那么返回包含<code class="inline_code">count</code>的绝对值个元素，且各不相同。</li>
+<li>如果<code class="inline_code">count</code>为负数，且绝对值大于集合元素的个数，那么返回包含<code class="inline_code">count</code>的绝对值个元素，但是会有重复。</li>
+<li>与<code class="inline_code">SPOP</code>不同，<code class="inline_code">SRANDMEMBER</code>不会移除集合中的元素，只是获取值。</li>
+</ul>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "g"
+127.0.0.1:6379&gt; SRANDMEMBER set1 2
+1) "f"
+2) "d"
+127.0.0.1:6379&gt; SRANDMEMBER set1 5
+1) "f"
+2) "d"
+3) "g"
+127.0.0.1:6379&gt; SRANDMEMBER set1 0
+(empty list or set)
+127.0.0.1:6379&gt; SRANDMEMBER set1 -2
+1) "f"
+2) "g"
+127.0.0.1:6379&gt; SRANDMEMBER set1 -1
+1) "g"
+127.0.0.1:6379&gt; SRANDMEMBER set1 -5
+1) "f"
+2) "g"
+3) "d"
+4) "g"
+5) "d"</code>
+</pre>
+
+<h3>SINTER KEY_NAME [KEY_NAME ...]</h3>
+<p>返回给定所有给定集合的交集。不存在的集合被视为空集。 当给定集合当中有一个空集时，根据集合运算定律，结果也为空集。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SADD set1 a b c d e f g
+(integer) 4
+127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "g"
+6) "c"
+7) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+(empty list or set)
+127.0.0.1:6379&gt; SINTER set1 set2
+(empty list or set)
+127.0.0.1:6379&gt; SADD set2 a b c x y z
+(integer) 6
+127.0.0.1:6379&gt; SINTER set1 set2
+1) "b"
+2) "a"
+3) "c"</code>
+</pre>
+
+<h3>SUNION KEY_NAME [KEY_NAME ...]</h3>
+<p>返回所有给定集合的并集，不存在的集合视为空集。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "g"
+6) "c"
+7) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "b"
+2) "x"
+3) "z"
+4) "y"
+5) "a"
+6) "c"
+127.0.0.1:6379&gt; SUNION set1 set2
+ 1) "g"
+ 2) "a"
+ 3) "c"
+ 4) "f"
+ 5) "d"
+ 6) "y"
+ 7) "e"
+ 8) "x"
+ 9) "b"
+10) "z"
+127.0.0.1:6379&gt; SMEMBERS set3
+(empty list or set)
+127.0.0.1:6379&gt; SUNION set1 set3
+1) "b"
+2) "d"
+3) "f"
+4) "e"
+5) "g"
+6) "a"
+7) "c"</code>
+</pre>
+
+<h3>SDIFF KEY_NAME [KEY_NAME ...]</h3>
+<p>获取给定集合之间的差集，不存在的键将视为空集合。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "g"
+6) "c"
+7) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "b"
+2) "x"
+3) "z"
+4) "y"
+5) "a"
+6) "c"
+127.0.0.1:6379&gt; SDIFF set1 set2
+1) "f"
+2) "d"
+3) "g"
+4) "e"
+127.0.0.1:6379&gt; SDIFF set2 set1
+1) "x"
+2) "y"
+3) "z"
+127.0.0.1:6379&gt; SMEMBERS set3
+(empty list or set)
+127.0.0.1:6379&gt; SDIFF set1 set3
+1) "b"
+2) "d"
+3) "f"
+4) "e"
+5) "g"
+6) "a"
+7) "c"
+127.0.0.1:6379&gt; SDIFF set3 set1
+(empty list or set)</code>
+</pre>
+
+<h3>SINTERSTORE DESTINATION_KEY KEY_NAME [KEY_NAME ...]</h3>
+<p>给定集合之间的交集存储在指定的集合中。如果指定的集合已经存在，则将其覆盖，返回交集成员数量。相当于先执行<code class="inline_code">SINTER</code>命令，然后将结果保存到指定集合<code class="inline_code">DESTINATION_KEY</code>中。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set2
+1) "x"
+2) "b"
+3) "z"
+4) "y"
+5) "a"
+6) "c"
+127.0.0.1:6379&gt; SINTER set1 set2
+1) "b"
+2) "a"
+3) "c"
+127.0.0.1:6379&gt; SINTERSTORE set_12_inter set1 set2
+(integer) 3
+127.0.0.1:6379&gt; SMEMBERS set_12_inter
+1) "c"
+2) "a"
+3) "b"</code>
+</pre>
+<p>如果要存储的集合以及存在：</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SADD set12 1 2 3
+(integer) 3
+127.0.0.1:6379&gt; SMEMBERS set12
+1) "1"
+2) "2"
+3) "3"
+127.0.0.1:6379&gt; SINTERSTORE set12 set1 set2
+(integer) 3
+127.0.0.1:6379&gt; SMEMBERS set12
+1) "c"
+2) "a"
+3) "b"</code>
+</pre>
+
+<h3>SUNIONSTORE DESTINATION_KEY KEY_NAME [KEY_NAME ...]</h3>
+<p>类似执行<code class="inline_code">SUNION</code>命令，执行完成以后将结果存储到<code class="inline_code">DESTINATION_KEY</code>集合中，如果<code class="inline_code">DESTINATION_KEY</code>已经存在，就将其覆盖。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "g"
+6) "c"
+7) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "x"
+2) "b"
+3) "z"
+4) "y"
+5) "a"
+6) "c"
+127.0.0.1:6379&gt; SUNION set1 set2
+ 1) "a"
+ 2) "c"
+ 3) "f"
+ 4) "d"
+ 5) "y"
+ 6) "g"
+ 7) "e"
+ 8) "x"
+ 9) "b"
+10) "z"
+127.0.0.1:6379&gt; SUNIONSTORE set_12_union set1 set2
+(integer) 10
+127.0.0.1:6379&gt; SMEMBERS set_12_union
+ 1) "a"
+ 2) "c"
+ 3) "f"
+ 4) "d"
+ 5) "y"
+ 6) "g"
+ 7) "e"
+ 8) "x"
+ 9) "b"
+10) "z"</code>
+</pre>
+
+<h3>SDIFFSTORE DESTINATION_KEY KEY_NAME [KEY_NAME ...]</h3>
+<p>类似执行<code class="inline_code">SDIFF</code>命令，执行完成以后将结果存储到<code class="inline_code">DESTINATION_KEY</code>集合中，如果<code class="inline_code">DESTINATION_KEY</code>已经存在，就将其覆盖。</p>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "g"
+6) "c"
+7) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "x"
+2) "b"
+3) "z"
+4) "y"
+5) "a"
+6) "c"
+127.0.0.1:6379&gt; SDIFF set1 set2
+1) "f"
+2) "d"
+3) "g"
+4) "e"
+127.0.0.1:6379&gt; SDIFFSTORE set_12_diff set1 set2
+(integer) 4
+127.0.0.1:6379&gt; SMEMBERS set_12_diff
+1) "f"
+2) "d"
+3) "g"
+4) "e"
+127.0.0.1:6379&gt; SDIFF set2 set1
+1) "x"
+2) "y"
+3) "z"
+127.0.0.1:6379&gt; SDIFFSTORE set_21_diff set2 set1
+(integer) 3
+127.0.0.1:6379&gt; SMEMBERS set_21_diff
+1) "x"
+2) "y"
+3) "z"</code>
+</pre>
+
+<h3>SMOVE SOURCE_KEY DESTINATION_KEY member</h3>
+<p>指定成员<code class="inline_code">member</code>元素从<code class="inline_code">SOURCE_KEY</code>集合移动到<code class="inline_code">DESTINATION_KEY</code>集合。</p>
+<ul><li><code class="inline_code">SMOVE</code>是原子性操作。</li>
+<li>如果<code class="inline_code">SOURCE_KEY</code>集合不存在或不包含指定的<code class="inline_code">member</code>元素，则<code class="inline_code">SMOVE</code>命令不执行任何操作，仅返回<code class="inline_code">0</code>。否则，<code class="inline_code">member</code>元素从<code class="inline_code">SOURCE_KEY</code>集合中被移除，并添加到<code class="inline_code">DESTINATION_KEY</code>集合中去。</li>
+<li>当<code class="inline_code">DESTINATION_KEY</code>集合已经包含<code class="inline_code">member</code>元素时，<code class="inline_code">SMOVE</code>命令只是简单地将<code class="inline_code">SOURCE_KEY</code>集合中的<code class="inline_code">member</code>元素删除。</li>
+<li>当<code class="inline_code">SOURCE_KEY</code>或<code class="inline_code">DESTINATION_KEY</code>不是集合类型时，返回一个错误。</li>
+<li>如果成员元素被成功移除，返回 1 。如果成员元素不是<code class="inline_code">SOURCE_KEY</code>集合的成员，并且没有任何操作对<code class="inline_code">DESTINATION_KEY</code>集合执行，那么返回<code class="inline_code">0</code>。</li>
+</ul>
+<pre class="language-none">
+<code>127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "g"
+6) "c"
+7) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "x"
+2) "b"
+3) "z"
+4) "y"
+5) "a"
+6) "c"
+127.0.0.1:6379&gt; SMOVE set1 set2 g
+(integer) 1
+127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "c"
+6) "a"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "x"
+2) "b"
+3) "z"
+4) "y"
+5) "g"
+6) "a"
+7) "c"
+127.0.0.1:6379&gt; SMOVE set1 set2 a
+(integer) 1
+127.0.0.1:6379&gt; SMEMBERS set1
+1) "d"
+2) "f"
+3) "e"
+4) "b"
+5) "c"
+127.0.0.1:6379&gt; SMEMBERS set2
+1) "x"
+2) "b"
+3) "z"
+4) "y"
+5) "g"
+6) "a"
+7) "c"</code>
+</pre>
+
+<h3>集合命令时间复杂度</h3>
+<table>
+	<tr>
+		<th width='10%'>操作类型</th>
+		<th width='45%'>命令</th>
+		<th width='45%'>复杂度</th>
+	</tr>
+	<tr>
+		<td rowspan='7'>集合内操作</td>
+		<td>SADD KEY_NAME member [member ...]</td>
+		<td><i>O</i> (k)，k是元素个数</td>
+	</tr>
+	<tr>
+		<td>SREM KEY_NAME member [member ...]</td>
+		<td><i>O</i> (k)，k是元素个数</td>
+	</tr>
+	<tr>
+		<td>SCARD KEY_NAME</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>SISMEMBER KEY_NAME member </td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>SRANDMEMBER KEY_NAME count</td>
+		<td><i>O</i> (count)</td>
+	</tr>
+	<tr>
+		<td>SPOP KEY_NAME count</td>
+		<td><i>O</i> (1)</td>
+	</tr>
+	<tr>
+		<td>SMEMBERS KEY</td>
+		<td><i>O</i> (n)，n是元素个数</td>
+	</tr>
+	<tr>
+		<td rowspan='6'>集合间操作</td>
+		<td>SINTER KEY_NAME [KEY_NAME ...]</td>
+		<td><i>O</i> (m*k)，k是多个集合中元素最少的个数，m是键个数</td>
+	</tr>
+	<tr>
+		<td>SINTERSTORE DESTINATION_KEY KEY_NAME [KEY_NAME ...]</td>
+		<td><i>O</i> (m*k)，k是多个集合中元素最少的个数，m是键个数</td>
+	</tr>
+	<tr>
+		<td>SUNION KEY_NAME [KEY_NAME ...] </td>
+		<td><i>O</i> (k)，k是多个集合中元素个数之和</td>
+	</tr>
+	<tr>
+		<td>SUNIONSTORE DESTINATION_KEY KEY_NAME [KEY_NAME ...]</td>
+		<td><i>O</i> (k)，k是多个集合中元素个数之和</td>
+	</tr>
+	<tr>
+		<td>SDIFF KEY_NAME [KEY_NAME ...]</td>
+		<td><i>O</i> (k)，k是多个集合中元素个数之和</td>
+	</tr>
+	<tr>
+		<td>SDIFFSTORE DESTINATION_KEY KEY_NAME [KEY_NAME ...]</td>
+		<td><i>O</i> (k)，k是多个集合中元素个数之和</td>
+	</tr>
+</table>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-06-29</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/redis'>redis</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/redis'>redis</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/07/01/Redis 有序集合(sorted Set)/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/06/27/Redis 列表(List)/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

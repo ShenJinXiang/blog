@@ -1,0 +1,544 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2017/05/21/组合模式/'>组合模式</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>树形结构在软件中随处可见，例如操作系统中的目录结构、应用软件中的菜单、办公系统中的公司组织结构等等。组合模式就是用来处理树形结构的一种模式，组合模式定义了一个抽象构件类，它既可以代表叶子，又可以代表容器，而客户端针对该抽象构件类进行编程，无须知道它到底表示的是叶子还是容器，可以对其进行统一处理。同时容器对象与抽象构件类之间还建立一个聚合关联关系，在容器对象中既可以包含叶子，也可以包含容器，以此实现递归组合，形成一个树形结构</p>
+
+<h3>定义</h3>
+<p>组合多个对象形成树形结构以表示具有“整体—部分”关系的层次结构。组合模式对单个对象（即叶子对象）和组合对象（即容器对象）的使用具有一致性</p>
+
+<h3>角色信息</h3>
+<img src='/images/java/2017/05/21/001.png' width='800px' style='display:block; margin:0px auto;'>
+<ol><li>抽象构件（Component）：它可以是接口或抽象类，为叶子构件和容器构件对象声明接口，在该角色中可以包含所有子类共有行为的声明和实现。在抽象构件中定义了访问及管理它的子构件的方法，如增加子构件、删除子构件、获取子构件等</li>
+<li>叶子构件（Leaf）：它在组合结构中表示叶子节点对象，叶子节点没有子节点，它实现了在抽象构件中定义的行为。对于那些访问及管理子构件的方法，可以通过异常等方式进行处理</li>
+<li>容器构件（Composite）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法</li>
+</ol>
+<h3>代码实现</h3>
+
+<p>抽象构件：</p>
+<pre class="language-java">
+<code>public interface Component {
+
+    /**
+     * 增加成员
+     * @param component
+     */
+    void add(Component component);
+
+    /**
+     * 删除成员
+     * @param component
+     */
+    void remove(Component component);
+
+    /**
+     * 获取成员
+     * @param index
+     * @return
+     */
+    Component getChild(int index);
+
+    /**
+     * 业务方法
+     */
+    void operation();
+}</code>
+</pre>
+<p>一般将抽象构件类设计为接口或抽象类，将所有子类共有方法的声明和实现放在抽象构件类中。对于客户端而言，将针对抽象构件编程，而无须关心其具体子类是容器构件还是叶子构件</p>
+
+<p>叶子构件：</p>
+<pre class="language-java">
+<code>public class Leaf implements Component {
+
+    @Override
+    public void add(Component component) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public void remove(Component component) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public Component getChild(int index) {
+        System.out.println("不支持该方法");
+        return null;
+    }
+
+    @Override
+    public void operation() {
+        System.out.println("这里是叶子节点");
+    }
+}</code>
+</pre>
+
+<p>容器构件：</p>
+<pre class="language-java">
+<code>public class Composite implements Component {
+
+    private List&lt;Component&gt; list = new ArrayList&lt;Component&gt;();
+
+    @Override
+    public void add(Component component) {
+        list.add(component);
+    }
+
+    @Override
+    public void remove(Component component) {
+        list.remove(component);
+    }
+
+    @Override
+    public Component getChild(int index) {
+        if (index &gt;= 0 &&index &lt; list.size()) {
+            return list.get(index);
+        }
+        return null;
+    }
+
+    @Override
+    public void operation() {
+        for(Component component : list) {
+            component.operation();
+        }
+    }
+}</code>
+</pre>
+
+<h3>例子</h3>
+<p>就拿文件系统为一个例子吧，通过组合模式，显示文件以及文件夹的信息，包含文件名称和大小</p>
+
+<p>抽象文件类：</p>
+<pre class="language-java">
+<code>/**
+ * 抽象文件构件
+ */
+public interface AbstractFile {
+
+    /**
+     * 添加文件或文件夹
+     * @param abstractFile
+     */
+    void add(AbstractFile abstractFile);
+
+    /**
+     * 移除文件或文件夹
+     * @param abstractFile
+     */
+    void remore(AbstractFile abstractFile);
+
+    /**
+     * 获取下级文件
+     * @param index
+     * @return
+     */
+    AbstractFile getChild(int index);
+
+    /**
+     * 显示文件信息
+     */
+    void display();
+
+    /**
+     * 获取文件大小
+     * @return
+     */
+    long getLength();
+}</code>
+</pre>
+
+<p>叶子构件，图片文件：</p>
+<pre class="language-java">
+<code>/**
+ * 图片文件
+ */
+public class ImageFile implements AbstractFile {
+
+    private String name;
+
+    private long length;
+
+    public ImageFile(String name, long length) {
+        this.name = name;
+        this.length = length;
+    }
+
+    @Override
+    public void add(AbstractFile abstractFile) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public void remore(AbstractFile abstractFile) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public AbstractFile getChild(int index) {
+        System.out.println("不支持该方法");
+        return null;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("图片文件：" + this.name + "\t图片大小：" + this.length);
+    }
+
+    @Override
+    public long getLength() {
+        return this.length;
+    }
+}</code>
+</pre>
+
+<p>叶子构件，文本文件</p>
+<pre class="language-java">
+<code>/**
+ * 文本文件
+ */
+public class TextFile implements AbstractFile {
+
+    private String name;
+
+    private long length;
+
+    public TextFile(String name, long length) {
+        this.name = name;
+        this.length = length;
+    }
+
+    @Override
+    public void add(AbstractFile abstractFile) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public void remore(AbstractFile abstractFile) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public AbstractFile getChild(int index) {
+        System.out.println("不支持该方法");
+        return null;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("文本文件：" + this.name + "\t文本大小：" + this.length);
+    }
+
+    @Override
+    public long getLength() {
+        return this.length;
+    }
+}</code>
+</pre>
+
+<p>叶子构件，视频文件：</p>
+<pre class="language-java">
+<code>/**
+ * 视频文件
+ */
+public class VideoFile implements AbstractFile {
+
+    private String name;
+
+    private long length;
+
+    public VideoFile(String name, long length) {
+        this.name = name;
+        this.length = length;
+    }
+
+    @Override
+    public void add(AbstractFile abstractFile) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public void remore(AbstractFile abstractFile) {
+        System.out.println("不支持该方法");
+    }
+
+    @Override
+    public AbstractFile getChild(int index) {
+        System.out.println("不支持该方法");
+        return null;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("视频文件：" + this.name + "\t视频大小：" + this.length);
+    }
+
+    @Override
+    public long getLength() {
+        return this.length;
+    }
+}</code>
+</pre>
+
+<p>容器构件，文件夹：</p>
+<pre class="language-java">
+<code>/**
+ * 文件夹
+ */
+public class Folder implements AbstractFile {
+
+    private String name;
+
+    private List&lt;AbstractFile&gt; list = new ArrayList&lt;AbstractFile&gt;();
+
+    public Folder(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void add(AbstractFile abstractFile) {
+        list.add(abstractFile);
+    }
+
+    @Override
+    public void remore(AbstractFile abstractFile) {
+        list.remove(abstractFile);
+    }
+
+    @Override
+    public AbstractFile getChild(int index) {
+        if (index &gt;= 0 && index &lt; list.size()) {
+            return list.get(index);
+        }
+        return null;
+    }
+
+    @Override
+    public void display() {
+        for (AbstractFile abstractFile : list) {
+            abstractFile.display();
+        }
+        System.out.println("文件夹：" + this.name + "\t文件夹大小：" + getLength());
+        System.out.println();
+    }
+
+    @Override
+    public long getLength() {
+        long length = 0;
+        for (AbstractFile abstractFile : list) {
+            length += abstractFile.getLength();
+        }
+        return length;
+    }
+}</code>
+</pre>
+
+<p>客户端测试代码：</p>
+<pre class="language-java">
+<code>public class Client {
+
+    public static void main(String[] args) {
+        AbstractFile imgFile1, imgFile2, imgFile3,
+                textFile1, textFile2, textFile3, textFile4, textFile5,
+                videoFile1, videoFile2,
+                rootFolder, imgFolder, textFolder, videoFolder;
+
+        rootFolder = new Folder("我的资料");
+        imgFolder = new Folder("图片文件");
+        textFolder = new Folder("文本文件");
+        videoFolder = new Folder("视频文件");
+
+        textFile1 = new TextFile("common.js", 1);
+        textFile2 = new TextFile("style.css", 2);
+        textFile3 = new TextFile("Hello.java", 3);
+        textFile4 = new TextFile("hello.c", 4);
+        textFile5 = new TextFile("index.html", 5);
+
+        imgFile1 = new ImageFile("index.png", 1);
+        imgFile2 = new ImageFile("index.gif", 2);
+        imgFile3 = new ImageFile("index.jpg", 3);
+
+        videoFile1 = new VideoFile("武林外传.rmvb", 10000);
+        videoFile2 = new VideoFile("功夫熊猫.mp4", 20000);
+
+        imgFolder.add(imgFile1);
+        imgFolder.add(imgFile2);
+        imgFolder.add(imgFile3);
+
+        textFolder.add(textFile1);
+        textFolder.add(textFile2);
+        textFolder.add(textFile3);
+        textFolder.add(textFile4);
+        textFolder.add(textFile5);
+
+        videoFolder.add(videoFile1);
+        videoFolder.add(videoFile2);
+
+        rootFolder.add(imgFolder);
+        rootFolder.add(textFolder);
+        rootFolder.add(videoFolder);
+
+        rootFolder.display();
+    }
+}</code>
+</pre>
+
+<p><i>运行测试代码：</i></p>
+<pre class="language-none">
+<code>图片文件：index.png	图片大小：1
+图片文件：index.gif	图片大小：2
+图片文件：index.jpg	图片大小：3
+文件夹：图片文件	文件夹大小：6
+
+文本文件：common.js	文本大小：1
+文本文件：style.css	文本大小：2
+文本文件：Hello.java	文本大小：3
+文本文件：hello.c	文本大小：4
+文本文件：index.html	文本大小：5
+文件夹：文本文件	文件夹大小：15
+
+视频文件：武林外传.rmvb	视频大小：10000
+视频文件：功夫熊猫.mp4	视频大小：20000
+文件夹：视频文件	文件夹大小：30000
+
+文件夹：我的资料	文件夹大小：30021</code>
+</pre>
+
+<h3>主要优点</h3>
+<p>组合模式使用面向对象的思想来实现树形结构的构建与处理，描述了如何将容器对象和叶子对象进行递归组合，实现简单，灵活性好</p>
+<ol><li>组合模式可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次，它让客户端忽略了层次的差异，方便对整个层次结构进行控制</li>
+<li>客户端可以一致地使用一个组合结构或其中单个对象，不必关心处理的是单个对象还是整个组合结构，简化了客户端代码</li>
+<li>在组合模式中增加新的容器构件和叶子构件都很方便，无须对现有类库进行任何修改，符合“开闭原则”</li>
+<li>组合模式为树形结构的面向对象实现提供了一种灵活的解决方案，通过叶子对象和容器对象的递归组合，可以形成复杂的树形结构，但对树形结构的控制却非常简单</li>
+</ol>
+<h3>适用场景</h3>
+<ol><li>在具有整体和部分的层次结构中，希望通过一种方式忽略整体与部分的差异，客户端可以一致地对待它们</li>
+<li>在一个使用面向对象语言开发的系统中需要处理一个树形结构</li>
+<li>在一个系统中能够分离出叶子对象和容器对象，而且它们的类型不固定，需要增加一些新的类型</li>
+</ol></p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-05-21</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a> <a href='/pages/archives/tags/设计模式'>设计模式</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2017/05/23/命令模式/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2017/05/19/抽象工厂模式/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

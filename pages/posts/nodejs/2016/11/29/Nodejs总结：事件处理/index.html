@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/nodejs/2016/11/29/Nodejs总结：事件处理/'>Nodejs总结：事件处理</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>events模块是Node.js最重要的模块，可以说是Node.js事件编程的基石</p>
+<h3>一个简单的例子</h3>
+<pre class='line-numbers language-javascript'>
+<code>// eventTest.js
+var events = require('events');
+var o = new events.EventEmitter();
+
+o.on('event1', function () {
+    console.log('触发事件了');
+});
+
+o.emit('event1');</code>
+</pre>
+<i>运行结果</i>
+<pre class='line-numbers language-none'>
+<code>node eventTest.js
+触发事件了</code>
+</pre>
+<p>这个例子中，我们创建了个EventEmitter对象的实例o，给o绑定了事件'event1', 用emit() 方法触发事件，类似于浏览器上的事件处理，我们可以绑定多种事件类型，也可以给某一个事件绑定多个事件处理函数，这些函数会按照绑定顺序，依次调用</p>
+<pre class='line-numbers language-javascript'>
+<code>// eventTest.js
+var events = require('events');
+var o = new events.EventEmitter();
+
+o.on('type1', function () {
+    console.log('对象：o, 事件类型：type1, 回调函数1');
+});
+
+o.on('type1', function () {
+    console.log('对象：o, 事件类型：type1, 回调函数2');
+});
+
+o.on('type2', function () {
+    console.log('对象：o, 事件类型：type2, 回调函数1');
+});
+
+o.on('type2', function () {
+    console.log('对象：o, 事件类型：type2, 回调函数2');
+});
+
+o.on('type1', function () {
+    console.log('对象：o, 事件类型：type1, 回调函数3');
+});
+
+o.emit('type1');
+console.log('------------------------------------');
+o.emit('type2');</code>
+</pre>
+<i>运行结果</i>
+<pre class='line-numbers language-none'>
+<code>node eventTest.js 
+对象：o, 事件类型：type1, 回调函数1
+对象：o, 事件类型：type1, 回调函数2
+对象：o, 事件类型：type1, 回调函数3
+------------------------------------
+对象：o, 事件类型：type2, 回调函数1
+对象：o, 事件类型：type2, 回调函数2</code>
+</pre>
+<h3>EventEmitter常用API</h3>
+<ul >
+<li>EvnetEmitter.on(event, listener) 为指定事件注册一个监听器，接受一个字符串event和一个回调函数listener</li>
+<li>EventEmitter.emit(event, [arg1], [arg2], [...]) 触发event事件，传递若干可选参数到事件监听器的参数表</li>
+<li>EventEmitter.once(event, listener) 为指定事件注册一个单词监听器，即监听器最多只会触发一次，触发后立刻解除该监听器</li>
+<li>EvnetEmitter.removeListener(event, listener) 移除指定事件的某个监听器，listener必须是该事件已经注册过的监听器</li>
+<li>EventEmitter.removeAllListeners([event]) 移除所有时间的所有监听器，如果指定event，则移除指定事件的所有监听器</li>
+</ul>
+<h3>error事件</h3>
+<p>EventEmitter 定义了一个特殊的事件 error，它包含了“错误”的语义，我们在遇到异常的时候通常会发射 error 事件。当 error 被发射时， EventEmitter 规定如果没有响应的监听器， Node.js 会把它当作异常，退出程序并打印调用栈。我们一般要为会发射 error事件的对象设置监听器，避免遇到错误后整个程序崩溃</p>
+<h3>模仿events</h3>
+<p>下面模仿events模块的功能，自定义一个事件模块</p>
+<pre class='line-numbers language-javascript'>
+<code>// eventUtil.js
+function EventObj() {}
+
+let ep = EventObj.prototype;
+ep.maxListeners = 10;
+ep.events = Object.create(null);
+
+/**
+ * 获取最大监听器数量
+ */
+ep.getMaxListeners = function () {
+	return this.maxListeners;
+};
+
+/**
+ * 设置最大监听器数量
+ */
+ep.setMaxListeners = function (arg) {
+	if (isNaN(arg)) {
+		throw new Error('参数错误，不是数字');
+	}
+	this.maxListeners = arg;
+};
+
+/**
+ * 添加监听器
+ */
+ep.addListener = ep.on = function (eventName, listener) {
+	if (!this.events[eventName]) {
+		this.events[eventName] = [];
+	}
+	this.events[eventName].push({
+		name: eventName,
+		listener: listener,
+		times: 'static'
+	});
+};
+
+/**
+ * 添加监听器，只执行一次
+ */
+ep.once = function (eventName, listener) {
+	if (!this.events[eventName]) {
+		this.events[eventName] = [];
+	}
+	this.events[eventName].push({
+		name: eventName,
+		listener: listener,
+		times: '1'
+	});
+};
+
+/**
+ * 触发事件
+ */
+ep.emit = function (eventName) {
+	if (this.events && this.events[eventName]) {
+		var args = [];
+		for (let i = 1; i &lt; arguments.length; i++) {
+			args.push(arguments[i]);
+		}
+		if (this.events[eventName].length &gt; this.getMaxListeners()) {
+			throw new Error('事件监听器数量超过' + this.getMaxListeners());
+		}
+		this.events[eventName] = 
+			this.events[eventName].filter(function (item) {
+			item.listener.apply(null, args);
+			return item.times !== '1';
+		});
+	}
+};
+
+/**
+ * 删除监听器
+ */
+ep.removeAllListeners = function (eventName) {
+	if (eventName) {
+		delete this.events[eventName];
+	} else {
+		this.events = Object.create(null);
+	}
+};
+
+/**
+ * 删除某一监听器
+ */
+ep.removeListener = function (eventName, listener) {
+	if (this.events[eventName]) {
+		this.events[eventName] = 
+			this.events[eventName].filter(function (item) {
+			return item.listener !== listener;
+		});
+	}
+};
+
+/**
+ * 根据事件类型获取监听器列表
+ */
+ep.listeners = function (eventName) {
+	if (!this.events[eventName]) {
+		return [];
+	}
+	let arr = [];
+	this.events[eventName].forEach(function(item) {
+		arr.push(item.listener);
+	});
+	return arr;
+};
+
+/**
+ * 获取监听器数量
+ */
+ep.listenerCount = function (eventName) {
+	if (!this.events[eventName]) {
+		return 0;
+	}
+	return this.events[eventName].length;
+};
+
+/**
+ * 事件类型名称列表
+ */
+ep.eventNames = function () {
+	if (!this.events) {
+		return [];
+	}
+	let arr = [];
+	for (let e in this.events) {
+		arr.push(e);
+	}
+	return arr;
+};
+
+module.exports = EventObj;</code>
+</pre>
+<i>简单测试测试</i>
+<pre class='line-numbers language-javascript'>
+<code>var ev = require('./eventUtil');
+var o = new ev();
+
+o.on('click', function(arg1, arg2) {
+    console.log('listener 1', arg1, arg2);
+});
+o.on('click', function(arg1, arg2) {
+    console.log('listener 2', arg1, arg2);
+});
+o.once('click', function(arg1, arg2) {
+    console.log('listener 3 once', arg1, arg2);
+});
+o.on('click', cb1);
+
+function cb1 (arg1, arg2) {
+    console.log('listener cb1', arg1, arg2);
+}
+
+o.emit('click', '123', 'hehe');
+console.log('------------------------------------');
+o.emit('click', '123', 'hehe');
+console.log('------------------------------------');
+o.emit('click', '123', 'hehe');
+o.removeListener('click', cb1);
+console.log('---------removeListener---------------------------');
+o.emit('click', '123', 'hehe');
+o.removeAllListeners();
+console.log('----------removeAllListeners--------------------------');
+o.emit('click');
+
+o.on('click', function () {
+    console.log('click 1');
+});
+o.emit('click');</code>
+</pre>
+<i>运行结果</i>
+<pre class='line-numbers language-none'>
+<code>listener 1 123 hehe
+listener 2 123 hehe
+listener 3 once 123 hehe
+listener cb1 123 hehe
+------------------------------------
+listener 1 123 hehe
+listener 2 123 hehe
+listener cb1 123 hehe
+------------------------------------
+listener 1 123 hehe
+listener 2 123 hehe
+listener cb1 123 hehe
+---------removeListener---------------------------
+listener 1 123 hehe
+listener 2 123 hehe
+----------removeAllListeners--------------------------
+click 1</code>
+</pre>
+<p>基本实现了events的一些功能，不过很多地方不严谨，权当娱乐~~</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2016-11-29</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/nodejs'>nodejs</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/nodejs'>nodejs</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2016/11/30/Nodejs总结：一些实用工具/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2016/11/25/Nodejs总结：模块和包/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

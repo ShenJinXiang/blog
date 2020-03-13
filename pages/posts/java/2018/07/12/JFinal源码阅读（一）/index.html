@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2018/07/12/JFinal源码阅读（一）/'>JFinal源码阅读（一）</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>在开始阅读代码之前，按官方说明，写最简单的程序让项目跑起来！</p>
+
+<h3>目录结构</h3>
+<pre class="language-none">
+<code>|-- src
+|   └-- com
+|       └-- shenjinxiang
+|           |-- config
+|           |   └-- Start.java
+|           └-- controllers
+|               └-- MainController.java
+└-- web
+    |-- index.jsp
+    └-- WEB-INF
+        └-- lib
+        |   |-- jetty-server-8.1.8.jar
+        |   └-- jfinal-3.4-bin-with-src.jar
+        └-- web.xml</code>
+</pre>
+
+<h3>配置jfinal过滤器</h3>
+<pre class="language-xml">
+<code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1"&gt;
+
+    &lt;filter&gt;
+        &lt;filter-name&gt;jfinal&lt;/filter-name&gt;
+        &lt;filter-class&gt;com.jfinal.core.JFinalFilter&lt;/filter-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;configClass&lt;/param-name&gt;
+            &lt;param-value&gt;com.shenjinxiang.config.Start&lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;jfinal&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+&lt;/web-app&gt;</code>
+</pre>
+
+<h3>控制层</h3>
+<pre class="language-java">
+<code>package com.shenjinxiang.controllers;
+
+import com.jfinal.core.Controller;
+
+public class MainController extends Controller {
+
+    public void index() {
+        renderText("Hello World!");
+    }
+
+    public void sayHi() {
+        String name = getPara("name");
+        renderText("嗨，" + name + "！");
+    }
+}</code>
+</pre>
+
+<h3>项目配置及启动类</h3>
+<p>项目配置类，需与<code class="inline_code">web.xml</code>中配置的jfinal过滤器中，<code class="inline_code">param-value</code>中一样，且必须继承并实现<code class="inline_code">com.jfinal.config.JFinalConfig</code>的所有抽象方法。是整个项目中除<code class="inline_code">web.xml</code>外，最主要的文件。</p>
+<pre class="language-java">
+<code>package com.shenjinxiang.config;
+
+import com.jfinal.config.*;
+import com.jfinal.core.JFinal;
+import com.jfinal.template.Engine;
+import com.shenjinxiang.controllers.MainController;
+
+public class Start extends JFinalConfig {
+
+    @Override
+    public void configConstant(Constants me) {
+        me.setDevMode(true);
+    }
+
+    @Override
+    public void configRoute(Routes me) {
+        me.add("/", MainController.class);
+    }
+
+    @Override
+    public void configEngine(Engine me) {
+
+    }
+
+    @Override
+    public void configPlugin(Plugins me) {
+
+    }
+
+    @Override
+    public void configInterceptor(Interceptors me) {
+
+    }
+
+    @Override
+    public void configHandler(Handlers me) {
+
+    }
+
+    public static void main(String[] args) {
+        JFinal.start("web", 8080, "/");
+    }
+}</code>
+</pre>
+
+<h3>启动项目</h3>
+<p>运行<code class="inline_code">com.shenjinxiang.config.Start</code>类中的<code class="inline_code">main</code>方法，控制台输出内容：</p>
+<pre class="language-none">
+<code>Starting JFinal 3.4
+Starting web server on port: 8080
+Starting Complete. Welcome To The JFinal World :)</code>
+</pre>
+
+<p>浏览器中访问：<code class="inline_code">http://localhost:8080</code>，显示：</p>
+<pre class="language-none">
+<code>Hello World!</code>
+</pre>
+
+<p>查看后台控制台内容：</p>
+<pre class="language-none">
+<code>JFinal-3.4 action report -------- 2018-07-10 09:12:06 --------------------------
+Url         : GET /
+Controller  : com.shenjinxiang.controllers.MainController.(MainController.java:1)
+Method      : index
+--------------------------------------------------------------------------------</code>
+</pre>
+
+<p>浏览器中访问：<code class="inline_code">http://localhost:8080/sayHi?name=申锦祥</code>，显示内容：</p>
+<pre class="language-none">
+<code>嗨，申锦祥！</code>
+</pre>
+
+<p>后台控制台内容：</p>
+<pre class="language-none">
+<code>JFinal-3.4 action report -------- 2018-07-10 09:15:41 --------------------------
+Url         : GET /sayHi
+Controller  : com.shenjinxiang.controllers.MainController.(MainController.java:1)
+Method      : sayHi
+Parameter   : name=申锦祥  
+--------------------------------------------------------------------------------</code>
+</pre>
+
+<h3>备注</h3>
+<p>如果使用的开发环境是<code class="inline_code">Intellij IEAD</code>，启动项目后，浏览器无法访问。</p>
+
+<p>处理方式，修改<code class="inline_code">com.jfinal.server.JettyServerForIDEA.doStart()</code>方法</p>
+<pre class="language-none">
+<code>webApp.setResourceBase(webAppDir);</code>
+</pre>
+<p>改为：</p>
+<pre class="language-none">
+<code>webApp.setResourceBase(PathKit.getWebRootPath());</code>
+</pre>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-07-12</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a> <a href='/pages/archives/tags/jfinal'>jfinal</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/java/2018/07/13/JFinal源码阅读（二）/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/07/01/Redis 有序集合(sorted Set)/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

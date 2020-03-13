@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/canvas/2017/04/01/Canvas文字渲染/'>Canvas文字渲染</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>图片中不止有一些线条组成的一些图形，同样可能会有一些文字，Canvas同样提供了绘制文字的方法</p>
+
+<h3>fillText()方法</h3>
+<p>CanvasRenderingContext2D对象的<code class="inline_code">fillText()</code>方法用于在画布上绘制一段文本内容，绘制的颜色、渐变、背景通过<code class="inline_code">fillStyle</code>属性来设置，文本的字体大小、样式通过CanvasRenderingContext2D对象的<code class="inline_code">font</code>属性设置</p>
+
+<blockquote><p>CanvasRenderingContext2D.fillText(text, x, y, maxWidth)</p>
+</blockquote>
+<p><code class="inline_code">fillText()</code>方法的参数也很好理解，第一个参数为需要渲染的文本内容，<code class="inline_code">x</code>和<code class="inline_code">y</code>指定渲染的位置，可选参数<code class="inline_code">maxWidth</code>规定渲染的最大宽度，如果文本内容比较长，超过<code class="inline_code">maxWidth</code>值，设置这个参数会将文本压缩到指定的最大宽度</p>
+
+<pre class="language-javascript">
+<code>(function() {
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 150;
+	var context = canvas.getContext('2d');
+
+	context.font = '40px 宋体';
+	context.fillText('申锦祥', 75, 50);
+		
+	context.font = '40px Arial';
+	context.fillText('www.shenjinxiang.com', 75, 115);
+})();</code>
+</pre>
+
+<p><i>效果:</i></p>
+<iframe src='/static/canvas/2017/04/01/001.html' width='100%' height='200px' frameborder='0' ></iframe>
+
+<p>这样简单的文字渲染效果就出来了，上面提到过可以使用<code class="inline_code">fillStyle</code>来设置填充的样式，代码：</p>
+
+<pre class="language-javascript">
+<code>(function () {
+	var str = 'www.shenjinxiang.com';
+
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 150;
+	var context = canvas.getContext('2d');
+
+	// 纯色
+	context.fillStyle = '#058';
+	context.font = 'bold 40px Arial';
+	context.fillText(str, 75, 40);
+
+	// 渐变色
+	var gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+	gradient.addColorStop(0, 'magenta');
+	gradient.addColorStop(0.5, 'blue');
+	gradient.addColorStop(1, 'red');
+	context.fillStyle = gradient;
+	context.fillText(str, 75, 125);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/01/002.html' width='100%' height='200px' frameborder='0' ></iframe>
+
+<p>采用了纯色和渐变色绘制的一段文字，当然也可以使用外部图片或者其他canvas作为背景填充</p>
+
+<h3>strokeText()方法</h3>
+<p>CanvasRenderingContext2D的<code class="inline_code">strokeText()</code>方法的与<code class="inline_code">fillText()</code>差不多，唯一的区别在于<code class="inline_code">fillText()</code>方法是填充一段文本，而<code class="inline_code">strokeText()</code>方法是绘制文本的描边，同样的可以设置<code class="inline_code">strokeStyle</code>属性来着是样式，直接来代码：</p>
+
+<pre class="language-javascript">
+<code>(function () {
+	var str = 'www.shenjinxiang.com';
+
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 150;
+	var context = canvas.getContext('2d');
+
+	// 纯色
+	context.strokeStyle = '#058';
+	context.font = 'bold 40px Arial';
+	context.strokeText(str, 75, 40);
+
+	// 渐变色
+	var gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+	gradient.addColorStop(0, 'magenta');
+	gradient.addColorStop(0.5, 'blue');
+	gradient.addColorStop(1, 'red');
+	context.strokeStyle = gradient;
+	context.strokeText(str, 75, 125);
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/01/003.html' width='100%' height='200px' frameborder='0' ></iframe>
+
+<p>基本和上一个例子中的代码一样的，只是将<code class="inline_code">fillText</code>改成<code class="inline_code">strokeText</code>、将<code class="inline_code">fillStyle</code>改成<code class="inline_code">strokeStyle</code>，可以看到<code class="inline_code">strokeText</code>的效果</p>
+
+<h3>设置文本位置</h3>
+<p>关于文字的渲染还有一些细节，比如文字的位置，在<code class="inline_code">fillText()</code>方法和<code class="inline_code">strokeText()</code>方法的第二个、第三个参数指定了文字渲染的位置。另外CanvasRenderingContext2D提供了另外两个属性：<code class="inline_code">textAlign</code>属性和<code class="inline_code">textBaseline</code>属性</p>
+
+<h4>textAlign 属性</h4>
+<p><code class="inline_code">textAlign</code>属性指定了文字在水平方向的对齐方式，与<code class="inline_code">fillText()</code>或<code class="inline_code">strokeText()</code>方法的第二个参数x相关，<code class="inline_code">textAlign</code>属性值：</p>
+
+<table><tr><th>值</th><th>描述</th></tr>
+<tr><td>start</td><td>默认。文本在指定的位置开始</td></tr>
+<tr><td>end</td><td>文本在指定的位置结束</td></tr>
+<tr><td>center</td><td>文本的中心被放置在指定的位置</td></tr>
+<tr><td>left</td><td>文本左对齐</td></tr>
+<tr><td>right</td><td>文本右对齐</td></tr>
+</table>
+<pre class="language-javascript">
+<code>(function() {
+	var str = 'shenjinxiang';
+
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 525;
+	var context = canvas.getContext('2d');
+
+	context.lineWidth = 1;
+	context.strokeStyle = '#eee';
+	context.moveTo(canvas.width / 2, 0);
+	context.lineTo(canvas.width / 2, canvas.height);
+	context.stroke();
+
+	var aligns = ['start', 'end', 'center', 'left', 'right'];
+
+	context.fillStyle = '#084';
+	context.font = 'bold 38px Arial';
+	for (var i = 0; i &lt; aligns.length; i++) {
+		context.textAlign = aligns[i];
+		context.fillText(str, canvas.width / 2, (i + 1) * 90);
+
+		context.beginPath();
+		context.lineTo(0, (i + 1) * 90);
+		context.lineTo(canvas.width, (i + 1) * 90);
+		context.closePath();
+		context.stroke();
+	}
+
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/01/004.html' width='100%' height='560px' frameborder='0' ></iframe>
+
+<p>使用<code class="inline_code">aligns</code>变量记录了<code class="inline_code">textAlign</code>的各种值，从上到下一次绘制文字，<code class="inline_code">fillText()</code>方法的x参数值一只为canvas的宽度的一半也就是在画布的垂直中心线上，另外绘制了一些辅助线，便于更直观的观察结果</p>
+
+<h4>textBaseline 属性</h4>
+<p><code class="inline_code">textBaseline</code>属性指定了文字在竖直方向的对齐方式，与<code class="inline_code">fillText()</code>或<code class="inline_code">strokeText()</code>方法的第三个参数<code class="inline_code">y</code>相关，<code class="inline_code">textBaseline</code>属性值：</p>
+
+<table><tr><th>值</th><th>描述</th></tr>
+<tr><td>alphabetic</td><td>默认。文本基线是普通的字母基线</td></tr>
+<tr><td>top</td><td>文本基线是 em 方框的顶端</td></tr>
+<tr><td>hanging</td><td>文本基线是悬挂基线</td></tr>
+<tr><td>middle</td><td>文本基线是 em 方框的正中</td></tr>
+<tr><td>ideographic</td><td>文本基线是表意基线</td></tr>
+<tr><td>bottom</td><td>文本基线是 em 方框的底端</td></tr>
+</table>
+<pre class="language-javascript">
+<code>(function() {
+	var canvas = document.getElementById('mycanvas');
+	canvas.width = 600;
+	canvas.height = 100;
+	var context = canvas.getContext('2d');
+
+	context.lineWidth = 1;
+	context.strokeStyle = '#eee';
+	context.moveTo(0, canvas.height / 2);
+	context.lineTo(canvas.width, canvas.height / 2);
+	context.stroke();
+
+	var bls = ['alphabetic', 'top', 'hanging', 'middle', 'ideographic', 'bottom'];
+
+	context.fillStyle = '#084';
+	context.font = 'bold 20px Arial';
+
+	context.textBaseline = 'alphabetic';
+	context.fillText('alphabetic', 10, canvas.height / 2);
+
+	context.textBaseline = 'top';
+	context.fillText('top', 115, canvas.height / 2);
+
+	context.textBaseline = 'hanging';
+	context.fillText('hanging', 160, canvas.height / 2);
+
+	context.textBaseline = 'middle';
+	context.fillText('middle', 260, canvas.height / 2);
+
+	context.textBaseline = 'ideographic';
+	context.fillText('ideographic', 360, canvas.height / 2);
+
+	context.textBaseline = 'bottom';
+	context.fillText('bottom', 500, canvas.height / 2);
+
+})();</code>
+</pre>
+
+<p><i>效果：</i></p>
+<iframe src='/static/canvas/2017/04/01/005.html' width='100%' height='140px' frameborder='0' ></iframe>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-04-01</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/canvas'>canvas</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/canvas'>canvas</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/04/07/Canvas绘制阴影/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/canvas/2017/03/27/Canvas填充样式/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

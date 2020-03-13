@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/tools/2016/04/12/vim中移动/'>vim中移动</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>在vim中，提供了很多移动的方式，怎么样更加有效快捷的移动需要长期的实践；那么第一步，就是认识这些命令...</p>
+<h4>简单移动</h4>
+<pre class="language-none">
+<code>k	 上
+j	 下
+h	 左
+l	 右</code>
+</pre>
+<p>可以在命令前写数字 比如 <code class="inline_code">10j</code> 则相当于按10下<code class="inline_code">j</code>的效果</p>
+<h4>按单词移动</h4>
+<pre class="language-none">
+<code>w	 将光标移动到下一个word的首字符上
+b	 将光标向后移动到前一个word的首字符上
+e	 将光标移动到word的最后一个字符上
+ge	 将光标移动到上一个word的最后一个字符上</code>
+</pre>
+<h4>移动到行首行尾</h4>
+<pre class="language-none">
+<code>$	 将光标移动到当前行行尾 对应键盘上的End键  
+^	 将光标移动到当前行的第一个非空白字符上
+0	 将光标移动到当前行的第一个字符上	对应 Home键</code>
+</pre>
+<p>另外，<code class="inline_code">1$</code>表示移动到当前行的行尾 <code class="inline_code">10$</code>表示移动到下9行的行尾，<code class="inline_code">0</code>命令之前不可以加数字 因为<code class="inline_code">0</code>本身就是数字了</p>
+<h4>移动到指定的字符上</h4>
+<pre class="language-none">
+<code>fx	 将光标移动到第一个x上 如 fh 表示移动到第一个h上
+Fx	 fx 的反向操作向左搜索移动到第一个x字符上 
+tx	 类似f搜索，不过光标是停留在被搜索的字符之前的一个字符上
+Tx	 tx 的反向操作 向左搜索
+ =========================示例=========================
+ public class void main(String[] args)
+ -----&gt;--------&gt;
+  fc      fo
+ public class void main(String[] args)
+ ----&gt;--------&gt;
+  tc      to
+ To err is human. To really foul up you need a computer.
+ ------------------------------&gt;
+              3fl
+ To err is human. To really foul up you need a computer.
+ -----------------------------&gt;
+              3tl </code>
+</pre>
+<h4>按括号跳转</h4>
+<pre class="language-none">
+<code>%	 跳转到匹配的括号，如果光标在 ( 上 按 % 就会跳转到对应的 ) 上 </code>
+</pre>
+<p>同样适用于 [] {} 可以用 <code class="inline_code">:set matchpairs</code> 显示可以匹配的括号， 如果当前光标并没有停留在一个可用的括号字符上，<code class="inline_code">%</code>会向前找到第一个括号，然后找到与它匹配的括号</p>
+<h4>跳转到指定行</h4>
+<pre class="language-none">
+<code>nG	 跳转到第n行 n为行号 
+G	 跳转到整个文章的最后一行
+gg	 跳转到整个文章的第一行
+H	 跳转到屏幕上第一行 Home
+L	 跳转到屏幕上最后一行 Last
+M	 跳转到屏幕中间行 Middle
+n%	 跳转到文章百分比的位置</code>
+</pre>
+<p>100% 跳转到文章最后一行 和G一样效果 50% 跳转到文章中间行</p>
+
+<h4>翻页、滚屏</h4>
+<pre class="language-none">
+<code>CTRL-U	 文本向下滚动半屏 即你可以看到屏幕上半屏的内容了
+CTRL-D	 文本向上滚动半屏
+CTRL-E	 文本向上滚动一行
+CTRL-Y	 文本向下滚动一行 windows没效果
+CTRL-F	 文本向上滚动一屏 你可以看到下一个屏幕的内容
+CTRL-B	 文本向下滚动一屏 可以看上一个屏幕的内容
+zz	 将当前光标所在行移动到屏幕中间，不是修改文档内容，是整个文档移动
+zt	 将当前光标所在行移动到屏幕顶端
+zb	 将当前光标所在行移动到屏幕底端</code>
+</pre>
+<h4>简单搜索</h4>
+<pre class="language-none">
+<code>/string	 用于搜索一个字符串
+?string	 反向搜索一个字符串
+n	 在搜索出的结果中跳转
+N	 在搜索的结果中反向跳转
+
+*	 全文搜索光标所在单词
+#	 * 的反向搜索</code>
+</pre>
+<p>比如要搜索一个字符串 <code class="inline_code">public</code> 输入命令  <code class="inline_code">/public</code>  按回车 就会找到文章中所有的<code class="inline_code">public</code>, 然后按字母<code class="inline_code">n</code> 就可以跳转到下一个位置 N则跳转到上一个位置</p>
+<p>如果搜索的时候需要忽略大小写，可以输入 <code class="inline_code">:set ignorecase</code> 设置， 如果再次搜索 <code class="inline_code">public</code> 就会同时匹配 <code class="inline_code">Public</code>和<code class="inline_code">public</code>，要回到大小写精确匹配，可以输入 <code class="inline_code">:set noignorecase</code></p>
+<p>如果已经搜索过了， 取消搜索怎么办？很简单，搜索一个文件中不存在的字符就可以了^_^</p>
+
+<h4>按标记跳转</h4>
+<pre class="language-none">
+<code>``	 跳转到上次所在位置
+CTRL-O	 跳转到更早些停止光标的位置
+CTRL-I	 跳回到后来停止光标的位置
+
+mx	 当前位置定义为 x 标记， 可以使用 `x 跳回来</code>
+</pre>
+<p>其中<code class="inline_code">mx</code>中<code class="inline_code">x</code>表示a-z之间的任意字母，意思是可以定义26出标记，如果在当前位置输入 <code class="inline_code">me</code> ， 以后不论在页面任何位置， 只要按下 `e 就会跳回到定位为 e 的标记的位置。可以输入 :marks 查看标记列表</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2016-04-12</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/tools'>tools</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/vim'>vim</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/Python/2016/04/15/Python学习笔记：list和tuple/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/nodejs/2017/01/05/Nodejs总结：Express路由/'>Nodejs总结：Express路由</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>Express中的路由处理，相当于java Web框架中controller处理，针对不同的请求，调用不同的处理程序，给予用户不同的界面展示，Express中路由是由一个url、http请求(get、post等)和若干句柄组成，结构如下:</p>
+<pre class='line-numbers language-none'>
+<code>app.METHOD(path, [callback...], callback)</code>
+</pre>
+<p>app是express对象的实例，METHOD是一个http请求方法，path是服务器上的路径，callback是当路由匹配时要执行的函数</p>
+<pre class='line-numbers language-javascript'>
+<code>const express = require('express');
+let app = express();
+
+// 匹配get请求的 '/' 路径
+app.get('/', function (req, res) {
+    res.send('hello world');
+});</code>
+</pre>
+<h3>路由方法</h3>
+<p>路由方法源于http请求方法，和express实例相关联，下面是针对 '/' 定义的get和post请求:</p>
+<pre class='line-numbers language-javascript'>
+<code>// get 请求方式的路由
+app.get('/', function (req, res) {
+    res.send('GET request');
+});
+
+// post 请求方式的路由
+app.post('/', function (req, res) {
+    res.send('POST request');
+});</code>
+</pre>
+<p>另外还有一个方法：<code class='language-javascript'> app.all() </code>，这是个特殊的路由方法，不同使用GET、POST、PUT、DELETE或者其他http请求方式，都会执行:</p>
+<pre class='line-numbers language-javascript'>
+<code>app.all('/user', function (req, res, next) {
+    console.log('user request');
+    next(); // 下一个controller
+});</code>
+</pre>
+<p>我们可以针对一个路由执行多个controller，类似拦截器的执行，看下面的代码:</p>
+<pre class='line-numbers language-javascript'>
+<code>const express = require('express');
+
+let app = express();
+
+app.all('/user', function (req, res, next) {
+    console.log('user controller 1');
+    next();
+});
+
+app.all('/user', function (req, res, next) {
+    console.log('user controller 2');
+    next();
+});
+
+app.all('/user', function (req, res, next) {
+    console.log('user controller 3');
+    res.send('user page');
+});
+
+app.listen(3000, function () {
+    console.log('Server running ar 3000 port.');
+});</code>
+</pre>
+<p><i>运行js文件:</i></p>
+<pre class='line-numbers language-none'>
+<code>$ node app.js
+Server running ar 3000 port. </code>
+</pre>
+<p>浏览器中访问："http://localhost:3000/user" ，页面显示内容：user page 查看后台内容:</p>
+<pre class='line-numbers language-none'>
+<code>user controller 1
+user controller 2
+user controller 3</code>
+</pre>
+<h3>路由路径</h3>
+<p>路由路径和请求方法一起定义了请求的端点，它可以是字符串、字符串模式或者正则表达式，示例:</p>
+<h4>使用字符串的路由路径示例:</h4>
+<pre class='line-numbers language-javascript'>
+<code>// 匹配根路径的请求
+app.get('/', function (req, res) {
+  res.send('root');
+});
+
+// 匹配 /about 路径的请求
+app.get('/about', function (req, res) {
+  res.send('about');
+});
+
+// 匹配 /random.text 路径的请求
+app.get('/random.text', function (req, res) {
+  res.send('random.text');
+});</code>
+</pre>
+<h4>使用字符串模式的路由路径示例:</h4>
+<pre class='line-numbers language-javascript'>
+<code>// 匹配 acd 和 abcd
+app.get('/ab?cd', function(req, res) {
+  res.send('ab?cd');
+});
+
+// 匹配 abcd、abbcd、abbbcd等
+app.get('/ab+cd', function(req, res) {
+  res.send('ab+cd');
+});
+
+// 匹配 abcd、abxcd、abRABDOMcd、ab123cd等
+app.get('/ab*cd', function(req, res) {
+  res.send('ab*cd');
+});
+
+// 匹配 /abe 和 /abcde
+app.get('/ab(cd)?e', function(req, res) {
+ res.send('ab(cd)?e');
+});</code>
+</pre>
+<h4>使用正则表达式的路由路径示例:</h4>
+<pre class='line-numbers language-javascript'>
+<code>// 匹配任何路径中含有 a 的路径：
+app.get(/a/, function(req, res) {
+  res.send('/a/');
+});
+
+// 匹配 butterfly、dragonfly，不匹配 butterflyman、dragonfly man等
+app.get(/.*fly$/, function(req, res) {
+  res.send('/.*fly$/');
+});</code>
+</pre>
+<h3>路由参数</h3>
+<p>路由参数其实算的路由路径的一部分，类似于正则表单时路由路径，只是比较特殊，而且可能经常用到，先来看个例子:</p>
+<pre class='line-numbers language-javascript'>
+<code>app.get('/user/:name', function (req, res) {
+    let pathname = url.parse(req.url, true).pathname;
+    let name = req.params.name;
+    console.log('pathname: ' + pathname + "  name: " + name);
+    res.send('pathname: ' + pathname + "  name: " + name);
+});</code>
+</pre>
+<p>浏览器中访问 "http://localhost:3000/user/abc" 得到结果是:</p>
+<pre class='line-numbers language-none'>
+<code>pathname: /user/abc name: abc</code>
+</pre>
+<p>浏览器中访问 "http://localhost:3000/user/edf" 得到结果是:</p>
+<pre class='line-numbers language-none'>
+<code>pathname: /user/edf name: edf</code>
+</pre>
+<p>浏览器中访问 "http://localhost:3000/user/edf?username=admin" 得到结果是:</p>
+<pre class='line-numbers language-none'>
+<code>pathname: /user/edf name: edf</code>
+</pre>
+<p>现在明白了，“:name”其实是个占位参数，可以是任意的路径名，可以通过req.params.name获取到这个路径的字符串，如果占位参数是“:city”，获取的方式就是 req.params.city</p>
+<p>需要注意占位参数不解析 “/”， 也就是说上面的例子，可以解析 “/user/abc”、“/user/ddd”之类的路径，但是不能解析“/user/abc/edf”，可以看下面的例子:</p>
+<pre class='line-numbers language-javascript'>
+<code>app.get('/person/:province/:city', function (req, res) {
+    let pathname = url.parse(req.url, true).pathname;
+    let province = req.params.province;
+    let city = req.params.city;
+    console.log('pathname: ' + pathname + '\nprovince: ' + province + '\ncity: ' + city);
+    res.send('pathname: ' + pathname + '<br>province: ' + province + '<br>city: ' + city);
+});</code>
+</pre>
+<p>浏览器中访问 "http://localhost:3000/person/shanxi/taiyuan" 得到的结果是:</p>
+<pre class='line-numbers language-none'>
+<code>pathname: /person/shanxi/taiyuan
+province: shanxi
+city: taiyuan</code>
+</pre>
+<h3>路由句柄</h3>
+<p>可以为请求处理提供多个回调函数，可以有多重形式，可以是一个函数、一个函数数组、或者两者混合<p>
+<pre class='line-numbers language-javascript'>
+<code>const express = require('express');
+
+let app = express();
+
+// 一个回调函数
+app.get('/user', function (req, res) {
+    console.log('user');
+    res.send('user page');
+});
+
+// 多个回调函数
+app.get('/person', function (req, res, next) {
+    console.log('person function 1');
+    next();
+}, function (req, res, next) {
+    console.log('person function 2');
+    next();
+}, function (req, res, next) {
+    console.log('person function 3');
+    res.send('person page');
+});
+
+let stu_cb0 = function (req, res, next) {
+    console.log('student cb0');
+    next();
+};
+
+let stu_cb1 = function (req, res, next) {
+    console.log('student cb1');
+    next();
+};
+
+let stu_cb2 = function (req, res, next) {
+    console.log('student cb2');
+    next();
+};
+
+let stu_cb3 = function (req, res, next) {
+    console.log('student cb3');
+    res.send('student page');
+};
+
+// 函数数组
+app.get('/student', [stu_cb0, stu_cb1, stu_cb2, stu_cb3]);
+
+let th_cb0 = function (req, res, next) {
+    console.log('teacher cb0');
+    next();
+};
+
+let th_cb1 = function (req, res, next) {
+    console.log('teacher cb1');
+    next();
+};
+
+let th_cb2 = function (req, res, next) {
+    console.log('teacher cb2');
+    next();
+};
+
+app.get('/teacher', [th_cb0, th_cb1, th_cb2], function (req, res, next) {
+    console.log('teacher cb -- 1');
+    next();
+}, function (req, res, next) {
+    console.log('teacher cb -- 2');
+    res.send('teacher page');
+});
+
+app.listen(3000, function () {
+    console.log('Server running ar 3000 port.');
+});</code>
+</pre>
+<p>运行js文件:</p>
+<pre class='line-numbers language-none'>
+<code>$ node app.js
+Server running ar 3000 port. </code>
+</pre>
+<p>浏览器中输入："http://localhost:3000/user" 查看后台运行结果</p>
+<pre class='line-numbers language-none'>
+<code>user</code>
+</pre>
+<p>浏览器中输入："http://localhost:3000/person" 查看后台运行结果:</p>
+<pre class='line-numbers language-none'>
+<code>person function 1
+person function 2
+person function 3</code>
+</pre>
+<p>浏览器中输入："http://localhost:3000/student" 查看后台运行结果:</p>
+<pre class='line-numbers language-none'>
+<code>student cb0
+student cb1
+student cb2
+student cb3</code>
+</pre>
+<p>浏览器中输入："http://localhost:3000/teacher" 查看后台运行结果:</p>
+<pre class='line-numbers language-none'>
+<code>teacher cb0
+teacher cb1
+teacher cb2
+teacher cb -- 1
+teacher cb -- 2</code>
+</pre>
+<p>需要注意的是，回调函数中，不能再执行完res.send()以后再次调用next()，因为响应已经处理了，就不能执行后面的程序了</p>
+<h3>响应方法</h3>
+<p>响应对象(res)的方法会想客户端返回响应信息，终止请求响应的循环，如果在路由句柄中一个方法也不调用，来自客户端的请求会一直挂起</p>
+<table >
+	<tr>
+		<th>方法</th>
+		<th>描述</th>
+	</tr>
+	<tr>
+		<td>res.download()</td>
+		<td>提示下载文件</td>
+	</tr>
+	<tr>
+		<td>res.end()</td>
+		<td>终结响应处理流程</td>
+	</tr>
+	<tr>
+		<td>res.json()</td>
+		<td>发送一个 JSON 格式的响应</td>
+	</tr>
+	<tr>
+		<td>res.jsonp()</td>
+		<td>发送一个支持 JSONP 的 JSON 格式的响应</td>
+	</tr>
+	<tr>
+		<td>res.redirect()</td>
+		<td>重定向请求</td>
+	</tr>
+	<tr>
+		<td>res.render()</td>
+		<td>渲染视图模板</td>
+	</tr>
+	<tr>
+		<td>res.send()</td>
+		<td>发送各种类型的响应</td>
+	</tr>
+	<tr>
+		<td>res.sendFile</td>
+		<td>以八位字节流的形式发送文件</td>
+	</tr>
+	<tr>
+		<td>res.sendStatus()</td>
+		<td>设置响应状态代码，并将其以字符串形式作为响应体的一部分发送</td>
+	</tr>
+</table>
+<h3>app.route()</h3>
+<p>可使用 <code class='language-javascript'> app.route() </code> 方法创建路由路径的链式路由句柄。由于路径在一个地方指定，这样做有助于创建模块化的路由，而且减少了代码冗余和拼写错误</p>
+<p><i>示例:</i></p>
+<pre class='line-numbers language-javascript'>
+<code>app.route('/book')
+  .get(function(req, res) {
+    res.send('Get a random book');
+  })
+  .post(function(req, res) {
+    res.send('Add a book');
+  })
+  .put(function(req, res) {
+    res.send('Update the book');
+  });</code>
+</pre>
+<h3>express.Router</h3>
+<p>express的路由使用到这里，大体已经明白了，但是有个问题，一个项目中，需要挂载的路由不是一个两个，可能是成百上千个，如果都写在启动模块中，那是相当麻烦的，且非常不利于维护，我们可以使用<code class='language-none'> express.Router </code>类创建模块化、可挂载的路由句柄</p>
+<p>创建routes目录，在routes目录下创建user.js</p>
+<pre class='line-numbers language-none'>
+<code>$ mkdir routes
+$ touch routes/user.js</code>
+</pre>
+<p>编辑user.js:</p>
+<pre class='line-numbers language-javascript'>
+<code>// routes/user.js
+const express = require('express');
+let router = express.Router();
+
+router.get('/', function (req, res) {
+    res.send('user page');
+});
+
+router.get('/addUser', function (req, res) {
+    res.send('add user page');
+});
+
+router.get('/updUser', function (req, res) {
+    res.send('update user page');
+});
+
+router.get('/delUser', function (req, res) {
+    res.send('delete user');
+});
+
+module.exports = router;</code>
+</pre>
+<p>修改app.js:</p>
+<pre class='line-numbers language-javascript'>
+<code>// app.js
+const express = require('express');
+
+let app = express();
+let user = require ('./routes/user');
+
+app.get('/', function (req, res) {
+    res.send('index page');
+});
+
+app.use('/user', user);
+
+app.listen(3000, function () {
+    console.log('Server running ar 3000 port.');
+});</code>
+</pre>
+<p>运行app.js:</p>
+<pre class='line-numbers language-none'>
+<code>$ node app.js
+Server running ar 3000 port. </code>
+</pre>
+<p>浏览器中访问: "http://localhost:3000/"</p>
+<img src='/images/nodejs/2017/01/05/009.png' width='100%' height='100px'/>
+<p>浏览器中访问: "http://localhost:3000/user"</p>
+<img src='/images/nodejs/2017/01/05/010.png' width='100%' height='100px'/>
+<p>浏览器中访问: "http://localhost:3000/user/addUser"</p>
+<img src='/images/nodejs/2017/01/05/011.png' width='100%' height='100px'/>
+<p>浏览器中访问: "http://localhost:3000/user/updUser"</p>
+<img src='/images/nodejs/2017/01/05/012.png' width='100%' height='100px'/>
+<p>浏览器中访问: "http://localhost:3000/user/delUser"</p>
+<img src='/images/nodejs/2017/01/05/013.png' width='100%' height='100px'/>
+<p>这里都是采用的get方式，实际开发的时候，可能要用到post之类的请求方式，也可能用到重定向等响应方式</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2017-01-05</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/nodejs'>nodejs</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/javascript'>javascript</a> <a href='/pages/archives/tags/nodejs'>nodejs</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2017/01/12/Nodejs总结：Express中间件/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/nodejs/2017/01/03/Nodejs总结：Express介绍/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="shenjinxiang,likestarsjx@gmail.com">
+<meta name="description" content="申锦祥的个人博客">
+<meta name="keywords" content="Java,JavaScript,HTML,CSS,canvas,Linux,shenjinxiang,LikeStar">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/images/title.ico" type="image/x-ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/plugin/prism/prism.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca627a11ec66b6b6add9aca459e8d126";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<title>工作笔记</title>
+</head>
+<body>
+<div class="sidebar fadeInDown animated">
+	<div class="logo-title">
+		<div class="title">
+			<h1>
+				<a href="/">LikeStar<span></span></a>
+			</h1>
+			<div class="description">
+				<p>工作学习笔记</p>
+			</div>
+		</div> 
+	</div> 
+	<div class="footer">
+        <span>©2019 申锦祥 <a href="http://www.beian.miit.gov.cn/" target="blank" style="color: #f72b07; cursor: pointer;">晋ICP备19013438号</a></span>
+	</div>
+</div>
+
+<div class="page-top animated fadeInDown">
+	<ul class="nav">
+		<li>
+			<a href="/">
+				<i class="baseline"></i>
+				首 页
+			</a>
+		</li>
+		<li>
+			<a href="/pages/archives" >
+				<i class="baseline"></i>
+				归 档
+			</a>
+		</li>
+		<li>
+			<a href="/pages/demo">
+				<i class="baseline"></i>
+				DEMO
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<div class='main'>
+	<div class='autopagerize_page_element'>
+		<div class='content'>
+			<div class='post animated fadeInDown'>
+	<div class='post-title'>
+		<h2>
+			<a href='/pages/posts/java/2018/05/06/Java定时任务Timer/'>Java定时任务Timer</a>
+		</h2>
+	</div>
+	<div class='post-content'>
+		<p><p>定时任务：基于给定时间点、给定时间间隔或给定执行次数自动执行的任务，java中主要通过两种工具来实现定时任务，<code class="inline_code">Timer</code>和<code class="inline_code">Quartz</code>，这里主要说<code class="inline_code">Timer</code>工具。</p>
+
+<h3>定义</h3>
+<p>一总工具，有且仅有<b>一个后台线程</b>，对<b>多个业务线程</b>进行<b>定时定频率</b>的调度。</p>
+
+<h3>基本介绍</h3>
+
+<img src='/images/java/2018/05/06/001.png' width='800px' style='display:block; margin:0px auto;'>
+<p><code class="inline_code">java.util.Timer</code> 工具类中有两个重要的成员：<code class="inline_code">TimerThread</code>和<code class="inline_code">TaskQueue</code>，其中<code class="inline_code">TimerThread</code>对应定义中<code class="inline_code">Timer</code>工具的后台线程；<code class="inline_code">TaskQueue</code>是一个队列，包含了业务线程<code class="inline_code">TimerTask</code>。<code class="inline_code">TimerThread</code>通过调用队列中的<code class="inline_code">TimerTask</code>的<code class="inline_code">run()</code>方法实现对任务的定时定频率的调度。实际开发中，我们只需要关注<code class="inline_code">Timer</code>和<code class="inline_code">TimerTask</code>的编写即可。</p>
+
+<h3>Timer.schedule()方法</h3>
+
+<p>在开始编写<code class="inline_code">Timer</code>工具代码之前先引入一个日期处理工具类<code class="inline_code">DateUtil</code>：</p>
+<pre class="language-java">
+<code>package com.shenjinxiang.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * Created by shenjinxiang on 2018/5/6.
+ */
+public class DateUtil {
+
+    private final static String TIME_PATTON_DEFAULT = "yyyy-MM-dd HH:mm:ss";
+
+
+    public static Date getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
+    }
+
+    public static String getCurrentDateStr() {
+        return format(getCurrentDate());
+    }
+
+    public static String getCurrentDateStr(String pattern) {
+        return format(getCurrentDate(), pattern);
+    }
+
+    public static String format(Date date) {
+        return format(date, TIME_PATTON_DEFAULT);
+    }
+
+    public static String format(Date date, String pattern) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
+    }
+
+	public static String format(long time) {
+        return format(time, TIME_PATTON_DEFAULT);
+    }
+
+    public static String format(long time, String pattern) {
+        Date date = new Date(time);
+        return format(date, pattern);
+    }
+}</code>
+</pre>
+
+<h4>第一种方式</h4>
+
+<blockquote><p>public void schedule(TimerTask task, Date time)</p>
+</blockquote>
+<p>表示在时间等于或超过<code class="inline_code">time</code>的时候执行且仅执行一次<code class="inline_code">task</code>。接收两个参数，<code class="inline_code">task</code>指定所要安排的任务，<code class="inline_code">time</code>指定执行任务的时间。</p>
+
+<p>创建Task类：</p>
+<pre class="language-java">
+<code>package com.shenjinxiang.timer;
+
+import com.shenjinxiang.util.DateUtil;
+import java.util.TimerTask;
+
+/**
+ * Created by shenjinxiang on 2018/5/6.
+ */
+public class MyTimerTask extends TimerTask {
+
+    @Override
+    public void run() {
+        System.out.println("执行任务MyTimerTask，时间：" + DateUtil.getCurrentDateStr());
+	}
+}</code>
+</pre>
+
+<p>调用<code class="inline_code">MyTimerTask</code>类，当前时间点执行一次：</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	Timer timer = new Timer();
+	timer.schedule(new MyTimerTask(), DateUtil.getCurrentDate());
+}</code>
+</pre>
+
+<p>输出结果：</p>
+
+<pre class="language-none">
+<code>执行任务MyTimerTask，时间：2018-05-06 22:11:23</code>
+</pre>
+
+<p>三秒后执行任务一次：</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	calendar.add(Calendar.SECOND, 3);
+	timer.schedule(new MyTimerTask(), calendar.getTime());
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 22:16:07
+执行任务MyTimerTask，时间：2018-05-06 22:16:10</code>
+</pre>
+
+<h4>第二种方式</h4>
+<blockquote><p>public void schedule(TimerTask task, long delay)</p>
+</blockquote>
+<p>等待<code class="inline_code">delay</code>毫秒后，执行且仅执行一次任务<code class="inline_code">task</code>。</p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	timer.schedule(new MyTimerTask(), 3000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 22:23:32
+执行任务MyTimerTask，时间：2018-05-06 22:23:35</code>
+</pre>
+
+<p>这里需要注意，如果<code class="inline_code">delay</code>参数的值为<code class="inline_code">0</code>，表示立刻执行任务；如果<code class="inline_code">delay</code>参数的值为负数，则会抛出<code class="inline_code">java.lang.IllegalArgumentException</code>异常。</p>
+
+<h4>第三种方式</h4>
+
+<blockquote><p>public void schedule(TimerTask task, Date firstTime, long period)</p>
+</blockquote>
+<p>表示在时间等于或超过<code class="inline_code">time</code>的时候执行一次<code class="inline_code">task</code>，之后每隔<code class="inline_code">period</code>毫秒执行一次<code class="inline_code">task</code>。即在种方式的基础上添加了一个参数<code class="inline_code">period</code>表示执行的时间间隔，单位是毫秒。</p>
+
+<p>先打印一次系统当前时间，等待3秒后第一次执行任务，之后每隔2秒执行一次</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	calendar.add(Calendar.SECOND, 3);
+	timer.schedule(new MyTimerTask(), calendar.getTime(), 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 23:10:05
+执行任务MyTimerTask，时间：2018-05-06 23:10:08
+执行任务MyTimerTask，时间：2018-05-06 23:10:10
+执行任务MyTimerTask，时间：2018-05-06 23:10:12
+执行任务MyTimerTask，时间：2018-05-06 23:10:14</code>
+</pre>
+
+<h4>第四种方式</h4>
+
+<blockquote><p>public void schedule(TimerTask task, long delay, long period)</p>
+</blockquote>
+<p>第四种方式是在第二种方式的基础上添加了一个参数<code class="inline_code">period</code>表示执行的时间间隔：</p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	timer.schedule(new MyTimerTask(), 3000, 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 23:15:41
+执行任务MyTimerTask，时间：2018-05-06 23:15:44
+执行任务MyTimerTask，时间：2018-05-06 23:15:46
+执行任务MyTimerTask，时间：2018-05-06 23:15:48
+执行任务MyTimerTask，时间：2018-05-06 23:15:50</code>
+</pre>
+
+<p>四种调用方式都很简单，实际上这四种方式都是调用了<code class="inline_code">Timer</code>类的私有方法<code class="inline_code">void sched(TimerTask task, long time, long period)</code>来实现的。</p>
+
+<pre class="language-java">
+<code>// 第一种
+public void schedule(TimerTask task, Date time) {
+	sched(task, time.getTime(), 0);
+}
+
+// 第二种
+public void schedule(TimerTask task, long delay) {
+	if (delay &lt; 0)
+		throw new IllegalArgumentException("Negative delay.");
+	sched(task, System.currentTimeMillis()+delay, 0);
+}
+
+// 第三种
+public void schedule(TimerTask task, Date firstTime, long period) {
+	if (period &lt;= 0)
+		throw new IllegalArgumentException("Non-positive period.");
+	sched(task, firstTime.getTime(), -period);
+}
+
+// 第四种
+public void schedule(TimerTask task, long delay, long period) {
+	if (delay &lt; 0)
+		throw new IllegalArgumentException("Negative delay.");
+	if (period &lt;= 0)
+		throw new IllegalArgumentException("Non-positive period.");
+	sched(task, System.currentTimeMillis()+delay, -period);
+}</code>
+</pre>
+
+<h3>Timer.scheduleAtFixedRate()方法</h3>
+<h4>第一种方式</h4>
+
+<blockquote><p>public void scheduleAtFixedRate(TimerTask task, Date firstTime, long period)</p>
+</blockquote>
+<p>时间等于或超过<code class="inline_code">firstTime</code>时首次执行<code class="inline_code">task</code>，之后每隔<code class="inline_code">period</code>毫秒执行一次<code class="inline_code">task</code></p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	calendar.add(Calendar.SECOND, 3);
+	timer.scheduleAtFixedRate(new MyTimerTask(), calendar.getTime(), 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 23:42:29
+执行任务MyTimerTask，时间：2018-05-06 23:42:32
+执行任务MyTimerTask，时间：2018-05-06 23:42:34
+执行任务MyTimerTask，时间：2018-05-06 23:42:36
+执行任务MyTimerTask，时间：2018-05-06 23:42:38</code>
+</pre>
+
+<h4>第二种方式</h4>
+
+<blockquote><p>public void scheduleAtFixedRate(TimerTask task, long delay, long period)</p>
+</blockquote>
+<p>与第一种方式的不同在于第二个参数改为延迟<code class="inline_code">delay</code>毫秒后首次执行<code class="inline_code">task</code>。</p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	timer.scheduleAtFixedRate(new MyTimerTask(), 3000, 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 23:46:06
+执行任务MyTimerTask，时间：2018-05-06 23:46:09
+执行任务MyTimerTask，时间：2018-05-06 23:46:11
+执行任务MyTimerTask，时间：2018-05-06 23:46:13
+执行任务MyTimerTask，时间：2018-05-06 23:46:15</code>
+</pre>
+
+<p><code class="inline_code">scheduleAtFixedRate()</code>方法同样是通过调用<code class="inline_code">Timer</code>的私有方法<code class="inline_code">sched()</code>来实现的：</p>
+
+<pre class="language-java">
+<code>// 第一种
+public void scheduleAtFixedRate(TimerTask task, Date firstTime, long period) {
+	if (period &lt;= 0)
+		throw new IllegalArgumentException("Non-positive period.");
+	sched(task, firstTime.getTime(), period);
+}
+
+// 第二种
+public void scheduleAtFixedRate(TimerTask task, long delay, long period) {
+	if (delay &lt; 0)
+		throw new IllegalArgumentException("Negative delay.");
+	if (period &lt;= 0)
+		throw new IllegalArgumentException("Non-positive period.");
+	sched(task, System.currentTimeMillis()+delay, period);
+}</code>
+</pre>
+
+<h3>schedule() 和 scheduleAtFixedRate()的区别</h3>
+<p>主要有两种区别：</p>
+<ol><li>首次计划执行的时间早于当前时间</li>
+<li>任务执行所需的时间超过任务的执行周期</li>
+</ol>
+<h4>首次计划执行的时间早于当前时间</h4>
+<p>对于<code class="inline_code">schedule()</code>方法，如果首次执行时间早于当前时间，随后的执行时间按照上一次实际执行的完成时间点进行计算</p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	calendar.add(Calendar.SECOND, -4);
+	timer.schedule(new MyTimerTask(), calendar.getTime(), 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-06 23:56:34
+执行任务MyTimerTask，时间：2018-05-06 23:56:34
+执行任务MyTimerTask，时间：2018-05-06 23:56:36
+执行任务MyTimerTask，时间：2018-05-06 23:56:38
+执行任务MyTimerTask，时间：2018-05-06 23:56:40</code>
+</pre>
+<p>可以看到，我们设置的首次执行时间比系统时间早了<code class="inline_code">4</code>秒，此时会马上执行一次任务，然后按照每隔<code class="inline_code">2</code>秒的时间间隔执行一次。</p>
+
+<p>对于<code class="inline_code">scheduleAtFixedRate()</code>方法，如果设置的首次执行时间在当前时间之前，随后的执行时间按照上一次开始的时间点开始计算，并且为了赶上进度，会多次执行任务，因此使用<code class="inline_code">scheduleAtFixedRate()</code>需要考虑同步。</p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	calendar.add(Calendar.SECOND, -4);
+	timer.scheduleAtFixedRate(new MyTimerTask(), calendar.getTime(), 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-07 00:02:12
+执行任务MyTimerTask，时间：2018-05-07 00:02:12
+执行任务MyTimerTask，时间：2018-05-07 00:02:12
+执行任务MyTimerTask，时间：2018-05-07 00:02:12
+执行任务MyTimerTask，时间：2018-05-07 00:02:14
+执行任务MyTimerTask，时间：2018-05-07 00:02:16
+执行任务MyTimerTask，时间：2018-05-07 00:02:18
+执行任务MyTimerTask，时间：2018-05-07 00:02:20</code>
+</pre>
+
+<p>可以看到因为设置的首次执行时间比系统时间早了<code class="inline_code">4</code>秒，所以会先执行三次任务，然后每隔<code class="inline_code">2</code>秒执行一次。</p>
+
+<h4>任务执行所需的时间超过任务的执行周期</h4>
+<p>为了看到这个功能，<code class="inline_code">MyTimerTask</code>类需要做一些修改:</p>
+<pre class="language-java">
+<code>public class MyTimerTask extends TimerTask {
+
+    @Override
+    public void run() {
+        System.out.println("---------------------------");
+        System.out.println("执行任务MyTimerTask，开始时间：" + DateUtil.getCurrentDateStr());
+        System.out.println("计划执行时间：" + DateUtil.format(scheduledExecutionTime()));
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("执行任务MyTimerTask，结束时间：" + DateUtil.getCurrentDateStr());
+    }
+}</code>
+</pre>
+
+<p>关于<code class="inline_code">scheduledExecutionTime()</code>方法的，表示最近发生任务执行安排的时间，也就是计划执行时间。</p>
+
+<p>对于<code class="inline_code">schedule()</code>方法:</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	timer.schedule(new MyTimerTask(), calendar.getTime(), 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-08 22:03:09
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:03:09
+计划执行时间：2018-05-08 22:03:09
+执行任务MyTimerTask，结束时间：2018-05-08 22:03:12
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:03:12
+计划执行时间：2018-05-08 22:03:12
+执行任务MyTimerTask，结束时间：2018-05-08 22:03:15
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:03:15
+计划执行时间：2018-05-08 22:03:15
+执行任务MyTimerTask，结束时间：2018-05-08 22:03:18
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:03:18
+计划执行时间：2018-05-08 22:03:18
+执行任务MyTimerTask，结束时间：2018-05-08 22:03:21</code>
+</pre>
+
+<p>对于<code class="inline_code">scheduleAtFixedRate()</code>方法：</p>
+
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	timer.scheduleAtFixedRate(new MyTimerTask(), calendar.getTime(), 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-08 22:13:33
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:13:33
+计划执行时间：2018-05-08 22:13:33
+执行任务MyTimerTask，结束时间：2018-05-08 22:13:36
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:13:36
+计划执行时间：2018-05-08 22:13:35
+执行任务MyTimerTask，结束时间：2018-05-08 22:13:39
+---------------------------
+执行任务MyTimerTask，开始时间：2018-05-08 22:13:39
+计划执行时间：2018-05-08 22:13:37
+执行任务MyTimerTask，结束时间：2018-05-08 22:13:42</code>
+</pre>
+
+
+<h3>TimerTask.cancel()方法</h3>
+<p>取消当前<code class="inline_code">TimerTask</code>里的任务执行</p>
+
+<blockquote><p>public boolean cancel()</p>
+</blockquote>
+<p>修改<code class="inline_code">MyTimerTask</code>类：</p>
+<pre class="language-java">
+<code>public class MyTimerTask extends TimerTask {
+
+    private String taskName;
+    private int count = 0;
+
+    public MyTimerTask(String taskName) {
+        this.taskName = taskName;
+    }
+
+    @Override
+    public void run() {
+        count++;
+        System.out.println("第" + this.count + "次执行任务，任务名称：" + this.taskName);
+        if (count &gt;= 3) {
+            cancel();
+			System.out.println("任务：" + this.taskName + "已关闭");
+        }
+    }
+}</code>
+</pre>
+
+<p>调用代码：</p>
+<pre class="language-java">
+<code>public static void main(String[] args) {
+	Timer timer = new Timer();
+	MyTimerTask task = new MyTimerTask("任务1");
+	timer.schedule(task, 3000, 2000);
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>第1次执行任务，任务名称：任务1
+第2次执行任务，任务名称：任务1
+第3次执行任务，任务名称：任务1
+任务：任务1已关闭</code>
+</pre>
+<p>这里通过判断<code class="inline_code">count</code>，设置了任务最多执行3次，执行完3次以后就关闭该任务</p>
+
+<h3>Timer.cancel()方法</h3>
+<p>终止次计时器，丢弃所有当前已安排的任务</p>
+
+<blockquote><p>public void cancel()</p>
+</blockquote>
+
+<p>修改<code class="inline_code">MyTimerTask</code>类：</p>
+<pre class="language-java">
+<code>public class MyTimerTask extends TimerTask {
+
+    private String taskName;
+    private int count = 0;
+
+    public MyTimerTask(String taskName) {
+        this.taskName = taskName;
+    }
+
+    @Override
+    public void run() {
+        count++;
+        System.out.println("任务：" + this.taskName + " 第" + this.count + "次执行，执行时间：" + DateUtil.getCurrentDateStr());
+    }
+}</code>
+</pre>
+
+<p>待用代码：</p>
+<pre class="language-java">
+<code>public static void main(String[] args) throws InterruptedException {
+	Timer timer = new Timer();
+	MyTimerTask task1 = new MyTimerTask("任务a");
+	MyTimerTask task2 = new MyTimerTask("任务b");
+	System.out.println("当前时间：" + DateUtil.getCurrentDateStr());
+	timer.schedule(task1, 1000, 2000);
+	timer.schedule(task2, 2000, 3000);
+	Thread.sleep(10 * 1000);
+	System.out.println("休眠10秒以后时间：" + DateUtil.getCurrentDateStr());
+	timer.cancel();
+	System.out.println("所有任务已经关闭");
+}</code>
+</pre>
+
+<p>输出结果：</p>
+<pre class="language-none">
+<code>当前时间：2018-05-08 22:41:47
+任务：任务a 第1次执行，执行时间：2018-05-08 22:41:48
+任务：任务b 第1次执行，执行时间：2018-05-08 22:41:49
+任务：任务a 第2次执行，执行时间：2018-05-08 22:41:50
+任务：任务a 第3次执行，执行时间：2018-05-08 22:41:52
+任务：任务b 第2次执行，执行时间：2018-05-08 22:41:52
+任务：任务a 第4次执行，执行时间：2018-05-08 22:41:54
+任务：任务b 第3次执行，执行时间：2018-05-08 22:41:55
+任务：任务a 第5次执行，执行时间：2018-05-08 22:41:56
+休眠10秒以后时间：2018-05-08 22:41:57
+所有任务已经关闭</code>
+</pre>
+<p>可以看出来<code class="inline_code">Timer.cancel()</code>方法是直接把<code class="inline_code">Timer</code>的这个线程关闭了</p>
+
+<h3>Timer.purge()方法</h3>
+<p>从此计时器的任务队列中，移除已取消的任务</p>
+
+<blockquote><p>public int purge()</p>
+</blockquote>
+<p><code class="inline_code">Timer</code>计时器可以配置多个任务，保存在任务队列<code class="inline_code">TaskQueue</code>中，如果有一部分任务因为某些情况已经取消了，就可以通过这个方法将已经取消的任务移出任务队列中，减少线程开支。返回从队列中移除的任务数。</p>
+
+<h3>Timer计时器的缺陷</h3>
+<h4>管理并发任务的缺陷</h4>
+<p>因为<code class="inline_code">Timer</code>有且只有一个线程去执行定时任务，如果存在多个任务，且任务时间过长，会导致执行效果与预期不符</p>
+<h4>当任务抛出异常时的缺陷</h4>
+<p>如果<code class="inline_code">TimerTask</code>抛出<code class="inline_code">RuntimeException</code>，<code class="inline_code">Timer</code>会停止所有任务的运行。</p>
+</p>
+	</div>
+	<div class='post-footer'>
+		<div class="meta">
+			<div class="info">
+				<span>日期:</span>
+				<span>2018-05-06</span>
+				<span class='delimiter'>|</span>
+				<span>分类:</span>
+				<a href='/pages/archives/category/java'>java</a>
+				<span class='delimiter'>|</span>
+				<span>标签:</span>
+				<a href='/pages/archives/tags/java'>java</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+			<div class="pagination">
+	<ul class="clearfix">
+		<li class="pre pagbuttons">
+	<a role="navigation" href="/pages/posts/redis/2018/06/20/Redis 安装/" class="btn">
+		<i class="baseline"></i>
+		上一篇
+	</a>
+</li>
+
+
+		<li class="next pagbuttons">
+	<a role="navigation" href="/pages/posts/javascript/2018/04/17/JavaScript模块化编程（三）：require.js的用法/" class="btn">
+		<i class="baseline"></i>
+		下一篇
+	</a>
+</li>
+
+
+	</ul>
+</div>
+
+
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script src="/plugin/jquery.js"></script>
+<script src="/plugin/prism/prism.js"></script>
+<script src="/js/common.js"></script>
+</body>
+</html>
